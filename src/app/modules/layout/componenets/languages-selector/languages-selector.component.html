@@ -1,0 +1,88 @@
+<div class="dropdown-language general-dropdown">
+  <div class="dropdown">
+    <button class="dropdown-toggle lang-flag btn p-0 d-flex align-items-center gap-1" type="button"
+      [ngClass]="page!='stores'&&page!='events'?'text-white-color':'text-dark-color dark-toggle'"
+      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <ng-container *ngIf="currentLanguage=='ar'">
+        <img class="flag" src="assets/images/flag/sa.svg" alt="sa">
+      </ng-container>
+      <ng-container *ngIf="currentLanguage=='en'">
+        <img class="flag" src="assets/images/flag/us.svg" alt="en">
+      </ng-container>
+      <ng-container *ngIf="currentLanguage=='ru'">
+        <img class="flag" src="assets/images/flag/ru.svg" alt="en">
+      </ng-container>
+      <ng-container *ngIf="currentLanguage=='zh'">
+        <img class="flag" src="assets/images/flag/cn.svg" alt="en">
+      </ng-container>
+      <!-- <span class="lang">
+        {{currentLanguage=='ar'?'عربي':currentLanguage=='ru'?'Рой':currentLanguage=='zh'?'尼亞尼':'EN'}}
+      </span> -->
+    </button>
+    <ul class="dropdown-menu rounded-25 border-0 shadow px-2" aria-labelledby="dropdownMenuButton1">
+      <li class="nav-item text-white-color" (click)="translationService.changeLang('ar')">
+        <a class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag" src="assets/images/flag/sa.svg" alt="sa">
+          <span>عربي</span>
+        </a>
+      </li>
+      <li class="nav-item text-white-color" (click)="translationService.changeLang('en')"><a
+          class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag" src="assets/images/flag/us.svg" alt="en">
+          <span>English</span>
+        </a>
+      </li>
+      <!-- <li class="nav-item text-white-color" (click)="translationService.changeLang('ru')"><a
+          class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag shadow-sm" src="assets/images/flag/ru.svg" alt="en">
+          <span>Рой</span>
+        </a>
+      </li>
+      <li class="nav-item text-white-color" (click)="translationService.changeLang('zh')"><a
+          class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag shadow-sm" src="assets/images/flag/cn.svg" alt="en">
+          <span>尼亞尼</span>
+        </a>
+      </li> -->
+    </ul>
+  </div>
+</div>
+
+<div class="dropdown-language general-dropdown d-none ">
+  <div class="dropdown">
+    <button class="dropdown-toggle languages rounded-pill btn d-flex align-items-center gap-1"
+      [ngClass]="page!='stores'&&page!='events'?'text-white-color':'text-dark-color dark-toggle'" type="button"
+      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="pi pi-language fs-4"></i>
+      <span class="">
+        {{currentLanguage=='ar'?'عربي':currentLanguage=='ru'?'Рой':currentLanguage=='zh'?'尼亞尼':'EN'}}
+      </span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu2 rounded-25 border-0 shadow px-2" aria-labelledby="dropdownMenuButton1">
+      <li class="nav-item text-white-color" (click)="translationService.changeLang('ar')">
+        <a class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag" src="assets/images/flag/sa.svg" alt="sa">
+          <span>عربي</span>
+        </a>
+      </li>
+      <li class="nav-item text-white-color" (click)="translationService.changeLang('en')"><a
+          class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag" src="assets/images/flag/us.svg" alt="en">
+          <span>English</span>
+        </a>
+      </li>
+      <!-- <li class="nav-item text-white-color" (click)="translationService.changeLang('ru')"><a
+          class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag shadow-sm" src="assets/images/flag/ru.svg" alt="en">
+          <span>Рой</span>
+        </a>
+      </li>
+      <li class="nav-item text-white-color" (click)="translationService.changeLang('zh')"><a
+          class="nav-link px-2 p-1 d-flex align-items-center gap-2">
+          <img class="flag shadow-sm" src="assets/images/flag/cn.svg" alt="en">
+          <span>尼亞尼</span>
+        </a>
+      </li> -->
+    </ul>
+  </div>
+</div>

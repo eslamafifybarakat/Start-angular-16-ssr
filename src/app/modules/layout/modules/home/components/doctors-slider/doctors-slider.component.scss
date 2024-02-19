@@ -1,0 +1,93 @@
+.doctor-slider {
+  .card-img-overlay-doctor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .session-icon {
+    background-color: var(--bg-main-color);
+    border-radius: 0.5rem;
+    padding: 2px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+  }
+
+  .info-doc {
+    background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 85%);
+    border-radius: 0.5rem;
+  }
+
+  .img-doctor {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    img {
+      object-fit: fill;
+      background-color: #ececec;
+    }
+  }
+
+  .doctor-img {
+    object-fit: fill !important;
+    height: 26rem !important;
+  }
+
+  .img-size-doctor {
+    height: 26rem;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .info-doc {
+    .content-info {
+      position: absolute;
+      bottom: 1rem;
+      width: calc(100% - 1rem);
+      padding-inline-start: 1rem;
+    }
+  }
+}
+
+:host::ng-deep {
+  .owl-carousel .owl-nav .owl-next {
+    position: absolute;
+    right: -3rem;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .owl-carousel .owl-nav .owl-prev {
+    position: absolute;
+    left: -3rem;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .owl-theme .owl-nav [class*="owl-"],
+  .owl-theme .owl-nav [class*="owl-"]:hover {
+    color: var(--text-main-color);
+    padding: 0.4rem 0.6rem;
+    background-color: #ffffffef;
+    border-radius: 50%;
+    box-shadow: 0px 3px 15px 0px #0000001a;
+  }
+
+  .owl-theme .owl-dots .owl-dot.active span,
+  .owl-theme .owl-dots .owl-dot:hover span {
+    background: var(--bg-main-color);
+  }
+
+  @media (max-width: 991px) {
+    .owl-carousel .owl-nav .owl-next,
+    .owl-carousel .owl-nav .owl-prev {
+      display: none;
+    }
+  }
+}

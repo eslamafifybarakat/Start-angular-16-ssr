@@ -1,0 +1,21 @@
+.iti {
+  width: 100% !important;
+}
+.iti__country-name {
+  margin-right: 6px;
+  color: #616161 !important;
+}
+.iti input#country-search-box {
+  padding: 10px !important;
+}
+.iti--allow-dropdown input[type="tel"] {
+  padding-left: 83px !important;
+}
+.iti--allow-dropdown .iti__flag-container:hover .iti__selected-flag {
+  background-color: transparent !important;
+}
+.border-red-phone {
+  .form-control {
+    border-color: #dc3545 !important;
+  }
+}

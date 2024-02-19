@@ -1,0 +1,178 @@
+<ng-container>
+  <ng-container *ngIf="!hideTitle">
+    <div class="d-flex flex-column align-items-center justify-content-center">
+      <h3 class="text-main-color fw-bold vector-bg">
+        {{title | translate}}
+      </h3>
+      <p class="mt-3 mb-1">
+        {{'homePage.trendingDocotors.subTitle' | translate}}
+      </p>
+      <p class="mb-2">
+        {{'homePage.trendingDocotors.description' | translate}}
+      </p>
+    </div>
+  </ng-container>
+
+  <!-- <ng-container *ngIf="isLoadingTrengingDoctors">
+      <app-card-shimmer class="doctor-slider"></app-card-shimmer>
+  </ng-container> -->
+
+  <ng-container *ngIf="!isLoadingTrengingDoctors">
+    <div class="see-all px-2 w-100 d-flex justify-content-end">
+      <a [routerLink]="['/doctors']"
+        class="text-main-color fw-bold px-1 fs-10 d-flex align-items-center justify-content-center see-all-btn">
+        {{'general.seeAll' | translate}}
+        <i class="pi pi-arrow-right text-main-color px-2 fs-8 scaleX-rtl"></i>
+      </a>
+    </div>
+    <ng-container *ngIf="trengingDoctorsList?.length>4; else trengingDoctorsCards">
+      <owl-carousel-o class="doctor-slider" [options]="doctorSliderOptions">
+        <ng-container *ngFor="let trengingDoctor of trengingDoctorsList ; let i = index">
+          <ng-template carouselSlide>
+            <div class="global-card mx-1" data-aos="fade-up" [attr.data-aos-delay]="50+ i * 50">
+              <a [routerLink]="['/doctors/details/',trengingDoctor?.full_name]"
+                [queryParams]="{ id: trengingDoctor.id}">
+                <div class="img-doctor img-size-doctor card-img">
+                  <div class="w-100 position-relative">
+                    <img class="w-100 doctor-img" *ngIf="trengingDoctor.gender==1"
+                      [src]="imageBaseUrl+trengingDoctor?.image"
+                      onerror="this.src='assets/images/not-found/default-female.svg'" alt="doctor photo" />
+                    <img class="w-100 doctor-img" *ngIf="trengingDoctor.gender==0"
+                      [src]="imageBaseUrl+trengingDoctor?.image"
+                      onerror="this.src='assets/images/not-found/no-doctor.avif'" alt="doctor photo" />
+                    <div [ngClass]="trengingDoctor?.isActive? 'online camel-hover': ''"></div>
+                  </div>
+                  <div class="info-doc card-img-overlay-doctor">
+                    <div class="content-info">
+                      <h5 class="text-white-color fw-bold mb-1 w-100 text-truncate">
+                        {{trengingDoctor?.full_name}}
+                      </h5>
+                      <div class="mb-2">
+                        <ng-container *ngIf="trengingDoctor?.specialist?.length>0">
+                          <span class="mb-0 text-white-color fs-10">
+                            {{trengingDoctor?.specialist[0]}}
+                          </span>
+                        </ng-container>
+                      </div>
+                      <ng-container *ngIf="trengingDoctor?.bio">
+                        <p class="mb-0 text-white-color w-100 fs-10 ellipsis-text ellipsis-2">
+                          {{trengingDoctor?.bio}}
+                        </p>
+                      </ng-container>
+                      <div class="d-flex justify-content-between align-items-center mt-2 w-100">
+                        <div class="d-flex align-items-center">
+                          <span class="d-flex align-items-center gap-2 text-white-color fs-10">
+                            <span class="session-icon d-flex justify-content-center align-items-center">
+                              <i class="pi pi-play scaleX-rtl"></i>
+                            </span>
+                            <span>
+                              {{trengingDoctor?.reservation_count || 0}}
+                            </span>
+                            <span>
+                              {{'general.session' | translate}}</span>
+                          </span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <p-rating [(ngModel)]="trengingDoctor.avg_rate" [disabled]="true" [cancel]="false"></p-rating>
+                          <span class="px-1 text-white-color fw-bold fs-10">
+                            {{trengingDoctor?.avg_rate ||0}}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="actions-btn d-flex align-items-center justify-content-center gap-3 mt-2">
+                <button type="button" class="btn btn-solid-main w-100">
+                  {{'general.bookNow' | translate}}
+                </button>
+                <button type="button" class="btn outline-btn-favourite p-0  text-center">
+                  <i [ngClass]="trengingDoctor?.is_favorite?'pi pi-heart custom-heart':'far fa-heart custom-heart'">
+                  </i>
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </ng-container>
+    <ng-template #trengingDoctorsCards>
+      <div class="doctor-slider">
+        <div class="row row-cols-xxl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1 h-100">
+          <ng-container *ngFor="let trengingDoctor of trengingDoctorsList ; let i = index">
+            <div class="col mb-3 h-100" data-aos="fade-up" [attr.data-aos-delay]="50+ i * 50">
+              <div class="global-card mx-2">
+                <a [routerLink]="['/doctors/details/',trengingDoctor?.full_name]"
+                  [queryParams]="{ id: trengingDoctor.id}">
+                  <div class="img-doctor img-size-doctor card-img">
+                    <div class="w-100 position-relative">
+                      <img class="w-100 doctor-img" *ngIf="trengingDoctor.gender==1"
+                        [src]="imageBaseUrl+trengingDoctor?.image"
+                        onerror="this.src='assets/images/not-found/default-female.svg'" alt="doctor photo" />
+                      <img class="w-100 doctor-img" *ngIf="trengingDoctor.gender==0"
+                        [src]="imageBaseUrl+trengingDoctor?.image"
+                        onerror="this.src='assets/images/not-found/no-doctor.avif'" alt="doctor photo" />
+                      <div [ngClass]="trengingDoctor?.isActive? 'online camel-hover': ''"></div>
+                    </div>
+                    <div class="info-doc card-img-overlay-doctor">
+                      <div class="content-info">
+                        <h5 class="text-white-color fw-bold mb-1 w-100 text-truncate">
+                          {{trengingDoctor?.full_name}}
+                        </h5>
+                        <div class="mb-2">
+                          <ng-container *ngIf="trengingDoctor?.specialist?.length>0">
+                            <span class="mb-0 text-white-color fs-10">
+                              {{trengingDoctor?.specialist[0]}}
+                            </span>
+                          </ng-container>
+                        </div>
+                        <ng-container *ngIf="trengingDoctor?.bio">
+                          <p class="mb-0 text-white-color w-100 fs-10 ellipsis-text ellipsis-2">
+                            {{trengingDoctor?.bio}}
+                          </p>
+                        </ng-container>
+                        <div class="d-flex justify-content-between align-items-center mt-2 w-100">
+                          <div class="d-flex align-items-center">
+                            <span class="d-flex align-items-center gap-2 text-white-color fs-10">
+                              <span class="session-icon d-flex justify-content-center align-items-center">
+                                <i class="pi pi-play scaleX-rtl"></i>
+                              </span>
+                              <span>
+                                {{trengingDoctor?.reservation_count || 0}}
+                              </span>
+                              <span>
+                                {{'general.session' | translate}}</span>
+                            </span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <ngx-star-rating [(ngModel)]="trengingDoctor.avg_rate" [id]="'rating'"
+                              [disabled]="true"></ngx-star-rating>
+                            <p-rating [(ngModel)]="trengingDoctor.avg_rate" [disabled]="true"
+                              [cancel]="false"></p-rating>
+                            <span class="px-1 text-white-color fw-bold fs-10">
+                              {{trengingDoctor?.avg_rate ||0}}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <div class="actions-btn d-flex align-items-center justify-content-center gap-3 mt-2">
+                  <button type="button" class="btn btn-solid-main w-100">
+                    {{'general.bookNow' | translate}}
+                  </button>
+                  <button type="button" class="btn outline-btn-favourite p-0  text-center">
+                    <i [ngClass]="trengingDoctor?.is_favorite?'pi pi-heart custom-heart':'far fa-heart custom-heart'">
+                    </i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</ng-container>

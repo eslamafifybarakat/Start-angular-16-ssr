@@ -1,0 +1,30 @@
+.iti__arrow {
+  margin-right: 6px !important;
+  margin-left: inherit !important;
+}
+.iti--allow-dropdown input,
+.iti--allow-dropdown input[type="tel"] {
+  padding-left: 6px !important;
+  padding-right: 52px !important;
+}
+.iti--allow-dropdown .iti__flag-container {
+  right: 0 !important;
+  left: auto !important;
+}
+.iti .dropdown-menu {
+  right: 0 !important;
+}
+.iti--allow-dropdown input[type="tel"] {
+  padding-right: 83px !important;
+  padding-left: inherit !important;
+  text-align: end !important;
+}
+.iti .selected-dial-code {
+  margin-right: 6px !important;
+  margin-left: inherit !important;
+}
+.iti__country-list {
+  li {
+    text-align: start !important;
+  }
+}

@@ -1,0 +1,66 @@
+<ng-container *ngIf="testimonialsList?.length>0">
+  <div class="content-testimonial">
+    <h3 class="text-main-color text-center mb-0 fw-bold vector-bg w-75 m-auto w-sm-100">
+      {{title | translate}}
+    </h3>
+  </div>
+  <ng-container *ngIf=" testimonialsList?.length>2; else testimonialsCards">
+    <owl-carousel-o class="testimonials-slider" [options]="testimonialSliderOptions">
+      <ng-container *ngFor="let item of testimonialsList ; let i = index">
+        <ng-template carouselSlide>
+          <ng-container *ngIf="isLoadingTestimonials else endLoadingCard">
+            <div class="mx-2 mt-3 card-loading">
+              <div id="card" class="card-shimmer">
+                <div class="card-content">
+                  <div class="block2 pulsate my-2">
+                  </div>
+                  <div class="block3 pulsate mt-4">
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #endLoadingCard>
+            <div class="mx-2 mt-5" data-aos="fade-up" [attr.data-aos-delay]="50+ i * 50">
+              <div class="global-card p-3 h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                  <h5 class="fw-bold text-main-color mb-0">
+                    {{item?.user_name}}
+                  </h5>
+                  <p-rating [(ngModel)]="item.rating" [disabled]="true" [cancel]="false"></p-rating>
+                </div>
+                <p class="lead mb-1 mt-2 text-muted">
+                  {{item?.description}}
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </ng-container>
+  <ng-template #testimonialsCards>
+    <div class="row justify-content-center">
+      <ng-container *ngFor="let item of testimonialsList?.list ; let i = index">
+        <div class="col-xxl-6 col-lg-6 col-sm-12 testimonials-slider" data-aos="fade-up"
+          [attr.data-aos-delay]="50+ i * 50">
+          <div class="mx-2 mt-5">
+            <div class="card p-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <h5 class="fw-bold text-main-color mb-0">
+                  {{item?.title}}
+                </h5>
+                <!-- <ngx-star-rating [(ngModel)]="item.rate" [id]="'rating4'" [disabled]="true"
+                  name="rating_{{i}}"></ngx-star-rating> -->
+              </div>
+              <p class="lead text-muted mb-1 mt-2">
+                {{item?.body}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-template>
+</ng-container>

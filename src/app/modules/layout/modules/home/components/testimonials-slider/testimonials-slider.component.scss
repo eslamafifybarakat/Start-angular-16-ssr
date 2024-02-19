@@ -1,0 +1,46 @@
+.testimonials-slider {
+  .global-card {
+    min-height: 10rem;
+  }
+  .card {
+    border-radius: 1rem;
+    border: none;
+
+    .nav {
+      i {
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .active {
+        color: var(--text-third-color) !important;
+      }
+
+      .px-1 {
+        padding-right: 0.15rem !important;
+        padding-left: 0.15rem !important;
+      }
+    }
+
+    .lead {
+      font-size: 1rem;
+    }
+  }
+}
+
+:host::ng-deep {
+  .testimonials-slider {
+    .owl-theme {
+      .owl-nav [class*="owl-"] {
+        display: none;
+      }
+    }
+
+    .owl-carousel {
+      .owl-stage-outer {
+        padding-top: 0rem;
+        padding-bottom: 2rem;
+      }
+    }
+  }
+}

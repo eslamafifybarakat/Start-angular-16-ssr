@@ -1,0 +1,276 @@
+:host::ng-deep {
+  .phone-input {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    height: max-content;
+  }
+
+  .drop-phone {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  .doctor-register {
+    .icon-social-settings {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .delete-icon {
+      color: red;
+      background-color: #ff00001c;
+      padding: 0.5rem;
+    }
+
+    .edit-icon {
+      color: var(--text-main-color);
+      background-color: rgb(18 154 127 / 15%);
+      padding: 0.5rem;
+    }
+
+    .bg-linkedin {
+      background: #0a66c2;
+    }
+
+    .bg-youtube {
+      background: #fe0000;
+    }
+
+    .bg-twitter {
+      background: #2aa9e0;
+    }
+
+    .bg-color-face {
+      background: #0e8df2;
+    }
+
+    .bg-color-instagram {
+      background-color: darkmagenta;
+    }
+
+    p-dropdown {
+      width: 100%;
+    }
+
+    .p-dropdown .p-dropdown-label.p-placeholder,
+    .p-dropdown .p-dropdown-trigger,
+    .p-dropdown {
+      background-color: var(--bg-input-color);
+      border-color: var(--border-input-color);
+      border-radius: var(--border-input-radius);
+    }
+
+    .mat-step-header .mat-step-icon {
+      background-color: transparent;
+      color: #ccc;
+    }
+
+    .mat-step-header .mat-step-icon-selected,
+    .mat-step-header .mat-step-icon-state-done,
+    .mat-step-header .mat-step-icon-state-edit {
+      color: var(--text-main-color);
+      display: none !important;
+    }
+
+    .mat-step-header .mat-step-icon-selected,
+    .mat-step-header .mat-step-icon-state-done,
+    .mat-step-header .mat-step-icon-state-edit {
+      color: var(--text-main-color) !important;
+    }
+
+    .mat-step-header.cdk-keyboard-focused,
+    .mat-step-header.cdk-program-focused,
+    .mat-step-header:hover:not([aria-disabled]),
+    .mat-step-header:hover[aria-disabled="false"] {
+      background-color: rgb(18 154 127 / 12%);
+      border-radius: 0.5rem;
+      font-weight: bold;
+    }
+
+    .mat-step-header.cdk-program-focused,
+    .doctor-register .mat-step-header:hover:not([aria-disabled]) {
+      .mat-step-icon {
+        color: transparent !important;
+      }
+    }
+
+    .mat-step-header .mat-step-label.mat-step-label-active {
+      color: var(--text-main-color);
+      font-weight: 500 !important;
+    }
+
+    .mat-stepper-label-position-bottom .mat-stepper-horizontal-line {
+      border: none;
+      margin-top: 15px;
+    }
+
+    .mat-stepper-label-position-bottom .mat-horizontal-stepper-header::after,
+    .mat-stepper-label-position-bottom .mat-horizontal-stepper-header::before {
+      display: none !important;
+    }
+
+    .mat-stepper-horizontal-line::after {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f060";
+      color: #ccc;
+      display: flex;
+      justify-content: center;
+      transform: scaleX(-1);
+    }
+
+    .mat-step-icon .mat-icon {
+      font-size: 15px !important;
+    }
+
+    .mat-stepper-label-position-bottom .mat-stepper-horizontal-line {
+      top: 45px !important;
+    }
+
+    .mat-step-header .mat-step-icon {
+      display: none !important;
+    }
+  }
+
+  .mat-mdc-form-field {
+    background-color: var(--bg-input-color) !important;
+    border-color: var(--border-input-color) !important;
+    border-radius: var(--border-input-radius) !important;
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: var(--bg-input-color) !important;
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+    .mdc-line-ripple::before,
+  .mdc-text-field--filled .mdc-line-ripple::after {
+    border: none !important;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    height: 0 !important;
+  }
+
+  .mat-step-header .mat-step-icon-selected,
+  .mat-step-header .mat-step-icon-state-done,
+  .mat-step-header .mat-step-icon-state-edit {
+    .mat-step-icon-content span {
+      /* Define a class for the icon */
+      &::before {
+        filter: invert(22%) sepia(59%) saturate(639%) hue-rotate(170deg)
+          brightness(94%) contrast(83%) !important;
+      }
+    }
+  }
+
+  .mat-step-header:nth-of-type(4) .mat-step-icon .mat-step-icon-content span {
+    /* Define a class for the icon */
+    &::before {
+      content: url(../../../../../assets/images/icons/handshake-solid.svg) !important;
+    }
+  }
+
+  .mat-step-icon-content span {
+    &::before {
+      content: url(../../../../../assets/images/icons/user-pen-solid.svg);
+      filter: invert(100%) sepia(0%) saturate(2436%) hue-rotate(334deg)
+        brightness(116%) contrast(60%);
+      right: -14px;
+      font-size: 19px;
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 24px;
+    }
+
+    &.ng-star-inserted.icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      // overflow: hidden;
+      text-align: center;
+      line-height: 24px;
+    }
+
+    &.ng-star-inserted.icon::before {
+      display: none;
+    }
+  }
+
+  .mat-step-header .mat-step-icon {
+    color: #fff !important;
+  }
+
+  .mat-step-label.mat-step-label-selected {
+    font-size: inherit !important;
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.flag {
+  width: 20px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.selected-item {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
+}
+
+.loaded {
+  height: 45px;
+  width: 45px;
+  border-radius: 5px !important;
+  object-fit: cover !important;
+}
+
+.all-files {
+  border: 1px solid #ccc;
+}
+
+.files-content {
+  max-height: 10rem;
+  overflow: auto;
+}
+
+:host::ng-deep {
+  .account-setting {
+    .p-image-preview-container {
+      .p-image-preview-indicator {
+        border-radius: 15px !important;
+      }
+
+      img {
+        height: 90px;
+        width: 90px;
+        object-fit: cover !important;
+        border-radius: 15px !important;
+        box-shadow: 0 0.125rem 0.25rem;
+      }
+    }
+
+    .p-image-mask .p-image-preview {
+      width: auto !important;
+      height: auto !important;
+      box-shadow: none !important;
+    }
+  }
+  .countryCode {
+    .p-dropdown .p-dropdown-label {
+      display: flex !important;
+    }
+    p-dropdown {
+      width: 10rem !important;
+    }
+  }
+}

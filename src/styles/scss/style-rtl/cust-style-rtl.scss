@@ -1,0 +1,166 @@
+.ps-4 {
+  padding-right: 1.5rem !important;
+  padding-left: 0.65rem !important;
+}
+
+.ps-2 {
+  padding-right: 0.5rem !important;
+  padding-left: initial !important;
+}
+
+.ps-3 {
+  padding-right: 1rem !important;
+  padding-left: 0.65rem !important;
+}
+
+.pe-1,
+.pe-4,
+.pe-3 {
+  padding-right: inherit !important;
+
+  &.pe-1 {
+    padding-left: 0.25rem !important;
+  }
+
+  &.pe-4 {
+    padding-left: 1.5rem !important;
+  }
+
+  &.pe-3 {
+    padding-left: 1rem !important;
+  }
+}
+
+.border-end {
+  border-right: inherit !important;
+  border-left: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+}
+
+.rounded-end-pill {
+  border-top-left-radius: var(--bs-border-radius-pill) !important;
+  border-bottom-left-radius: var(--bs-border-radius-pill) !important;
+  border-top-right-radius: inherit !important;
+  border-bottom-right-radius: inherit !important;
+}
+
+.scaleX-rtl {
+  transform: scaleX(-1) !important;
+}
+
+.dectorated-title {
+  &::after {
+    left: inherit !important;
+    right: 0;
+  }
+}
+
+.p-carousel-items-content {
+  direction: ltr !important;
+}
+
+.p-dialog {
+  &.p-confirm-dialog .p-confirm-dialog-message {
+    margin-right: 1rem !important;
+    margin-left: inherit !important;
+  }
+}
+
+.dir-rtl {
+  direction: rtl !important;
+}
+
+.text-start {
+  text-align: right !important;
+}
+
+.general-dropdown {
+  .dropdown-menu {
+    left: 0 !important;
+    right: inherit !important;
+  }
+}
+
+.rounded-s {
+  border-radius: 0 10px 10px 0 !important;
+}
+
+.p-toast {
+  .p-toast-message {
+    .p-toast-message-content {
+      .p-toast-message-text {
+        margin: 0 1rem 0 0rem !important;
+      }
+    }
+
+    border-width: 0 6px 0 0px !important;
+  }
+}
+
+.owl-carousel {
+  .owl-stage-outer {
+    direction: ltr !important;
+    text-align: right !important;
+  }
+}
+
+.online:before,
+.online:after {
+  left: -3px !important;
+  right: inherit !important;
+}
+
+//components
+.doctor-slider {
+
+  .info-doc,
+  .actions-btn {
+    direction: rtl;
+  }
+
+  .owl-carousel .owl-nav .owl-next {
+    right: inherit;
+    left: -3rem;
+  }
+
+  .owl-carousel .owl-nav .owl-prev {
+    right: -3rem;
+    left: inherit !important;
+  }
+}
+
+#fixedbutton {
+  left: 3.1rem;
+  right: inherit !important;
+}
+
+.p-paginator {
+  direction: ltr !important;
+}
+
+.doctor-details {
+  .btn-favorite-position {
+    right: initial !important;
+    left: 1rem;
+  }
+}
+
+#available-doctor-appointments {
+  .check-status {
+    right: inherit !important;
+    left: 0 !important;
+  }
+}
+
+.scroll-end {
+  left: 40px !important;
+  right: inherit !important;
+}
+
+.dir-ltr {
+  direction: ltr !important;
+}
+
+.accordion-button::after {
+  position: absolute !important;
+  left: 10px !important;
+}

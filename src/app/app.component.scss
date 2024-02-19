@@ -1,0 +1,15 @@
+.spinner {
+  width: 100%;
+  height: 100vh;
+  // background-image: url(../assets/images/loading-bg.svg);
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-color: var(--bg-main-color);
+  z-index: 888888;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
