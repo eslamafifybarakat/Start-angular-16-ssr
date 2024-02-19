@@ -1,10 +1,10 @@
-import { MetadataService } from './modules/shared/services/metadata.service';
-import { TranslationService } from './modules/core/services/translation.service';
+// import { MetadataService } from './modules/shared/services/metadata.service';
+// import { TranslationService } from './modules/core/services/translation.service';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer, registerLocaleData } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { PublicService } from './modules/shared/services/public.service';
+// import { PublicService } from './modules/shared/services/public.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { keys } from './modules/shared/configs/localstorage-key';
+// import { keys } from './modules/shared/configs/localstorage-key';
 import { TranslateService } from '@ngx-translate/core';
 import localeAr from '@angular/common/locales/ar'
 import { PrimeNGConfig } from 'primeng/api';
@@ -74,7 +74,7 @@ export class AppComponent {
     if (isPlatformBrowser(this.platformId)) {
       this.platform = 'Browser';
       this.translateService.addLangs(this.languages);
-      this.setupLanguage();
+      // this.setupLanguage();
       this.translateService.stream('primeng').subscribe((data: any) => {
         this.primengConfig?.setTranslation(data);
       });
@@ -85,7 +85,7 @@ export class AppComponent {
     }
   }
   private setupLanguage(): void {
-    this.currentLanguage = window.localStorage.getItem(keys.language);
+    // this.currentLanguage = window.localStorage.getItem(keys.language);
     if (this.currentLanguage !== null && this.currentLanguage !== undefined && this.currentLanguage !== '') {
       this.translateService.use(this.currentLanguage);
       const direction = this.currentLanguage === 'ar' ? 'rtl' : 'ltr';
@@ -98,7 +98,7 @@ export class AppComponent {
     this.browserLang = this.translateService.getBrowserLang();
     if (isPlatformBrowser(this.platformId)) {
       this.platform = 'Browser';
-      localStorage.setItem(keys.language, this.browserLang);
+      // localStorage.setItem(keys.language, this.browserLang);
       this.translateService.use(this.browserLang);
       this.translateService.setDefaultLang(this.browserLang);
       window.location.reload();

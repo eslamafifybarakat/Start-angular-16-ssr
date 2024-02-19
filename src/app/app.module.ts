@@ -1,4 +1,4 @@
-import { interceptorProviders } from './modules/core/interceptors/interceptor-index';
+// import { interceptorProviders } from './modules/core/interceptors/interceptor-index';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -39,7 +39,8 @@ registerLocaleData(localeAr);
       },
     }),
   ],
-  providers: [DatePipe, AsyncPipe, DialogService, MessageService, ConfirmationService, interceptorProviders],
+  // providers: [DatePipe, AsyncPipe, DialogService, MessageService, ConfirmationService, interceptorProviders],
+  providers: [DatePipe, AsyncPipe, DialogService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

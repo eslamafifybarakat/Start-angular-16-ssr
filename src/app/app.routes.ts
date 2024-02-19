@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 // Components
-import { ContactUsComponent } from './modules/general/components/contact-us/contact-us.component';
 // import { ErrorsComponent } from './components/errors/errors.component';
 
 // // TS Files
@@ -12,19 +11,19 @@ import { ContactUsComponent } from './modules/general/components/contact-us/cont
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/posts', pathMatch: 'full' },
+  // { path: '', redirectTo: '/posts', pathMatch: 'full' },
 
   // Lazy Routes
-  {
-    path: 'posts',
-    component: ContactUsComponent,
-    // loadComponent: () =>
-    //   import('./components/contact-us/contact-us.component').then(
-    //     (c) => c.ContactUsComponent
-    //   ),
-     // children: placesChildrenRoutes
-    // pathMatch: 'full'
-  },
+  // {
+  //   path: 'posts',
+  //   component: ContactUsComponent,
+  //   loadComponent: () =>
+  //     import('./components/contact-us/contact-us.component').then(
+  //       (c) => c.ContactUsComponent
+  //     ),
+  //    children: placesChildrenRoutes,
+  //   pathMatch: 'full'
+  // },
   // {
   //   path: '**', loadComponent: () =>
   //     import('./components/errors/errors.component').then(
