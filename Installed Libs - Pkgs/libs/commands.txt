@@ -30,7 +30,7 @@ Primeng: (Compatible Version 16.3.1 )
   style.scss => @import "primeicons/primeicons.css";
 -----------------------------------------------------------------------------------------
 
-Angular Material: (Compatible Version 16.2.2 )
+Angular Material: (Compatible Version 16.2.2 )(Uninstalled Now)
    install=> ng add @angular/material
    uninstall=> npm uninstall @angular/material
    site link => https://material.angular.io/components/categories
@@ -49,7 +49,7 @@ Angular Material: (Compatible Version 16.2.2 )
 
 -----------------------------------------------------------------------------------------
 
-Angular Bowered Bootstrap: (Compatible Version 15.1.1 )
+Angular Bowered Bootstrap: (Compatible Version 15.1.1 )(Uninstalled Now)
    install=> ng add @ng-bootstrap/ng-bootstrap
    uninstall=> npm uninstall ng-bootstrap/ng-bootstrap
    site link => https://ng-bootstrap.github.io/#/components/accordion/overview

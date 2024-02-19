@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import localeAr from '@angular/common/locales/ar'
 import { PrimeNGConfig } from 'primeng/api';
 import { filter, map } from 'rxjs';
-import * as AOS from "aos";
 
 registerLocaleData(localeAr);
 @Component({
