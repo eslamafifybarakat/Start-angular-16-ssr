@@ -50,7 +50,7 @@ export class PlaceDetailsComponent {
     this.activatedRoute.params.subscribe((params) => {
       // this.placeSlug = params['slug'];
       if (this.placeSlug) {
-        // this.getPLaceDataBySlug(this.placeSlug);
+        this.getPLaceDataBySlug(this.placeSlug);
         // this.getRelatedPlaces(this.placeSlug);
         // this.fullPageUrl = environment.publicUrl + '/places/details/' + this.placeSlug;
       }
