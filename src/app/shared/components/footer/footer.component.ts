@@ -1,5 +1,5 @@
 import { TranslateModule } from '@ngx-translate/core';
-import { NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 
@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
   imports: [
     NgOptimizedImage,
     TranslateModule,
+    CommonModule,
     RouterModule
   ],
   templateUrl: './footer.component.html',

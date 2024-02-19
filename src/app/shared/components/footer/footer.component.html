@@ -1,4 +1,4 @@
-<!-- <footer class="footer">
+<footer class="footer">
   <div>
     <img src="assets/images/footer/footer-vector.svg" alt="footer-vector" class="w-100 footer-vector">
   </div>
@@ -18,65 +18,66 @@
             </p>
           </div>
         </div>
-        @if(storesCategoriesList?.length>0){
-        <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
-          <div class="border-right second-border me-4">
-            <h4 class=" fs-5 fw-bold footer-title position-relative mb-3 text-capitalize">
-              {{'footer.stores'|translate}}
-            </h4>
-            <ul class="p-0">
-              @for(storeCat of storesCategoriesList;track storeCat?.id ){
-              <li class="mb-2">
-                <a class=" fs-5-2" title="store" (click)="openStoresWithCategoryId(storeCat)">
-                  <span class="px-1">
-                    {{storeCat?.name}}
-                  </span>
-                </a>
-              </li>
-              }
-            </ul>
+        <ng-container *ngIf="storesCategoriesList?.length>0">
+          <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
+            <div class="border-right second-border me-4">
+              <h4 class=" fs-5 fw-bold footer-title position-relative mb-3 text-capitalize">
+                {{'footer.stores'|translate}}
+              </h4>
+              <ul class="p-0">
+                <ng-container *ngFor="let storeCat of storesCategoriesList;">
+                  <li class="mb-2">
+                    <a class=" fs-5-2" title="store" (click)="openStoresWithCategoryId(storeCat)">
+                      <span class="px-1">
+                        {{storeCat?.name}}
+                      </span>
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
           </div>
-        </div>
-        }
-        @if(categoriesList?.length>0){
-        <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
-          <div class="border-right me-4">
-            <h4 class=" fs-5 fw-bold footer-title position-relative mb-3">
-              {{'footer.featuredPlaces'|translate}}
-            </h4>
-            <ul class="p-0">
-              @for(category of categoriesList;track category?.id ){
-              <li class="mb-2">
-                <a title="category" class=" fs-5-2" (click)="openPlaceWithCategoryId(category)">
-                  <span class="px-1">
-                    {{category?.name}}
-                  </span>
-                </a>
-              </li>
-              }
-            </ul>
+        </ng-container>
+        <ng-container *ngIf="categoriesList?.length>0">
+          <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
+            <div class="border-right me-4">
+              <h4 class=" fs-5 fw-bold footer-title position-relative mb-3">
+                {{'footer.featuredPlaces'|translate}}
+              </h4>
+              <ul class="p-0">
+                <ng-container *ngFor="let category of categoriesList;">
+                  <li class="mb-2">
+                    <a title="category" class=" fs-5-2" (click)="openPlaceWithCategoryId(category)">
+                      <span class="px-1">
+                        {{category?.name}}
+                      </span>
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
           </div>
-        </div>
-        }
-        @if(restaurantCategories?.length>0){
-        <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
-          <div class="me-4">
-            <h4 class="fs-5 fw-bold footer-title position-relative mb-3">
-              {{'footer.mostCommon'|translate}}
-            </h4>
-            <ul class="p-0">
-              @for(restaurant of restaurantCategories;track restaurant?.id ){
-              <li class="mb-2">
-                <a title="restaurant" class=" fs-5-2" (click)="openRestaurantWithCategoryId(restaurant)">
-                  <span class="px-1">
-                    {{restaurant?.name}}
-                  </span>
-                </a>
-              </li>}
-            </ul>
+        </ng-container>
+        <ng-container *ngIf="restaurantCategories?.length>0">
+          <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
+            <div class="me-4">
+              <h4 class="fs-5 fw-bold footer-title position-relative mb-3">
+                {{'footer.mostCommon'|translate}}
+              </h4>
+              <ul class="p-0">
+                <ng-container *ngFor="let restaurant of restaurantCategories;">
+                  <li class="mb-2">
+                    <a title="restaurant" class=" fs-5-2" (click)="openRestaurantWithCategoryId(restaurant)">
+                      <span class="px-1">
+                        {{restaurant?.name}}
+                      </span>
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
           </div>
-        </div>
-        }
+        </ng-container>
       </div>
     </div>
     <div class="bg-footer mt-4">
@@ -175,5 +176,4 @@
       </div>
     </div>
   </div>
-</footer> -->
-footer
+</footer>
