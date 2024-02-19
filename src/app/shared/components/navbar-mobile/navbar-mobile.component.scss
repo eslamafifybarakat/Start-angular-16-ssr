@@ -1,0 +1,73 @@
+.navbar-mobile {
+  height: 4rem;
+  .menu-icon {
+    height: 26px;
+    width: 32px;
+    .line {
+      height: 4px;
+      width: 50%;
+      border-radius: 10px;
+      background: #111;
+    }
+    .line2 {
+      width: 100%;
+    }
+    .line3 {
+      width: 75%;
+    }
+  }
+}
+:host::ng-deep {
+  .p-sidebar {
+    border-radius: 0px 5px 5px 0;
+  }
+  .p-sidebar-right {
+    border-radius: 5px 0 0 5px !important;
+  }
+  .p-sidebar-header,
+  .p-sidebar-footer {
+    display: none !important;
+  }
+  .p-sidebar-content {
+    background-image: url(../../../../assets/images/navbar/sidebar-bg.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  .overlay {
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 59%) 0%,
+      rgb(51 51 51 / 90%) 90.65%
+    );
+    z-index: 0;
+  }
+}
+.sidebar-header {
+  padding: 1.5rem 0;
+}
+.close {
+  width: 27px;
+  height: 27px;
+  background-color: #84548e99;
+}
+.nav-logo {
+  width: 6rem;
+  height: 2rem;
+}
+.nav-link {
+  padding: 0.85rem 0;
+  font-size: 1.15rem;
+  line-height: 1;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 0.6rem;
+  color: var(--text-white-color);
+  &.active {
+    padding: 0.85rem;
+    color: var(--text-main-color);
+    background-color: var(--bg-white-color);
+    font-weight: bold;
+  }
+}

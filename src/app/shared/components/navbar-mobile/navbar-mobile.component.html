@@ -1,0 +1,138 @@
+<nav class="navbar-mobile w-100 bg-white-color shadow-sm d-flex align-items-center">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <button class="menu-icon bg-transparent border-0" (click)="openSidebar()">
+        <div class="line mb-1"></div>
+        <div class="line line2 mb-1"></div>
+        <div class="line line3"></div>
+      </button>
+      <app-language-selector></app-language-selector>
+    </div>
+  </div>
+</nav>
+<p-sidebar [(visible)]="displayMenu" [position]="currentLanguage=='ar'?'right':'left'">
+  <div class="overlay position-absolute"></div>
+  <div class="position-relative">
+    <div class="d-flex align-items-center justify-content-between gap-2 my-4">
+      <a class="logo-img" (click)="closeSidebar()" [routerLink]="['/home']" title="logo">
+        <img src="assets/images/logo/logo.svg" alt="logo" class="logo">
+      </a>
+      <a class="close d-flex justify-content-center align-items-center rounded-circle text-white-color" title="close"
+        (click)="closeSidebar()">
+        <i class="pi pi-times fs-8"></i>
+      </a>
+    </div>
+    <div class="d-flex justify-content-between gap-2">
+      @if (isUserLoggedIn) {
+      <!-- <app-user-info class="w-100"></app-user-info> -->
+      }@else {
+      <div class="nav-item">
+        <a class="fs-5 d-flex align-items-center gap-2 fw-bold text-white-color" (click)="closeSidebar()" title="close"
+          (click)="login();displayMenu = false">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill=" none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+            <path d="M21 12h-13l3 -3" />
+            <path d="M11 15l-3 -3" />
+          </svg>
+          {{'form.login'|translate}}</a>
+      </div>
+      }
+    </div>
+    <div class="mt-5 relative">
+      <ul class="p-0">
+        <li class="nav-item">
+          <a class="nav-link d-flex gap-2" (click)="closeSidebar()" [routerLink]="['/home']" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="20" height="20"
+              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+              <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+              <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+            </svg>
+            {{'nav.home'|translate}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex gap-2" (click)="closeSidebar()" [routerLink]="['/places']"
+            routerLinkActive="active">
+            <svg xmlns=" http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-current-location" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill=" none"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+              <path d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0 -16 0" />
+              <path d="M12 2l0 2" />
+              <path d="M12 20l0 2" />
+              <path d="M20 12l2 0" />
+              <path d="M2 12l2 0" />
+            </svg>
+            {{'nav.place'|translate}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  d-flex gap-2" (click)="closeSidebar()" [routerLink]="['/stores']"
+            routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-circus" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 11h16" />
+              <path d="M12 6.5c0 1 -5 4.5 -8 4.5" />
+              <path d="M12 6.5c0 1 5 4.5 8 4.5" />
+              <path d="M6 11c-.333 5.333 -1 8.667 -2 10h4c1 0 4 -4 4 -9v-1" />
+              <path d="M18 11c.333 5.333 1 8.667 2 10h-4c-1 0 -4 -4 -4 -9v-1" />
+              <path d="M12 7v-4l2 1h-2" />
+            </svg>
+            {{'nav.stores'|translate}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  d-flex gap-2" (click)="closeSidebar()" [routerLink]="['/restaurants']"
+            routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-pavilion" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3 21h7v-3a2 2 0 0 1 4 0v3h7" />
+              <path d="M6 21l0 -9" />
+              <path d="M18 21l0 -9" />
+              <path d="M6 12h12a3 3 0 0 0 3 -3a9 8 0 0 1 -9 -6a9 8 0 0 1 -9 6a3 3 0 0 0 3 3" />
+            </svg>
+            {{'nav.zad'|translate}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex gap-2" (click)="closeSidebar()" [routerLink]="['/events']"
+            routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-timeline-event-text" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 20m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+              <path d="M10 20h-6" />
+              <path d="M14 20h6" />
+              <path d="M12 15l-2 -2h-3a1 1 0 0 1 -1 -1v-8a1 1 0 0 1 1 -1h10a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-3l-2 2z" />
+              <path d="M9 6h6" />
+              <path d="M9 9h3" />
+            </svg>
+            {{'nav.events'|translate}}</a>
+        </li>
+        @if (isUserLoggedIn) {
+        <li class="nav-item">
+          <a class="nav-link d-flex gap-2 text-danger fw-bold" (click)="logOut()">
+            <svg xmlns=" http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout scaleX-rtl" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+              <path d="M9 12h12l-3 -3" />
+              <path d="M18 15l3 -3" />
+            </svg>
+            {{'general.logout'|translate}}
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</p-sidebar>
