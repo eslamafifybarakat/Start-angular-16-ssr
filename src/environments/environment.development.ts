@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   apiUrl: "https://dashboard.hawdaj.net/api",
   publicUrl: "http://hawdaj.net",
   imageBaseUrl: "https://dashboard.hawdaj.net",
