@@ -23,23 +23,24 @@
       </a>
     </div>
     <div class="d-flex justify-content-between gap-2">
-      @if (isUserLoggedIn) {
-      <!-- <app-user-info class="w-100"></app-user-info> -->
-      }@else {
-      <div class="nav-item">
-        <a class="fs-5 d-flex align-items-center gap-2 fw-bold text-white-color" (click)="closeSidebar()" title="close"
-          (click)="login();displayMenu = false">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24"
-            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill=" none" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-            <path d="M21 12h-13l3 -3" />
-            <path d="M11 15l-3 -3" />
-          </svg>
-          {{'form.login'|translate}}</a>
-      </div>
-      }
+      <ng-container *ngIf="isUserLoggedIn; else elseNotLoggedIn">
+        <!-- <app-user-info class="w-100"></app-user-info> -->
+      </ng-container>
+      <ng-template #elseNotLoggedIn>
+        <div class="nav-item">
+          <a class="fs-5 d-flex align-items-center gap-2 fw-bold text-white-color" (click)="closeSidebar()"
+            title="close" (click)="login();displayMenu = false">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24"
+              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill=" none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+              <path d="M21 12h-13l3 -3" />
+              <path d="M11 15l-3 -3" />
+            </svg>
+            {{'form.login'|translate}}</a>
+        </div>
+      </ng-template>
     </div>
     <div class="mt-5 relative">
       <ul class="p-0">
@@ -115,23 +116,24 @@
               <path d="M9 6h6" />
               <path d="M9 9h3" />
             </svg>
-            {{'nav.events'|translate}}</a>
-        </li>
-        @if (isUserLoggedIn) {
-        <li class="nav-item">
-          <a class="nav-link d-flex gap-2 text-danger fw-bold" (click)="logOut()">
-            <svg xmlns=" http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout scaleX-rtl" width="20"
-              height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-              <path d="M9 12h12l-3 -3" />
-              <path d="M18 15l3 -3" />
-            </svg>
-            {{'general.logout'|translate}}
+            {{'nav.events'|translate}}
           </a>
         </li>
-        }
+        <ng-container *ngIf="isUserLoggedIn;">
+          <li class="nav-item">
+            <a class="nav-link d-flex gap-2 text-danger fw-bold" (click)="logOut()">
+              <svg xmlns=" http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout scaleX-rtl" width="20"
+                height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                <path d="M9 12h12l-3 -3" />
+                <path d="M18 15l3 -3" />
+              </svg>
+              {{'general.logout'|translate}}
+            </a>
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>

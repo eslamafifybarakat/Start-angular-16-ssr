@@ -1,6 +1,6 @@
 
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
-import { NgOptimizedImage, isPlatformBrowser } from '@angular/common';
+import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { keys } from '../../configs/localstorage-key';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'navbar-mobile',
   standalone: true,
-  imports: [SidebarModule, RouterModule, TranslateModule, NgOptimizedImage, LanguageSelectorComponent],
+  imports: [SidebarModule, RouterModule, TranslateModule, CommonModule, NgOptimizedImage, LanguageSelectorComponent],
   templateUrl: './navbar-mobile.component.html',
   styleUrls: ['./navbar-mobile.component.scss']
 })
