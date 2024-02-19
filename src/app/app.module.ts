@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeAr from '@angular/common/locales/ar';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 registerLocaleData(localeAr);
 
@@ -24,6 +25,8 @@ registerLocaleData(localeAr);
     AppComponent
   ],
   imports: [
+    NavbarComponent,
+
     BrowserModule.withServerTransition({ appId: 'my-app', }),
     BrowserAnimationsModule,
     AppRoutingModule,

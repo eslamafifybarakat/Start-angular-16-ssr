@@ -4,20 +4,18 @@
       [ngClass]="shouldApplyDarkToggle()?'text-white-color':'text-dark-color dark-toggle'" data-bs-toggle="dropdown"
       aria-expanded="false">
       <span class="d-xl-flex d-none">
-        @switch(currentLanguage){
-        @case ('ar') {
-        <img class="flag" ngSrc="assets/images/flag/sa.svg" width="200" height="150" priority alt="saudi flag">
-        }
-        @case ('en') {
-        <img class="flag" ngSrc="assets/images/flag/us.svg" width="200" height="150" priority alt="english flag">
-        }
-        @case ('ru') {
-        <img class="flag" ngSrc="assets/images/flag/ru.svg" width="200" height="150" priority alt="russian flag">
-        }
-        @case ('zh') {
-        <img class="flag" ngSrc="assets/images/flag/cn.svg" width="200" height="150" priority alt="chines flag">
-        }
-        }
+        <ng-container *ngIf="currentLanguage=='ar'">
+          <img class="flag" ngSrc="assets/images/flag/sa.svg" width="200" height="150" priority alt="saudi flag">
+        </ng-container>
+        <ng-container *ngIf="currentLanguage=='en'">
+          <img class="flag" ngSrc="assets/images/flag/us.svg" width="200" height="150" priority alt="english flag">
+        </ng-container>
+        <ng-container *ngIf="currentLanguage=='ru'">
+          <img class="flag" ngSrc="assets/images/flag/ru.svg" width="200" height="150" priority alt="russian flag">
+        </ng-container>
+        <ng-container *ngIf="currentLanguage=='zh'">
+          <img class="flag" ngSrc="assets/images/flag/cn.svg" width="200" height="150" priority alt="chines flag">
+        </ng-container>
       </span>
       <i class="pi pi-language fs-4 d-xl-none d-flex"></i>
       <span class="lang">
