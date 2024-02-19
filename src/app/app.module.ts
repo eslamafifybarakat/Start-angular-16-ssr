@@ -1,5 +1,4 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { interceptorProviders } from './core/interceptors/interceptor-index';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -16,8 +15,11 @@ import { AppComponent } from './app.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeAr from '@angular/common/locales/ar';
+
+import { BottomNavigationComponent } from './shared/components/bottom-navigation/bottom-navigation.component';
 import { NavbarMobileComponent } from './shared/components/navbar-mobile/navbar-mobile.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 registerLocaleData(localeAr);
 
@@ -26,8 +28,9 @@ registerLocaleData(localeAr);
     AppComponent
   ],
   imports: [
-    NavbarComponent,
+    BottomNavigationComponent,
     NavbarMobileComponent,
+    NavbarComponent,
     FooterComponent,
 
     BrowserModule.withServerTransition({ appId: 'my-app', }),
