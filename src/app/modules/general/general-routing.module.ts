@@ -4,7 +4,7 @@ import { DoctorRegiterationComponent } from './components/doctor-regiteration/do
 import { DoctorsListComponent } from './components/doctors/components/doctors-list/doctors-list.component';
 import { DiscountPolicyComponent } from './components/discount-policy/discount-policy.component';
 import { BlogDetailsComponent } from './blogs/blog-details/blog-details.component';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
+// import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { BlogsListComponent } from './blogs/blogs-list/blogs-list.component';
 import { DoctorsComponent } from './components/doctors/doctors.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
@@ -95,7 +95,7 @@ const routes: Routes = [
 
       {
         path: "contact",
-        component: ContactUsComponent,
+        // component: ContactUsComponent,
         data: { title: "titles.contact" }
       },
       {

@@ -1,8 +1,20 @@
-<!-- <ng-container *ngIf="!showSpinner"> -->
-<router-outlet></router-outlet>
-<!-- </ng-container> -->
-<ng-container *ngIf="showSpinner">
-  <!-- <div class="spinner d-flex justify-content-center align-items-center">
-    <iframe src="https://lottie.host/?file=89a452dd-c2f0-49c4-b828-76d0acea0fda/28sNWU0nCs.json" width="300px"></iframe>
-  </div> -->
-</ng-container>
+<main style="transition: 0.5s" class="main-wrapper" [style.opacity]="isServer ? 0 : 1">
+  <div class="d-none d-xl-block" *ngIf="shouldRender">
+    <!-- <app-navbar></app-navbar> -->
+  </div>
+  <div class="d-block d-xl-none" *ngIf="shouldRender">
+    <!-- <navbar-mobile></navbar-mobile> -->
+  </div>
+  <section>
+    ssss
+    <router-outlet></router-outlet>
+  </section>
+  <footer *ngIf="shouldRender">
+    <app-footer></app-footer>
+  </footer>
+  <!-- <bottom-navigation class="d-block d-xl-none"></bottom-navigation> -->
+</main>
+<p-toast [showTransformOptions]="'translateX(-100%)'" [showTransitionOptions]="'500ms'"
+  [hideTransitionOptions]="'500ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
+
+<!-- <scroll-top></scroll-top> -->

@@ -25,11 +25,8 @@ registerLocaleData(localeAr);
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app', }),
-    AppRoutingModule,
-    // BrowserTransferStateModule,
-    // NoopAnimationsModule,
-
     BrowserAnimationsModule,
+    AppRoutingModule,
     HttpClientModule,
     GoogleMapsModule,
     NgbModule,

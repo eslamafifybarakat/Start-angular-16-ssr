@@ -18,113 +18,117 @@ registerLocaleData(localeAr);
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'title';
-  languages = ['en', 'ar', 'ru', 'cn'];;
+  shouldRender: boolean = false;
+  isServer: boolean = true;
+  languages = ['en', 'ar'];;
   browserLang: any;
   currentTheme: any;
-  currentLanguage: any;
   favIcon: HTMLLinkElement | any;
-  showSpinner: boolean = true;
   platform: any;
+  currentLanguage: any;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    public translationService: TranslationService,
     @Inject(DOCUMENT) private document: Document,
     private translateService: TranslateService,
-    private metadataService: MetadataService,
     private activatedRoute: ActivatedRoute,
-    private publicService: PublicService,
     private primengConfig: PrimeNGConfig,
     private renderer: Renderer2,
-    private router: Router,
-  ) {
-    // Set up router events subscription
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd), map(() => {
-      let child = this.activatedRoute?.firstChild;
-      while (child) {
-        if (child?.firstChild) {
-          child = child.firstChild;
-        } else if (child?.snapshot?.data) {
-          return child.snapshot.data;
-        } else {
-          return null;
-        }
-      }
-      return null;
-    })
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        this.isServer = false;
+      });
+    }
+    this.setupRouterEvents();
+    this.setupTranslations();
+  }
+
+  private setupRouterEvents(): void {
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.extractDataFromRoute(this.activatedRoute))
     ).subscribe((data: any) => {
       if (data) {
-        this.publicService.pushUrlData.next(data);
+        // subscribe data
       }
     });
-    // Set up translations
-
-    // Client only code.
-    if (isPlatformBrowser(this.platformId)) {
-      this.translateService.addLangs(this.languages);
-      this.platform = 'Browser';
-      this.currentLanguage = window.localStorage.getItem(keys.language);
-      if (this.currentLanguage !== null && this.currentLanguage !== undefined) {
-        this.translateService.use(this.currentLanguage);
-        let direction: any;
-        if (isPlatformBrowser(this.platformId)) {
-          this.platform = 'Browser';
-          direction = window.localStorage.getItem(keys.language) === "ar" ? "rtl" : "ltr";
-        } else if (isPlatformServer(this.platformId)) {
-          this.platform = 'Server';
-        } else {
-          this.platform = 'Unknown';
-        }
-
-        this.setLanguage(direction);
-        this.translateService?.stream('primeng')?.subscribe((data: any) => {
-          this.primengConfig?.setTranslation(data);
-        });
-
+  }
+  private extractDataFromRoute(route: ActivatedRoute): any {
+    let child = route?.firstChild;
+    while (child) {
+      if (child?.firstChild) {
+        child = child.firstChild;
+      } else if (child?.snapshot?.data) {
+        return child.snapshot.data;
       } else {
-        this.browserLang = this.translateService.getBrowserLang();
-        if (isPlatformBrowser(this.platformId)) {
-          this.platform = 'Browser';
-          window.localStorage.setItem(keys.language, 'ar');
-        } else if (isPlatformServer(this.platformId)) {
-          this.platform = 'Server';
-        } else {
-          this.platform = 'Unknown';
-        }
-        this.translateService.use('ar');
-        this.translateService.setDefaultLang('ar');
-        window.location.reload();
+        return null;
       }
+    }
+    return null;
+  }
+  private setupTranslations(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.platform = 'Browser';
+      this.translateService.addLangs(this.languages);
+      this.setupLanguage();
+      this.translateService.stream('primeng').subscribe((data: any) => {
+        this.primengConfig?.setTranslation(data);
+      });
     } else if (isPlatformServer(this.platformId)) {
       this.platform = 'Server';
     } else {
       this.platform = 'Unknown';
     }
   }
-
-  ngOnInit(): void {
-    this.translationService.changeLang('ar');
-    AOS.init();
-    this.primengConfig.ripple = true;
-    setTimeout(() => {
-      this.showSpinner = false;
-    }, 2000);
-    // this.metadataService?.addMetaTagsName([{ name: 'title', content: "طبيق تلبينة" }, { name: 'description', content: "احصل على الصحة النفسية التي تحتاجها مع تطبيق تلبينة. جلسات علاج نفسي مع أفضل أخصائي الطب النفسي في السعودية، متاحة لك في راحة بمنزلك عبر الإنترنت. ابدأ علاجك النفسي اليوم" }])
-  }
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.favIcon = this.document.querySelector("#appIcon");
-      if (this.favIcon) {
-        this.favIcon.href = "https://talbinah.net/assets/images/main/logos/logo_talbinah.png";
-      }
+  private setupLanguage(): void {
+    this.currentLanguage = window.localStorage.getItem(keys.language);
+    if (this.currentLanguage !== null && this.currentLanguage !== undefined && this.currentLanguage !== '') {
+      this.translateService.use(this.currentLanguage);
+      const direction = this.currentLanguage === 'ar' ? 'rtl' : 'ltr';
+      this.setLanguage(direction);
+    } else {
+      this.handleDefaultLanguage();
     }
   }
-
+  private handleDefaultLanguage(): void {
+    this.browserLang = this.translateService.getBrowserLang();
+    if (isPlatformBrowser(this.platformId)) {
+      this.platform = 'Browser';
+      localStorage.setItem(keys.language, this.browserLang);
+      this.translateService.use(this.browserLang);
+      this.translateService.setDefaultLang(this.browserLang);
+      window.location.reload();
+    } else if (isPlatformServer(this.platformId)) {
+      this.platform = 'Server';
+    } else {
+      this.platform = 'Unknown';
+    }
+  }
   setLanguage(direction: string): void {
     this.renderer.setAttribute(this.document.documentElement, 'dir', direction);
     this.renderer.setAttribute(this.document.documentElement, 'lang', this.currentLanguage);
-    // Assuming you still want to set the class attribute to the current language
     this.renderer.setAttribute(this.document.documentElement, 'class', this.currentLanguage);
+  }
+
+  ngDoCheck(): void {
+    this.renderCheck();
+  }
+  renderCheck(): void {
+    if (
+      this.router.url == '/errors' ||
+      this.router.url == '/contact-us' ||
+      this.router.url == '/login' ||
+      this.router.url == '/reset' ||
+      this.router.url == '/forget' ||
+      this.router.url == '/register'
+    ) {
+      this.shouldRender = false;
+    } else {
+      this.shouldRender = true;
+    }
   }
 }
