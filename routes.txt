@@ -1,13 +1,5 @@
 /
-/home-page
-/doctors
-/doctors/details/
-/join-us
-/doctor-registeration
-/contact
-/blogs
-/blogs/details
-/privacy
-/terms-and-conditions
-/discount-policy
-/faqs
+/home
+/places
+/places/list
+/places/details/
