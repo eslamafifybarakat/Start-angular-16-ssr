@@ -1,46 +1,16 @@
-[dir="rtl"] {
-  // @import "~bootstrap/dist/css/bootstrap.min.css";
-  @import "./styles/scss/style-rtl/prime-ng-rtl/prime-ng-rtl-icons.scss";
-  @import "./styles/scss/style-rtl/prime-ng-rtl/prime-ng-rtl.scss";
-  @import "./styles/scss/style-rtl/cust-style-rtl.scss";
-  @import "./styles/scss/style-rtl/form-filed-rtl.scss";
-  @import "./styles/scss/style-rtl/tel-intel-rtl.scss";
+/* You can add global styles to this file, and also import other style files */
 
-  body {
-    font-family: "Tajawal", sans-serif !important;
-  }
-}
-
-@import "swiper/scss";
-@import "swiper/scss/navigation";
-@import "swiper/scss/pagination";
-@import "swiper/css/effect-cards";
-
-// @import "swiper/css/bundle";
-// @import "bootstrap/scss/bootstrap";
-@import "./styles/scss/variables.scss";
-@import "./styles/scss/colors-classes.scss";
-@import "./styles/scss/scrollbar.scss";
-@import "./styles/scss/global-rules.scss";
-@import "./styles/scss/buttons.scss";
-@import "./styles/scss/form-field.scss";
-@import "./styles/scss/primeng/p-form-field.scss";
-@import "./styles/scss/primeng/p-select.scss";
-@import "./styles/scss/primeng/p-dialog.scss";
-@import "./styles/scss/swal2-alerts.scss";
-@import "./styles/scss/primeng/p-toast.scss";
+@import "bootstrap/scss/bootstrap";
 @import "primeicons/primeicons.css";
-@import "./styles/scss/tel-intel.scss";
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=Reenie+Beanie&display=swap");
-@import "./styles/scss/responsive.scss";
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=Reenie+Beanie&family=Tajawal:wght@400;500;700;800;900&display=swap");
+@import "styles/scrollbar.scss";
+@import "styles/variables.scss";
+@import "styles/global-rules.scss";
+@import "styles/colors-classes.scss";
 
-html,
-body {
-  height: 100%;
-}
+// @import "tailwindcss/base";
+// @import "tailwindcss/components";
+// @import "tailwindcss/utilities";
 
-body {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
+[dir="rtl"] {
+  @import "styles/rtl/cust-style-rtl.scss";
 }
