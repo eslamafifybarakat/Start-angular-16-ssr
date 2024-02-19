@@ -84,12 +84,12 @@ install => npm install intl-tel-input@17.0.3
           ng add ngx-bootstrap
           npm install ngx-intl-tel-input@3.2.0 --legacy-peer-deps
 -------------------------
-ng-circle-progress
+ng-circle-progress (Uninstalled Now)
 install =>npm i ng-circle-progress@1.7.1 --legacy-peer-deps
 ---------------
-NgxStarRating
+NgxStarRating (Uninstalled Now)
 install =>npm i ngx-star-rating@2.1.0 --legacy-peer-deps
 -----------------
-ng-click-outside
+ng-click-outside (Uninstalled Now)
 npm i ng-click-outside --legacy-peer-deps
 npm uninstall ngx-spinner
