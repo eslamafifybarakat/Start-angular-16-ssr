@@ -1,2 +1,2 @@
-const server = require('../dist/talbinah/server/main');
+const server = require('../dist/start-angular-16-ssr/server/main');
 module.exports = server.app();

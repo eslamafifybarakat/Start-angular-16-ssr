@@ -1,7 +1,7 @@
 {
   "version": 2,
   "public": true,
-  "name": "talbinah",
+  "name": "start-angular-16-ssr",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -10,7 +10,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/talbinah/browser/**"
+      "includeFiles": "dist/start-angular-16-ssr/browser/**"
     }
   }
 }

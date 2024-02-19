@@ -9,7 +9,7 @@ import { AppServerModule } from './src/main.server';
 
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/talbinah/browser');
+  const distFolder = join(process.cwd(), 'dist/start-angular-16-ssr/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   server.engine('html', ngExpressEngine({

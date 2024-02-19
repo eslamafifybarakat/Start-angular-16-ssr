@@ -1,18 +1,20 @@
 {
-  "name": "talbinah",
+  "name": "start-angular-16-ssr",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-dev": "ng build",
-    "dev:ssr": "ng run talbinah:serve-ssr",
+    "serve:ssr:start-angular-16-ssr": "node dist/start-angular-16-ssr/server/server.mjs",
+    "dev:ssr": "ng run start-angular-16-ssr:serve-ssr",
     "vercel-build": "npm run build:ssr",
-    "build:ssr-prod": "ng build --configuration production && ng run talbinah:server",
-    "prerender": "ng run talbinah:prerender",
-    "build:ssr": "ng build && ng run talbinah:server",
-    "serve:ssr": "node dist/talbinah/server/main.js"
+    "build:ssr-prod": "ng build --configuration production && ng run start-angular-16-ssr:server",
+
+    "prerender": "ng run start-angular-16-ssr:prerender",
+    "build:ssr": "ng build && ng run start-angular-16-ssr:server",
+    "serve:ssr": "node dist/start-angular-16-ssr/server/main.js"
   },
   "private": true,
   "dependencies": {

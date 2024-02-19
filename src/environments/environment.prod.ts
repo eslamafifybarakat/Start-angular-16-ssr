@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  // apiUrl: "http://talbinah.net",
-  // imageBaseUrl: "http://talbinah.net/"
+  // apiUrl: "http://start-angular-16-ssr.net",
+  // imageBaseUrl: "http://start-angular-16-ssr.net/"
 
-  apiUrl: "http://api.talbinah.net",
-  imageBaseUrl: "http://api.talbinah.net/"
+  apiUrl: "http://api.start-angular-16-ssr.net",
+  imageBaseUrl: "http://api.start-angular-16-ssr.net/"
 };
