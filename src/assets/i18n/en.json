@@ -1,8 +1,6 @@
 {
-
   "titles": {
-    "hawdaj": "Hawdaj",
-    "saudiArabia": "Saudi Arabia",
+    "projectName": "Project",
     "home": "Home",
     "places": "Places",
     "trips": "Trips",
@@ -15,7 +13,9 @@
     "storeDetails": "Store Details",
     "storyDetails": "Story Details",
     "searchResult": "Search Result",
-    "error500":"Server error"
+    "error500": "Server error",
+    "login": "Login",
+    "signUp": "Sign Up"
   },
   "nav": {
     "home": "Home",
@@ -32,23 +32,24 @@
   },
   "footer": {
     "allRight": "All Rights Reserved © 2022.",
-    "terms": "Terms & conditions",
-    "privacy": "Privacy policy",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
     "joinNewsletter": "Join our newsletter",
     "subscribe": "Subscribe our newsletter to get update about our services and offers",
-    "hodgePlatform": "Hawdaj platform for landmarks and visits in the Kingdom of Saudi Arabia",
-    "websiteMap": "website map",
-    "contactUs": "contact us",
+    "projectDescription": "Project platform for landmarks and visits in the Kingdom of Saudi Arabia",
+    "websiteMap": "Website Map",
+    "emailAddress": "Email Address",
+    "contactUs": "Contact Us",
     "stores": "Stores",
     "featuredPlaces": "Featured places",
-    "mostCommon":"Restaurants categories",
-    "subscribeNewsletter":"Subscribe to our Newsletter",
-    "callCenter":"Call center",
-    "International":"International Call Center",
-    "join":"join",
-    "download":"Download our mobile app"
+    "mostCommon": "Restaurants categories",
+    "subscribeNewsletter": "Subscribe to our Newsletter",
+    "callCenter": "Call Center",
+    "International": "International Call Center",
+    "join": "Join",
+    "download": "Download our mobile app"
   },
-  "errors":{
+  "errors": {
     "backToHome": "Back to home",
     "serverError": "A server error has occurred",
     "pageNotFound": "Page not found"

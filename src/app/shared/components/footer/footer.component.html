@@ -1,129 +1,53 @@
 <footer class="footer">
-  <div>
-    <img src="assets/images/footer/footer-vector.svg" alt="footer-vector" class="w-100 footer-vector">
-  </div>
   <div id="footer" class="position-relative">
-    <div class="container position-relative">
-      <div class="row justify-content-between g-0">
-        <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4 pt-lg-0 pt-4">
-          <div class="border-right me-4">
-            <div class="d-flex align-items-center gap-2">
-              <img ngSrc="assets/images/logo/logo.svg" alt="logo" class="logo" width="82" height="48">
-              <h4 class=" text-uppercase">
-                {{'titles.hawdaj'|translate}}
-              </h4>
-            </div>
-            <p class="mt-3 w-75 w-sm-100 ">
-              {{'footer.hodgePlatform'|translate}}
-            </p>
-          </div>
-        </div>
-        <ng-container *ngIf="storesCategoriesList?.length>0">
-          <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
-            <div class="border-right second-border me-4">
-              <h4 class=" fs-5 fw-bold footer-title position-relative mb-3 text-capitalize">
-                {{'footer.stores'|translate}}
-              </h4>
-              <ul class="p-0">
-                <ng-container *ngFor="let storeCat of storesCategoriesList;">
-                  <li class="mb-2">
-                    <a class=" fs-5-2" title="store" (click)="openStoresWithCategoryId(storeCat)">
-                      <span class="px-1">
-                        {{storeCat?.name}}
-                      </span>
-                    </a>
-                  </li>
-                </ng-container>
-              </ul>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="categoriesList?.length>0">
-          <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
-            <div class="border-right me-4">
-              <h4 class=" fs-5 fw-bold footer-title position-relative mb-3">
-                {{'footer.featuredPlaces'|translate}}
-              </h4>
-              <ul class="p-0">
-                <ng-container *ngFor="let category of categoriesList;">
-                  <li class="mb-2">
-                    <a title="category" class=" fs-5-2" (click)="openPlaceWithCategoryId(category)">
-                      <span class="px-1">
-                        {{category?.name}}
-                      </span>
-                    </a>
-                  </li>
-                </ng-container>
-              </ul>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="restaurantCategories?.length>0">
-          <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
-            <div class="me-4">
-              <h4 class="fs-5 fw-bold footer-title position-relative mb-3">
-                {{'footer.mostCommon'|translate}}
-              </h4>
-              <ul class="p-0">
-                <ng-container *ngFor="let restaurant of restaurantCategories;">
-                  <li class="mb-2">
-                    <a title="restaurant" class=" fs-5-2" (click)="openRestaurantWithCategoryId(restaurant)">
-                      <span class="px-1">
-                        {{restaurant?.name}}
-                      </span>
-                    </a>
-                  </li>
-                </ng-container>
-              </ul>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-    <div class="bg-footer mt-4">
+    <div class="bg-footer">
       <div class="container">
         <div class="row py-4 pb-lg-4 pb-0">
           <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
             <div class="border-right">
-              <h5 class="text-white-color fw-bold">{{'footer.contactUs'|translate}}</h5>
+              <h5 class="text-white-color fw-bold">
+                {{'footer.contactUs' | translate}}
+              </h5>
               <ul class="d-flex align-items-center gap-3 all-social mt-3 p-0">
                 <li>
-                  <a [href]="facebookLink" target="_blank" aria-label="facebook" title="facebook"> <i
-                      class="pi pi-facebook fs-5 text-white-color"></i></a>
+                  <a [href]="facebookLink" target="_blank" aria-label="facebook" title="facebook">
+                    <i class="pi pi-facebook fs-5 text-white-color"></i>
+                  </a>
                 </li>
                 <li>
-                  <a [href]="'https://wa.me/' + '{{whatsappLink}}'" target="_blank" aria-label="whatsapp"
-                    title="whatsapp"> <i class="pi pi-whatsapp fs-5 text-white-color"></i></a>
+                  <a [href]="'https://wa.me/' + whatsappLink" target="_blank" aria-label="whatsapp" title="whatsapp">
+                    <i class="pi pi-whatsapp fs-5 text-white-color"></i>
+                  </a>
                 </li>
                 <li>
-                  <a [href]="instagramLink" target="_blank" aria-label="instagram" title="instagram"> <i
-                      class="pi pi-instagram fs-5 text-white-color"></i></a>
+                  <a [href]="instagramLink" target="_blank" aria-label="instagram" title="instagram">
+                    <i class="pi pi-instagram fs-5 text-white-color"></i>
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
             <div class="border-right second-border">
-              <h5 class="text-white-color fw-bold">
-                {{'footer.callCenter'|translate}}
-              </h5>
+              <h5 class="text-white-color fw-bold">{{'footer.callCenter' | translate}}</h5>
               <p class="text-white-color fs-5-2">
-                {{'footer.International'|translate}}
+                {{'footer.International' | translate}}
               </p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
             <div class="border-right">
               <h5 class="text-white-color fw-bold">
-                {{'footer.subscribeNewsletter'|translate}}
+                {{'footer.subscribeNewsletter' | translate}}
               </h5>
               <div class="my-3 pe-4">
                 <div class="input-group bg-white-color rounded-pill py-1">
-                  <input type="text" class="form-control border-0 bg-transparent" placeholder="Email address"
-                    aria-label="Username" aria-describedby="basic-addon1">
+                  <input type="text" class="form-control border-0 bg-transparent"
+                    placeholder="{{'footer.emailAddress' | translate}}" aria-label="Username"
+                    aria-describedby="basic-addon1">
                   <span class="input-group-text border-0 bg-transparent" id="basic-addon1">
                     <button class="text-uppercase rounded-pill px-3 py-1 join-btn text-white-color border-0">
-                      {{'footer.join'|translate}}
+                      {{'footer.join' | translate}}
                     </button>
                   </span>
                 </div>
@@ -132,9 +56,7 @@
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mb-lg-0 mb-4">
             <div class="">
-              <h5 class="text-white-color fw-bold">
-                {{'footer.download'|translate}}
-              </h5>
+              <h5 class="text-white-color fw-bold">{{'footer.download' | translate}}</h5>
               <ul class="d-flex gap-3 flex-wrap p-0 mt-3">
                 <li>
                   <a class="text-white-color" title="google-play">
@@ -157,18 +79,16 @@
         </div>
         <hr>
         <div class="py-3 d-flex justify-content-between flex-wrap gap-2">
-          <p class="mb-0 text-white-color">
-            {{'footer.allRight'|translate}}
-          </p>
+          <p class="mb-0 text-white-color">{{'footer.allRight' | translate}}</p>
           <ul class="d-flex gap-3 flex-wrap p-0">
             <li>
-              <a class="text-white-color" title="terms" [routerLink]="'/terms'">
-                {{'footer.terms'|translate}}
+              <a class="text-white-color" title="terms" [routerLink]="'terms'">
+                {{'footer.terms' | translate}}
               </a>
             </li>
             <li>
               <a class="text-white-color" title="privacy" [routerLink]="'privacy'">
-                {{'footer.privacy'|translate}}
+                {{'footer.privacy' | translate}}
               </a>
             </li>
           </ul>

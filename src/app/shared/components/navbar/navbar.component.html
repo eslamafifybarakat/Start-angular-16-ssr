@@ -2,7 +2,7 @@
   [ngClass]="{'headerBg': shouldApplyHeaderBg(),'dark-nav':shouldDisplayDarkLogo()}">
   <div class="container px-0">
     <span class="navbar-brand mx-3">
-      <img [ngSrc]="shouldDisplayDarkLogo() ? 'assets/images/logo/dark-logo.svg' : 'assets/images/logo/logo.svg'"
+      <img [ngSrc]="shouldDisplayDarkLogo() ? 'assets/images/logo/logo.webp' : 'assets/images/logo/logo.webp'"
         alt="logo" class="logo" width="82" height="48">
     </span>
     <button class="navbar-toggler border-0" type="button">
@@ -24,7 +24,6 @@
         <li>
           <div class="dropdown-menu mega-menu-visit border-0 shadow p-0 position-relative">
             dropdown
-            <!-- <app-invite-to-visit (openPlaceHandler)="openPlace()"></app-invite-to-visit> -->
           </div>
         </li>
       </ul>
@@ -33,17 +32,33 @@
           <!-- <app-user-info></app-user-info> -->
         </ng-container>
         <ng-template #elseNotLoggedIn>
-          <button class="btn login-btn d-flex justify-content-center gap-2 rounded-pill" (click)="login()">
-            {{'form.login'|translate}}
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24"
-              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill=" none" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-              <path d="M21 12h-13l3 -3" />
-              <path d="M11 15l-3 -3" />
-            </svg>
-          </button>
+          <div class="d-flex flex-row align-items-center gap-2 justify-content-center-small">
+            <!-- <li class="nav-item d-md-none d-block">
+              <app-languages-selector></app-languages-selector>
+            </li> -->
+            <span class="nav-item">
+              <button class="btn btn-outline-light w-auto text-nowrap py-2" (click)="collapse = false;login()"
+                [routerLink]="['/auth/login']">
+                <span class="d-flex align-items-center justify-content-center gap-2">
+                  <i class="pi pi-sign-in"></i>
+                  <span>
+                    {{'titles.login' |translate}}
+                  </span>
+                </span>
+              </button>
+            </span>
+            <span class="nav-item">
+              <button class="btn btn-outline-light text-nowrap w-auto py-2" (click)="collapse = false"
+                [routerLink]="['/doctor-registeration']">
+                <span class="d-flex align-items-center justify-content-center gap-2">
+                  <i class="pi pi-user-plus"></i>
+                  <span>
+                    {{"titles.signUp"|translate}}
+                  </span>
+                </span>
+              </button>
+            </span>
+          </div>
         </ng-template>
         <app-language-selector></app-language-selector>
       </div>

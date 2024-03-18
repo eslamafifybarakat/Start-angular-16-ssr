@@ -4,28 +4,23 @@ interface Category {
   icon: string | null;
   name: string | null;
 }
-
 interface Gallery {
   id: number;
   file: string;
   type: string;
 }
-
 interface Price {
   id: number;
   name: string | null;
 }
-
 interface City {
   id: number;
   name: string | null;
 }
-
 interface Region {
   id: number;
   name: string | null;
 }
-
 interface Rating {
   id: number;
   name: string;
@@ -38,15 +33,13 @@ interface Rating {
   updated_at: string;
   user_id: number;
 }
-
 interface Meta {
   title: string | null;
   description: string | null;
   link: string | null;
   keyWords: string[] | null;
 }
-
-export interface DoctorsListing {
+export interface PlacesListing {
   id: number;
   slug: string;
   type: string;
@@ -84,13 +77,12 @@ export interface DoctorsListing {
   ratings: Rating[];
   meta: Meta | null;
 }
-
-export interface DoctorsListingApiResponse {
+export interface PlacesListingApiResponse {
   code: number;
   message: string;
   data: {
     current_page: number;
-    items: DoctorsListing[];
+    items: PlacesListing[];
     first_page_url: string;
     from: number;
     last_page: number;
@@ -103,7 +95,6 @@ export interface DoctorsListingApiResponse {
     total: number;
   };
 }
-
 // Details
 export interface PlaceApiResponse {
   code: number;
@@ -172,3 +163,23 @@ interface Region {
   name: string| null;
 }
 
+//Parent Categories
+interface ParentCategory {
+  id: number;
+  icon: string;
+  name: string;
+}
+export interface ParentCategoriesResponse {
+  code: number;
+  message: string;
+  data: Category[];
+}
+
+//Generic Carousel
+export interface HeroSliderPlace {
+  image: string;
+  title?: string;
+  subTitle?: string;
+  description?: string;
+  buttonText?: string;
+}

@@ -1,5 +1,5 @@
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 

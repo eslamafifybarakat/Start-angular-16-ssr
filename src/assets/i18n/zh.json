@@ -1,7 +1,6 @@
 {
   "titles": {
-    "hawdaj": "Hawdaj",
-    "saudiArabia": "沙特阿拉伯",
+    "projectName": "Project",
     "home": "首页",
     "places": "地点",
     "trips": "旅行",
@@ -14,7 +13,9 @@
     "storeDetails": "商店详情",
     "storyDetails": "故事详细信息",
     "searchResult": "搜索结果",
-    "error500":"服务器错误"
+    "error500": "服务器错误",
+    "login": "Login",
+    "signUp": "Sign Up"
   },
   "nav": {
     "home": "首页",
@@ -35,19 +36,20 @@
     "privacy": "隐私政策",
     "joinNewsletter": "加入我们的通讯",
     "subscribe": "订阅我们的通讯，获取有关我们的服务和优惠的更新",
-    "hodgePlatform": "沙特阿拉伯地标和游览的Hodge平台",
+    "projectDescription": "沙特阿拉伯地标和游览的Hodge平台",
     "websiteMap": "网站地图",
     "contactUs": "联系我们",
+    "emailAddress": "Email Address",
     "stores": "商店",
     "featuredPlaces": "精选地点",
-    "mostCommon":"餐厅类别",
-      "subscribeNewsletter": "订阅我们的新闻通讯",
-      "callCenter": "呼叫中心",
-      "International": "国际呼叫中心",
-      "join": "加入",
-      "download": "下载我们的移动应用"
+    "mostCommon": "餐厅类别",
+    "subscribeNewsletter": "订阅我们的新闻通讯",
+    "callCenter": "呼叫中心",
+    "International": "国际呼叫中心",
+    "join": "加入",
+    "download": "下载我们的移动应用"
   },
-  "errors":{
+  "errors": {
     "backToHome": "回到家",
     "serverError": "服务器发生错误",
     "pageNotFound": "页面未找到"
