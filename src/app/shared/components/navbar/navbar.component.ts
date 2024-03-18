@@ -1,9 +1,10 @@
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { NavItem, navItems } from './../../../interfaces/navbar';
 import { TranslateModule } from '@ngx-translate/core';
-import { Links } from '../../../interfaces/public';
 import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,8 @@ export class NavbarComponent {
   displayMenu: boolean = false;
   isVisitMegaMenuVisible: boolean = false;
   isUserLoggedIn: boolean = false;
-  navAllLinks: Links[] = [];
+  navItems: NavItem[];
+
   @HostListener("window:scroll", ["$event"])
   handleScroll(event: Event) {
     this.handleKeyDown();
@@ -58,35 +60,22 @@ export class NavbarComponent {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {
-    this.page = 'home';
-    this.navAllLinks = [
-      { title: 'home', name: 'nav.home', route: '/home' },
-      { title: 'place', name: 'nav.place', route: '/places' },
-      { title: 'stores', name: 'nav.stores', route: '/stores' },
-      { title: 'swalefs', name: 'nav.swalefs', route: '/stories' },
-      { title: 'events', name: 'nav.events', route: '/events' },
-    ]
+    this.page = 'Home';
+    this.navItems = navItems;
   }
 
   ngOnInit(): void {
   }
   shouldApplyHeaderBg(): boolean {
     const excludedPages = [
-      'home',
-      'places',
-      'trips',
-      'coming-soon',
-      'stores',
-      'events',
-      'restaurant-details',
-      'stories',
-      'searchResult'
+      'Home',
     ];
     return !excludedPages.includes(this.page);
   }
   shouldDisplayDarkLogo(): boolean {
-    return ['stores', 'events', 'restaurant-details', 'searchResult', 'stories'].includes(this.page);
+    return ['Home'].includes(this.page);
   }
   login(): void {
   }
+
 }

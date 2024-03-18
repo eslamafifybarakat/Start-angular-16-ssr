@@ -1,56 +1,47 @@
 {
   "titles": {
-    "projectName": "Хавдаж",
-    "home": "Главная",
-    "places": "Места",
-    "trips": "Поездки",
-    "tripDetails": "Детали поездки",
-    "events": "События",
-    "eventDetails": "Детали события",
-    "zad": "Ресторан",
-    "swalefs": "Ресторан",
-    "stores": "Магазины",
-    "storeDetails": "Детали магазина",
-    "storyDetails": "Подробности истории",
-    "searchResult": "Результат поиска",
+    "projectName": "Эсткдам",
     "error500": "Ошибка сервера",
-    "login": "Login",
-    "signUp": "Sign Up"
+    "login": "Вход",
+    "signUp": "Регистрация"
   },
   "nav": {
     "home": "Главная",
-    "place": "Места",
-    "zad": "Ресторан",
-    "swalefs": "история",
-    "events": "События",
-    "visit": "Посетить",
-    "myTrips": "Мои поездки",
-    "stores": "Магазины"
-  },
-  "form": {
-    "login": "Войти"
+    "services": {
+      "title": "Услуги",
+      "items": {
+        "offices": "Офисы",
+        "sponsorshipTransfer": "Передача спонсорства"
+      }
+    },
+    "aboutStructure": {
+      "title": "О нас",
+      "items": {
+        "policies": "Политики",
+        "journey": "Путешествие"
+      }
+    },
+    "support": {
+      "title": "Поддержка",
+      "items": {
+        "contactUs": "Связаться с нами",
+        "faqs": "Вопросы и ответы"
+      }
+    }
   },
   "footer": {
     "allRight": "Все права защищены © 2022.",
-    "terms": "Условия использования",
+    "contactUs":"Связаться с нами",
+    "subscribeNewsletter":"Subscribe Newsletter",
+    "terms": "Условия и положения",
     "privacy": "Политика конфиденциальности",
-    "joinNewsletter": "Присоединяйтесь к нашему новостному бюллетеню",
-    "subscribe": "Подпишитесь на нашу рассылку, чтобы получать обновления о наших услугах и предложениях",
-    "projectDescription": "Платформа Ходж для достопримечательностей и посещений в Королевстве Саудовская Аравия",
-    "websiteMap": "Карта веб-сайта",
-    "contactUs": "Свяжитесь с нами",
-    "emailAddress": "Email Address",
-    "stores": "Магазины",
-    "featuredPlaces": "Известные места",
-    "mostCommon": "Категории ресторанов",
-    "subscribeNewsletter": "Подписаться на нашу рассылку",
-    "callCenter": "Контакт-центр",
-    "International": "Международный контакт-центр",
+    "websiteMap": "Карта сайта",
+    "emailAddress": "Адрес электронной почты",
     "join": "Присоединиться",
     "download": "Скачать наше мобильное приложение"
   },
   "errors": {
-    "backToHome": "Вернуться домой",
+    "backToHome": "Вернуться на главную",
     "serverError": "Произошла ошибка сервера",
     "pageNotFound": "Страница не найдена"
   }

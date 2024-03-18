@@ -1,57 +1,48 @@
 {
   "titles": {
-    "projectName": "Project",
-    "home": "首页",
-    "places": "地点",
-    "trips": "旅行",
-    "tripDetails": "旅行详情",
-    "events": "活动",
-    "eventDetails": "活动详情",
-    "zad": "zad",
-    "swalefs": "部落格",
-    "stores": "商店",
-    "storeDetails": "商店详情",
-    "storyDetails": "故事详细信息",
-    "searchResult": "搜索结果",
+    "projectName": "Structure",
     "error500": "服务器错误",
-    "login": "Login",
-    "signUp": "Sign Up"
+    "login": "登录",
+    "signUp": "注册"
   },
   "nav": {
     "home": "首页",
-    "place": "地点",
-    "zad": "餐厅",
-    "swalefs": "故事",
-    "events": "活动",
-    "visit": "访问",
-    "myTrips": "我的旅行",
-    "stores": "商店"
-  },
-  "form": {
-    "login": "登录"
+    "services": {
+      "title": "服务",
+      "items": {
+        "offices": "办公室",
+        "sponsorshipTransfer": "赞助转移"
+      }
+    },
+    "aboutStructure": {
+      "title": "关于",
+      "items": {
+        "policies": "政策",
+        "journey": "旅程"
+      }
+    },
+    "support": {
+      "title": "支持",
+      "items": {
+        "contactUs": "联系我们",
+        "faqs": "常见问题"
+      }
+    }
   },
   "footer": {
-    "allRight": "保留所有权利 © 2022。",
+    "allRight": "版权所有 © 2022。",
+    "contactUs":"联系我们",
+    "subscribeNewsletter":"Subscribe Newsletter",
     "terms": "条款和条件",
     "privacy": "隐私政策",
-    "joinNewsletter": "加入我们的通讯",
-    "subscribe": "订阅我们的通讯，获取有关我们的服务和优惠的更新",
-    "projectDescription": "沙特阿拉伯地标和游览的Hodge平台",
     "websiteMap": "网站地图",
-    "contactUs": "联系我们",
-    "emailAddress": "Email Address",
-    "stores": "商店",
-    "featuredPlaces": "精选地点",
-    "mostCommon": "餐厅类别",
-    "subscribeNewsletter": "订阅我们的新闻通讯",
-    "callCenter": "呼叫中心",
-    "International": "国际呼叫中心",
+    "emailAddress": "电子邮件地址",
     "join": "加入",
-    "download": "下载我们的移动应用"
+    "download": "下载我们的手机应用"
   },
   "errors": {
-    "backToHome": "回到家",
-    "serverError": "服务器发生错误",
+    "backToHome": "回到首页",
+    "serverError": "发生服务器错误",
     "pageNotFound": "页面未找到"
   }
 }

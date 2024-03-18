@@ -14,19 +14,30 @@
     </button>
     <div class="collapse navbar-collapse m-auto" id="navbarSupportedContent">
       <ul class="navbar-nav m-auto mb-2 mb-lg-0 gap-4">
-        <ng-container *ngFor="let link of navAllLinks">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="[link.route]" routerLinkActive="active-link" [title]="link.title">
-              {{link.name|translate}}
+        <ng-container *ngFor="let link of navItems">
+          <li class="nav-item" *ngIf="!link.children || link.children.length === 0">
+            <a class="nav-link" [routerLink]="[link.route]" routerLinkActive="active-link"
+              [title]="'{{link.title | translate}}'">
+              {{ link.label | translate }}
             </a>
           </li>
+          <li class="nav-item dropdown" *ngIf="link.children && link.children.length > 0">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{ link.label | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li *ngFor="let child of link.children">
+                <a class="dropdown-item" [routerLink]="[child.route]" routerLinkActive="active-link"
+                  [title]="'{{child.title | translate}}'">
+                  {{ child.label | translate }}
+                </a>
+              </li>
+            </ul>
+          </li>
         </ng-container>
-        <li>
-          <div class="dropdown-menu mega-menu-visit border-0 shadow p-0 position-relative">
-            dropdown
-          </div>
-        </li>
       </ul>
+      <!-- Additional HTML for login, signup, language selector, etc. -->
       <div class="d-flex align-items-center gap-4 py-lg-0 py-3">
         <ng-container *ngIf="isUserLoggedIn; else elseNotLoggedIn">
           <!-- <app-user-info></app-user-info> -->

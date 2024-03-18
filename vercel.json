@@ -1,7 +1,7 @@
 {
   "version": 2,
   "public": true,
-  "name": "start-angular-16-ssr",
+  "name": "structure",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -10,7 +10,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/start-angular-16-ssr/browser/**"
+      "includeFiles": "dist/structure/browser/**"
     }
   }
 }

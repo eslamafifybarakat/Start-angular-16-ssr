@@ -1,55 +1,47 @@
 {
   "titles": {
-    "projectName": "مشروع",
-    "home": "الرئيسية",
-    "places": "الأماكن",
-    "trips": "الرحلات",
-    "tripDetails": "تفاصيل الرحلة",
-    "events": "الفعاليات",
-    "eventDetails": "تفاصيل الفعاليه",
-    "zad": "زاد",
-    "swalefs": "سوالف",
-    "stores": "العزبة",
-    "storeDetails": "تفاصيل المتجر",
-    "storyDetails": "تفاصيل القصة",
-    "searchResult": "نتيجة البحث",
+    "projectName": "استقدام",
     "error500": "خطأ في الخادم",
     "login": "تسجيل الدخول",
-    "signUp": "اشترك"
+    "signUp": "إنشاء حساب"
   },
   "nav": {
     "home": "الرئيسية",
-    "place": "الأماكن",
-    "zad": "زاد",
-    "swalefs": "سوالف",
-    "events": "الفعاليات",
-    "myTrips": "رحلاتي",
-    "stores": "العزبة"
-  },
-  "form": {
-    "login": "تسجيل دخول"
+    "services": {
+      "title": "الخدمات",
+      "items": {
+        "offices": "المكاتب",
+        "sponsorshipTransfer": "نقل الكفالة"
+      }
+    },
+    "aboutStructure": {
+      "title": "حول",
+      "items": {
+        "policies": "السياسات",
+        "journey": "الرحلة"
+      }
+    },
+    "support": {
+      "title": "الدعم",
+      "items": {
+        "contactUs": "اتصل بنا",
+        "faqs": "الأسئلة الشائعة"
+      }
+    }
   },
   "footer": {
     "allRight": "جميع الحقوق محفوظة © 2022.",
-    "terms": "البنود و الظروف",
+    "contactUs":"اتصل بنا",
+    "subscribeNewsletter":"اشترك",
+    "terms": "الشروط والأحكام",
     "privacy": "سياسة الخصوصية",
-    "joinNewsletter": "إشتراك في صحيفتنا الإخبارية",
-    "subscribe": "اشترك في النشرة الإخبارية لدينا للحصول على تحديث حول خدماتنا وعروضنا",
-    "structure": "منصة مشروع للمعالم والزيارات في المملكة العربية السعودية",
     "websiteMap": "خريطة الموقع",
-    "emailAddress": "البريد الإلكتروني",
-    "contactUs": "اتصل بنا",
-    "stores": "متاجر",
-    "featuredPlaces": "أماكن مميزة",
-    "mostCommon": "فئات المطاعم",
-    "subscribeNewsletter": "الإشتراك في النشرة الإخبارية لدينا",
-    "callCenter": "مركز الإتصال",
-    "International": "المركز الدولي للاتصالات",
+    "emailAddress": "عنوان البريد الإلكتروني",
     "join": "انضم",
-    "download": "قم بتنزيل تطبيقنا المحمول"
+    "download": "حمل تطبيقنا الجوال"
   },
   "errors": {
-    "backToHome": "العودة إلى الرئيسية",
+    "backToHome": "العودة إلى الصفحة الرئيسية",
     "serverError": "حدث خطأ في الخادم",
     "pageNotFound": "الصفحة غير موجودة"
   }

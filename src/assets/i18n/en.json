@@ -1,51 +1,42 @@
 {
   "titles": {
-    "projectName": "Project",
-    "home": "Home",
-    "places": "Places",
-    "trips": "Trips",
-    "tripDetails": "Trip Details",
-    "events": "Events",
-    "eventDetails": "Event Details",
-    "zad": "Restaurants",
-    "swalefs": "Stories",
-    "stores": "Stores",
-    "storeDetails": "Store Details",
-    "storyDetails": "Story Details",
-    "searchResult": "Search Result",
+    "projectName": "Structure",
     "error500": "Server error",
     "login": "Login",
     "signUp": "Sign Up"
   },
   "nav": {
     "home": "Home",
-    "place": "Places",
-    "zad": "Restaurants",
-    "swalefs": "Stories",
-    "events": "Events",
-    "visit": "visit",
-    "myTrips": "My trips",
-    "stores": "Stores"
-  },
-  "form": {
-    "login": "Login"
+    "services": {
+      "title": "Services",
+      "items": {
+        "offices": "Offices",
+        "sponsorshipTransfer": "Sponsorship Transfer"
+      }
+    },
+    "aboutStructure": {
+      "title": "About",
+      "items": {
+        "policies": "Policies",
+        "journey": "Journey"
+      }
+    },
+    "support": {
+      "title": "Support",
+      "items": {
+        "contactUs": "Contact Us",
+        "faqs": "FAQs"
+      }
+    }
   },
   "footer": {
     "allRight": "All Rights Reserved © 2022.",
+    "contactUs":"Contact Us",
+    "subscribeNewsletter":"Subscribe Newsletter",
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
-    "joinNewsletter": "Join our newsletter",
-    "subscribe": "Subscribe our newsletter to get update about our services and offers",
-    "projectDescription": "Project platform for landmarks and visits in the Kingdom of Saudi Arabia",
     "websiteMap": "Website Map",
     "emailAddress": "Email Address",
-    "contactUs": "Contact Us",
-    "stores": "Stores",
-    "featuredPlaces": "Featured places",
-    "mostCommon": "Restaurants categories",
-    "subscribeNewsletter": "Subscribe to our Newsletter",
-    "callCenter": "Call Center",
-    "International": "International Call Center",
     "join": "Join",
     "download": "Download our mobile app"
   },

@@ -105,7 +105,7 @@ export interface PlaceData {
   id: number;
   slug: string;
   type: string;
-  address_name?:string;
+  address_name?: string;
   categories: Category[];
   address: string;
   image: string;
@@ -143,7 +143,7 @@ export interface PlaceData {
 interface Category {
   id: number;
   icon: string | null;
-  name: string| null;
+  name: string | null;
 }
 interface Gallery {
   id: number;
@@ -152,15 +152,15 @@ interface Gallery {
 }
 interface Price {
   id: number;
-  name: string| null;
+  name: string | null;
 }
 interface City {
   id: number;
-  name: string| null;
+  name: string | null;
 }
 interface Region {
   id: number;
-  name: string| null;
+  name: string | null;
 }
 
 //Parent Categories

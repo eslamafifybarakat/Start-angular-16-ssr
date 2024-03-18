@@ -15,7 +15,7 @@ export class MetadataService {
   private readonly imageBaseUrl = environment.imageBaseUrl;
   private readonly defaultURL = 'https://structure.net/';
   private readonly defaultTitle = 'Structure';
-  private readonly defaultDescription ='Structure Site Description';
+  private readonly defaultDescription = 'Structure Site Description';
   private readonly defaultImage =
     'https://avatars.githubusercontent.com/u/52158422?s=48&v=4';
 
@@ -77,7 +77,7 @@ export class MetadataService {
     ]);
   }
 
-  //Update Meta Individual 
+  //Update Meta Individual
   updateMetaTagsName(metaTags: { name: string, content: string, scheme?: string }[]): void {
     metaTags.forEach(tag => this.metaService.updateTag(this.createTagObject(tag)));
   }
