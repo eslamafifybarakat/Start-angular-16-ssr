@@ -2,9 +2,8 @@ input[type]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
 select::-webkit-input-placeholder,
 select.form-control.has-value {
-  color: var(--text-desc-color) !important;
   font-size: 0.9rem;
-  color: #777 !important;
+  color: var(--placeholder-input-color) !important;
 }
 
 input[type]:-moz-placeholder,
@@ -12,7 +11,7 @@ textarea:-moz-placeholder,
 select:-moz-placeholder,
 select.form-control.has-value {
   /* Firefox 18- */
-  color: var(--text-desc-color);
+  color: var(--placeholder-input-color);
   font-size: 1rem;
 }
 
@@ -21,7 +20,7 @@ textarea::-moz-placeholder,
 select::-moz-placeholder,
 select.form-control.has-value {
   /* Firefox 19+ */
-  color: var(--text-desc-color);
+  color: var(--placeholder-input-color);
   font-size: 1rem;
 }
 
@@ -29,7 +28,7 @@ input[type]:-ms-input-placeholder,
 textarea:-ms-input-placeholder,
 select:-ms-input-placeholder,
 select.form-control.has-value {
-  color: var(--text-desc-color);
+  color: var(--placeholder-input-color);
   font-size: 1rem;
 }
 
@@ -67,6 +66,7 @@ label {
   outline: none !important;
   background-color: var(--bg-input-color);
   border-color: var(--border-input-color);
+  border-width: 2px;
   height: 3.7rem;
   border-radius: var(--border-input-radius);
   padding: 1rem;
@@ -138,9 +138,11 @@ label {
 
 .border-red {
   border: 1px solid #dc3545 !important;
-  border-radius: 0.625rem !important;
-
+  border-radius: var(--border-input-radius);
   .ng-select-container {
+    border: 0 !important;
+  }
+  .p-dropdown {
     border: 0 !important;
   }
 }
@@ -185,5 +187,40 @@ input::-webkit-inner-spin-button {
 .border-red {
   .p-inputtext {
     border: 0;
+  }
+}
+p-dropdown .p-inputtext {
+  padding-left: 0;
+  padding-right: 0;
+}
+.p-dropdown-items {
+  padding: 0;
+  .p-dropdown-item {
+    border-radius: 10px;
+    &:hover,
+    &.p-highlight {
+      background-color: #eee;
+      color: var(--bg-dark-color);
+    }
+  }
+}
+.p-dropdown .p-dropdown-clear-icon {
+  &:dir(rtl) {
+    left: 3rem !important;
+    right: inherit !important;
+    .p-input-icon-right > .p-icon-wrapper,
+    .p-input-icon-right > i:last-of-type {
+      left: 0.75rem !important;
+      right: inherit;
+    }
+  }
+}
+.p-input-icon-right {
+  &:dir(rtl) {
+    & > .p-icon-wrapper,
+    & > i:last-of-type {
+      left: 0.75rem !important;
+      right: inherit;
+    }
   }
 }
