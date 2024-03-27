@@ -1,3 +1,4 @@
+import { AuthComponent } from './components/auth/auth.component';
 import { Routes } from '@angular/router';
 
 // Components
@@ -6,10 +7,11 @@ import { Routes } from '@angular/router';
 import { placesChildrenRoutes } from './components/places/places-children-routes';
 import { errorsChildrenRoutes } from './components/errors/errors-routes';
 import { dashBoardChildrenRoutes } from './components/dashboard/dashboard-children-routes';
+import { authChildrenRoutes } from './components/auth/auth-children-routes';
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/Dashboard/Clients', pathMatch: 'full' },
+  { path: '', redirectTo: '/Auth/Login', pathMatch: 'full' },
 
   {
     path: 'places',
@@ -18,6 +20,14 @@ export const appRoutes: Routes = [
         (c) => c.PlacesComponent
       ),
     children: placesChildrenRoutes
+  },
+  {
+    path: 'Auth',
+    loadComponent: () =>
+      import('./components/auth/auth.component').then(
+        (c) => c.AuthComponent
+      ),
+    children: authChildrenRoutes
   },
   {
     path: 'Dashboard',

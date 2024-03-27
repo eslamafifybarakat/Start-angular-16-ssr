@@ -115,7 +115,7 @@ export class AppComponent {
   }
   renderCheck(): void {
     if (
-      this.router.url.includes('/Login') ||
+      this.router.url.includes('/Auth') ||
       this.router.url.includes('/Dashboard')
     ) {
       this.shouldRender = false;
