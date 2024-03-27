@@ -115,12 +115,8 @@ export class AppComponent {
   }
   renderCheck(): void {
     if (
-      this.router.url == '/errors' ||
-      this.router.url == '/contact-us' ||
-      this.router.url == '/login' ||
-      this.router.url == '/reset' ||
-      this.router.url == '/forget' ||
-      this.router.url == '/register'
+      this.router.url.includes('/Login') ||
+      this.router.url.includes('/Dashboard')
     ) {
       this.shouldRender = false;
     } else {

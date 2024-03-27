@@ -1,4 +1,4 @@
-import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
+import { LanguageSelectorComponent } from './../language-selector/language-selector.component';
 import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { NavItem, navItems } from './../../../interfaces/navbar';

@@ -10,7 +10,8 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { keys } from '../../configs/localstorage-key';
 
 //Components
-import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
+import { LanguageSelectorComponent } from './../language-selector/language-selector.component';
+
 
 @Component({
   selector: 'navbar-mobile',
