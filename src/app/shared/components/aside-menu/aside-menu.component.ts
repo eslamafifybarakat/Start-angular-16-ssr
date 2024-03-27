@@ -73,7 +73,7 @@ export class AsideMenuComponent {
 </defs>
 </svg>
         `,
-        routerLink: '/clients',
+        routerLink: '/Dashboard/Clients',
         state: false,
       },
       {

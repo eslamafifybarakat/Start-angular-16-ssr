@@ -68,5 +68,11 @@ export const navItems = [
         icon: ''
       }
     ]
+  },
+  {
+    title: 'Dashboard',
+    label: 'Dashboard',
+    route: '/Dashboard',
+    icon: '',
   }
 ];
