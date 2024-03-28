@@ -54,7 +54,11 @@
     "selected_items": "selected items",
     "restorePassword": "Restore password",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "clickToUpload": "Click to upload or drag and drop",
+    "supports": "Supports",
+    "replace":"Replace",
+    "delete":"Delete"
   },
   "summary": {
     "faster": "Faster",

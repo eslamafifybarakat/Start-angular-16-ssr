@@ -1,0 +1,30 @@
+.uploader {
+  background: #8c95a317;
+  border: 2px dashed #8c95a399;
+  border-radius: var(--border-radius-card);
+  min-height: 100px;
+  &.uploader-second-style {
+    background-color: transparent;
+    border: 2px dashed #e6e6e6;
+  }
+  .upload-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+  }
+  .loaded {
+    height: 90px;
+    width: 90px;
+    border-radius: var(--dashboard-border-radius) !important;
+  }
+  .badge-info {
+    background-color: #ddeeee;
+    border-radius: 11px;
+    height: 2.6rem;
+  }
+  .badge-danger {
+    background: #e5555530;
+    border-radius: 11px;
+    height: 2.6rem;
+  }
+}

@@ -1,7 +1,8 @@
 <div id="modal-form">
   <form [formGroup]="modalForm" (ngSubmit)="submit()">
-    <div class="mb-3">
-    </div>
+    <app-file-upload></app-file-upload>
+    <!-- <app-file-upload (uploadHandler)="uploadFile($event)"></app-file-upload> -->
+
     <div class="row">
       <div class="col-md-6">
         <div class="mb-3">

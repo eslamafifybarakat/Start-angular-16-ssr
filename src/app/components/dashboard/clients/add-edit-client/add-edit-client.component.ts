@@ -1,3 +1,4 @@
+import { FileUploadComponent } from './../../../../shared/components/file-upload/file-upload.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
@@ -14,7 +15,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule, CommonModule, CalendarModule, DropdownModule, MultiSelectModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, CommonModule, CalendarModule, DropdownModule, MultiSelectModule, FileUploadComponent],
   selector: 'app-add-edit-client',
   templateUrl: './add-edit-client.component.html',
   styleUrls: ['./add-edit-client.component.scss']

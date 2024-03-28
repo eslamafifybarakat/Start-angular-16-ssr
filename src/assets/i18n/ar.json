@@ -54,7 +54,11 @@
     "selected_items": "العناصر المحددة",
     "restorePassword": "إستعادة كلمة المرور",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا",
+    "clickToUpload": "إنقر للتحميل أو السحب والإفلات",
+    "supports": "يدعم",
+    "replace":"تبديل",
+    "delete":"حذف"
   },
   "summary": {
     "faster": "أٍسرع",
