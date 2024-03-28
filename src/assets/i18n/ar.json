@@ -47,7 +47,14 @@
     "save":"حفظ",
     "cancel":"الغاء",
     "logout": "تسجيل خروج",
-    "areYouSureToLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+    "areYouSureToLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "confirm_delete": "تأكيد الحذف",
+    "confirm_delete_qu": "هل حقا تريد حذف",
+    "confirm_delete_item": "هل حقا تريد حذف هذا العنصر ؟",
+    "selected_items": "العناصر المحددة",
+    "restorePassword": "إستعادة كلمة المرور",
+    "yes": "نعم",
+    "no": "لا"
   },
   "summary": {
     "faster": "أٍسرع",

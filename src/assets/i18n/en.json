@@ -47,7 +47,14 @@
     "save":"Save",
     "cancel":"Cancel",
     "logout": "Logout",
-    "areYouSureToLogout": "Are you sure you want to logout?"
+    "areYouSureToLogout": "Are you sure you want to logout?",
+    "confirm_delete": "Confirm Delete",
+    "confirm_delete_qu": "Are you sure to delete",
+    "confirm_delete_item": "Are sure to delete this item ?",
+    "selected_items": "selected items",
+    "restorePassword": "Restore password",
+    "yes": "Yes",
+    "no": "No"
   },
   "summary": {
     "faster": "Faster",

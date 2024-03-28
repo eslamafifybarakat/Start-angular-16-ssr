@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 
 @Component({
   standalone: true,
@@ -361,21 +362,21 @@ export class DynamicTableComponent {
   }
   deleteHandlerEmit(item: any): void {
     if (this.enableConfirmDeleteDialog) {
-      // const ref = this.dialogService.open(ConfirmDeleteComponent, {
-      //   data: {
-      //     name: item[this.keyDelete],
-      //     enableConfirm: this.enableConfirmedByShowInput,
-      //   },
-      //   header: this.publicService?.translateTextFromJson('general.confirm_delete'),
-      //   dismissableMask: false,
-      //   width: '35%'
-      // });
+      const ref = this.dialogService.open(ConfirmDeleteComponent, {
+        data: {
+          name: item[this.keyDelete],
+          enableConfirm: this.enableConfirmedByShowInput,
+        },
+        header: this.publicService?.translateTextFromJson('general.confirm_delete'),
+        dismissableMask: false,
+        width: '35%'
+      });
 
-      // ref.onClose.subscribe((res: any) => {
-      //   if (res?.confirmed) {
-      //     this.deleteHandler?.emit({ item: item, confirmed: res?.confirmed });
-      //   }
-      // });
+      ref.onClose.subscribe((res: any) => {
+        if (res?.confirmed) {
+          this.deleteHandler?.emit({ item: item, confirmed: res?.confirmed });
+        }
+      });
     } else {
       this.deleteHandler?.emit({ item: item, confirmed: true });
     }
