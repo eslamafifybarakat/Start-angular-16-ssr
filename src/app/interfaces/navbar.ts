@@ -74,5 +74,19 @@ export const navItems = [
     label: 'Dashboard',
     route: '/Dashboard',
     icon: '',
+    children: [
+      {
+        title: 'DashboardV1',
+        label: 'DashboardV1',
+        route: '/Dashboard',
+        icon: ''
+      },
+      {
+        title: 'DashboardV2',
+        label: 'DashboardV2',
+        route: '/Dashboard-V2',
+        icon: ''
+      }
+    ]
   }
 ];

@@ -13,10 +13,9 @@
 .aside-menu {
   transition: all 0.5s ease !important;
   z-index: 120;
-  top: 0;
+  bottom: 0;
   width: 6rem;
-  height: calc(100vh - 2rem);
-  border-radius: 10px;
+  height: calc(100vh - 5rem);
   background: linear-gradient(
     90deg,
     rgba(10, 37, 39, 0.92) -35.03%,
@@ -53,7 +52,7 @@
   .aside-nav {
     padding: 0.938rem;
     margin: 0;
-    height: calc(100% - 7.65rem);
+    height: calc(100% - 2.65rem);
     cursor: pointer;
     overflow-y: auto;
     .aside-nav-item {

@@ -15,6 +15,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @Component({
   standalone: true,
@@ -30,7 +31,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     DropdownModule,
     TooltipModule,
     TableModule,
-    CheckboxModule
+    CheckboxModule,
+    InputSwitchModule
   ],
   selector: 'dynamic-table',
   templateUrl: './dynamic-table.component.html',

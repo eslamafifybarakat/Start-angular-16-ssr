@@ -1,18 +1,17 @@
 import { DashboardNavbarComponent } from './../../shared/components/dashboard-navbar/dashboard-navbar.component';
-import { AsideMenuComponent } from './../../shared/components/aside-menu/aside-menu.component';
+import { AsideMenuV2Component } from './../../shared/components/aside-menu-v2/aside-menu-v2.component';
 import { FooterComponent } from './../../shared/components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-
 @Component({
   standalone: true,
-  imports: [AsideMenuComponent, FooterComponent, DashboardNavbarComponent, RouterModule, CommonModule],
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  imports: [AsideMenuV2Component, FooterComponent, DashboardNavbarComponent, RouterModule, CommonModule],
+  selector: 'app-dashboard-v2',
+  templateUrl: './dashboard-v2.component.html',
+  styleUrls: ['./dashboard-v2.component.scss']
 })
-export class DashboardComponent {
+export class DashboardV2Component {
   isSideNavCollapsed: boolean = false;
   screenWidth: number = 0;
   toggleSideMenu: boolean = false;
@@ -24,7 +23,7 @@ export class DashboardComponent {
     // this.sharedService.showSideMenu.subscribe((res: any) => {
     //   this.toggleSideMenu = res
     // })
-    console.log(this.getLetterByIndex(5));
+    // console.log(this.getLetterByIndex(5));
   }
 
   onToggleSideNav(data: any): void {
@@ -41,11 +40,7 @@ export class DashboardComponent {
     }
     return styleClass;
   }
-
-
-
-
-  getLetterByIndex(i: any): any {
-    // this.sharedService?.getLetter(i);
-  }
 }
+
+
+

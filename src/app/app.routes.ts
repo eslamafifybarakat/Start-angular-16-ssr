@@ -38,6 +38,14 @@ export const appRoutes: Routes = [
     children: dashBoardChildrenRoutes
   },
   {
+    path: 'Dashboard-V2',
+    loadComponent: () =>
+      import('./components/dashboard-v2/dashboard-v2.component').then(
+        (c) => c.DashboardV2Component
+      ),
+    children: dashBoardChildrenRoutes
+  },
+  {
     path: ':lang/places',
     loadComponent: () => import('./components/places/places.component').then((c) => c.PlacesComponent),
     children: placesChildrenRoutes

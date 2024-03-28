@@ -51,29 +51,31 @@ input:-webkit-autofill {
 label {
   margin-bottom: 0.5rem;
 }
-.form-control,
-.form-control:focus,
-.form-control:focus-visible,
-.form-select,
-.form-select:focus,
-.form-select:focus-visible,
-.ng-select.ng-select-single .ng-select-container,
-.p-inputmask,
-.p-password-input,
-.p-calendar-w-btn .p-inputtext,
-.p-dropdown {
-  box-shadow: none !important;
-  outline: none !important;
-  background-color: var(--bg-input-color);
-  border-color: var(--border-input-color);
-  border-width: 2px;
-  height: 3.7rem;
-  border-radius: var(--border-input-radius);
-  padding: 1rem;
-}
-.p-dropdown {
-  line-height: 0;
-  width: 100%;
+.auth-form {
+  .form-control,
+  .form-control:focus,
+  .form-control:focus-visible,
+  .form-select,
+  .form-select:focus,
+  .form-select:focus-visible,
+  .ng-select.ng-select-single .ng-select-container,
+  .p-inputmask,
+  .p-password-input,
+  .p-calendar-w-btn .p-inputtext,
+  .p-dropdown {
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: var(--bg-input-color);
+    border-color: var(--border-input-color);
+    border-width: 2px;
+    height: 3.7rem;
+    border-radius: var(--border-input-radius);
+    padding: 1rem;
+  }
+  .p-dropdown {
+    line-height: 0;
+    width: 100%;
+  }
 }
 .p-inputtext,
 .p-password {
@@ -189,10 +191,24 @@ input::-webkit-inner-spin-button {
     border: 0;
   }
 }
-p-dropdown .p-inputtext {
-  padding-left: 0;
-  padding-right: 0;
+.p-dropdown-panel {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
 }
+.p-dropdown {
+  box-shadow: none;
+  border-color: #ced4da;
+  .p-dropdown-item {
+    margin: 0 0.5rem 0.5rem 0.5rem;
+  }
+  // &:hover {
+  // }
+  // border-color: var(--border-input-color);
+}
+// p-dropdown .p-inputtext {
+//   padding-left: 0;
+//   padding-right: 0;
+// }
 .p-dropdown-items {
   padding: 0;
   .p-dropdown-item {
@@ -221,6 +237,14 @@ p-dropdown .p-inputtext {
     & > i:last-of-type {
       left: 0.75rem !important;
       right: inherit;
+    }
+  }
+}
+.p-multiselect-panel .p-multiselect-header {
+  &:dir(rtl) {
+    .p-checkbox {
+      margin-left: 0.5rem;
+      margin-right: inherit;
     }
   }
 }
