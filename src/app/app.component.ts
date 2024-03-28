@@ -22,6 +22,7 @@ export class AppComponent {
   favIcon: HTMLLinkElement | any;
   platform: any;
   currentLanguage: any;
+  isLoading: boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -39,6 +40,10 @@ export class AppComponent {
         this.isServer = false;
       });
     }
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
     this.setupRouterEvents();
     this.setupTranslations();
   }
