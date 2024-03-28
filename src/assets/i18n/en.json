@@ -45,7 +45,9 @@
     "notAvailableContract": "Not Available for contract",
     "errorOccur":"An error has occurred",
     "save":"Save",
-    "cancel":"Cancel"
+    "cancel":"Cancel",
+    "logout": "Logout",
+    "areYouSureToLogout": "Are you sure you want to logout?"
   },
   "summary": {
     "faster": "Faster",

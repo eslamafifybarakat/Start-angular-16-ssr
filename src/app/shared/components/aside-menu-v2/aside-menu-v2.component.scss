@@ -74,6 +74,10 @@
           right: 1rem;
           transition: all 0.3s ease;
         }
+        &:dir(rtl) {
+          left: 1rem;
+          right: inherit;
+        }
       }
     }
     .aside-nav-item:hover {

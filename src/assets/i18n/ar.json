@@ -45,7 +45,9 @@
     "notAvailableContract": "غير متاح للتعاقد",
     "errorOccur":"حدث خطأ",
     "save":"حفظ",
-    "cancel":"الغاء"
+    "cancel":"الغاء",
+    "logout": "تسجيل خروج",
+    "areYouSureToLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
   },
   "summary": {
     "faster": "أٍسرع",

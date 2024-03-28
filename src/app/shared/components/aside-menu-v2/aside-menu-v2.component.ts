@@ -118,47 +118,47 @@ export class AsideMenuV2Component {
         state: false
       },
       {
+        id: 'settings',
+        text: 'settings',
+        icon: 'pi pi-cog',
+        state: false,
+        children: [
+          {
+            text: this.publicService.translateTextFromJson('branches'),
+            icon: 'pi pi-users',
+            routerLink: '/dashboard/settings/branches',
+            state: false
+          },
+          {
+            text: this.publicService.translateTextFromJson('departments'),
+            icon: 'layers',
+            routerLink: '/dashboard/settings/departments',
+            state: false
+          },
+          {
+            text: this.publicService.translateTextFromJson('jobTitles'),
+            icon: 'layers',
+            routerLink: '/dashboard/settings/job-titles',
+            state: false
+          },
+          {
+            text: this.publicService.translateTextFromJson('dworkPositions'),
+            icon: 'layers',
+            routerLink: '/dashboard/settings/work-positions',
+            state: false
+          }
+        ],
+      },
+      {
         id: 'logout',
         text: this.publicService.translateTextFromJson('auth.logout'),
         icon: `<svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M8.22587 7.79889L3.66349 13.1223C3.44562 13.3708 3.33415 13.6846 3.33398 14C3.33387 14.2158 3.38587 14.4324 3.49155 14.6294C3.53852 14.7172 3.59588 14.8006 3.66349 14.8777L8.22587 20.2011C8.70507 20.7602 9.54679 20.825 10.1059 20.3458C10.6651 19.8666 10.7298 19.0249 10.2506 18.4657L7.5661 15.3334L17.8923 15.3334C18.6287 15.3334 19.2256 14.7364 19.2256 14.0001C19.2256 13.2637 18.6287 12.6667 17.8923 12.6667L7.56595 12.6667L10.2506 9.53423C10.7298 8.9751 10.6651 8.13337 10.1059 7.65417C9.54679 7.17497 8.70507 7.23977 8.22587 7.79889ZM16.6673 22.0001C15.9309 22.0001 15.334 21.4031 15.334 20.6667V18.6667C15.334 17.9304 14.737 17.3334 14.0007 17.3334C13.2643 17.3334 12.6673 17.9304 12.6673 18.6667V20.6667C12.6673 22.8759 14.4582 24.6667 16.6673 24.6667L20.6673 24.6667C22.8765 24.6667 24.6673 22.8759 24.6673 20.6667L24.6673 7.33341C24.6673 5.12428 22.8765 3.33341 20.6673 3.33341L16.6673 3.33341C14.4582 3.33341 12.6673 5.12428 12.6673 7.33341V9.33341C12.6673 10.0698 13.2643 10.6667 14.0007 10.6667C14.737 10.6667 15.334 10.0698 15.334 9.33341V7.33341C15.334 6.59703 15.9309 6.00008 16.6673 6.00008L20.6673 6.00008C21.4037 6.00008 22.0007 6.59703 22.0007 7.33341L22.0007 20.6667C22.0007 21.4031 21.4037 22.0001 20.6673 22.0001L16.6673 22.0001Z" fill="currentColor"/>
         </svg>
         `,
-        routerLink: '/logout',
+        routerLink: '',
         state: false
       }
-      // {
-      //   id: 'settings',
-      //   text: this.publicService.translateTextFromJson('dashboard.sideMenu.settings'),
-      //   icon: 'pi pi-cog',
-      //   state: false,
-      //   children: [
-      //     {
-      //       text: this.publicService.translateTextFromJson('dashboard.sideMenu.settingsChild.branches'),
-      //       icon: 'pi pi-users',
-      //       routerLink: '/dashboard/settings/branches',
-      //       state: false
-      //     },
-      //     {
-      //       text: this.publicService.translateTextFromJson('dashboard.sideMenu.settingsChild.departments'),
-      //       icon: 'layers',
-      //       routerLink: '/dashboard/settings/departments',
-      //       state: false
-      //     },
-      //     {
-      //       text: this.publicService.translateTextFromJson('dashboard.sideMenu.settingsChild.jobTitles'),
-      //       icon: 'layers',
-      //       routerLink: '/dashboard/settings/job-titles',
-      //       state: false
-      //     },
-      //     {
-      //       text: this.publicService.translateTextFromJson('dashboard.sideMenu.settingsChild.workPositions'),
-      //       icon: 'layers',
-      //       routerLink: '/dashboard/settings/work-positions',
-      //       state: false
-      //     }
-      //   ],
-      // },
     ];
     this.screenWidth = window?.innerWidth;
     // this.sharedService?.showSideMenu?.subscribe((res: any) => {
@@ -209,13 +209,13 @@ export class AsideMenuV2Component {
 
   logout(): void {
     this.confirmationService?.confirm({
-      message: 'Are you sure you want logout?',
-      header: 'Logout',
+      message: this.currentLanguage == 'ar' ? 'هل أنت متأكد أنك تريد تسجيل الخروج؟' : 'Are you sure you want to logout?',
+      header: this.currentLanguage == 'ar' ? 'تسجيل خروج' : 'Logout',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.router?.navigate(['/auth']);
+        this.router?.navigate(['/Auth']);
         localStorage?.clear();
-      }
+      },
     });
 
   }

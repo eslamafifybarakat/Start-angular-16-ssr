@@ -118,6 +118,38 @@ export class AsideMenuComponent {
         state: false
       },
       {
+        id: 'settings',
+        text: 'settings',
+        icon: 'pi pi-cog',
+        state: false,
+        children: [
+          {
+            text: this.publicService.translateTextFromJson('branches'),
+            icon: 'pi pi-users',
+            routerLink: '/dashboard/settings/branches',
+            state: false
+          },
+          {
+            text: this.publicService.translateTextFromJson('departments'),
+            icon: 'layers',
+            routerLink: '/dashboard/settings/departments',
+            state: false
+          },
+          {
+            text: this.publicService.translateTextFromJson('jobTitles'),
+            icon: 'layers',
+            routerLink: '/dashboard/settings/job-titles',
+            state: false
+          },
+          {
+            text: this.publicService.translateTextFromJson('dworkPositions'),
+            icon: 'layers',
+            routerLink: '/dashboard/settings/work-positions',
+            state: false
+          }
+        ],
+      },
+      {
         id: 'logout',
         text: this.publicService.translateTextFromJson('auth.logout'),
         icon: `<svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -209,13 +241,13 @@ export class AsideMenuComponent {
 
   logout(): void {
     this.confirmationService?.confirm({
-      message: 'Are you sure you want logout?',
-      header: 'Logout',
+      message: this.currentLanguage == 'ar' ? 'هل أنت متأكد أنك تريد تسجيل الخروج؟' : 'Are you sure you want to logout?',
+      header: this.currentLanguage == 'ar' ? 'تسجيل خروج' : 'Logout',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.router?.navigate(['/auth']);
+        this.router?.navigate(['/Auth']);
         localStorage?.clear();
-      }
+      },
     });
 
   }
