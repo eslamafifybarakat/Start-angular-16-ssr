@@ -1,9 +1,11 @@
+import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { PublicService } from './../../../services/generic/public.service';
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddEditClientComponent } from './add-edit-client/add-edit-client.component';
 
 @Component({
   standalone: true,
@@ -46,7 +48,8 @@ export class ClientsComponent {
   showActionFiles: boolean = false;
 
   constructor(
-    private publicService: PublicService
+    private publicService: PublicService,
+    private dialogService: DialogService
   ) { }
   ngOnInit(): void {
     this.tableHeaders = [
@@ -125,7 +128,23 @@ export class ClientsComponent {
 
   }
   addOrEditItem(item?: any, type?: any): void {
-
+    const ref = this.dialogService?.open(AddEditClientComponent, {
+      data: {
+        item,
+        type: type == 'edit' ? 'edit' : 'add'
+      },
+      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.customers.editCustomer') : this.publicService?.translateTextFromJson('dashboard.customers.addCustomer'),
+      dismissableMask: false,
+      width: '60%',
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.page = 1;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllCustomers();
+      }
+    });
   }
   deleteItem(item: any): void {
 

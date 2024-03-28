@@ -1,0 +1,8 @@
+.p-dialog {
+  .p-dialog-header {
+    border-radius: var(--border-radius-dialog) var(--border-radius-dialog) 0 0;
+  }
+  .p-dialog-content {
+    border-radius: 0 0 var(--border-radius-dialog) var(--border-radius-dialog);
+  }
+}

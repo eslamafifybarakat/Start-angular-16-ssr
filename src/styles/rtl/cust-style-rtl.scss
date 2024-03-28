@@ -36,3 +36,8 @@
     border-left: 0 !important;
   }
 }
+.p-datepicker:not(.p-datepicker-inline) .p-datepicker-header {
+  svg {
+    transform: scaleX(-1);
+  }
+}
