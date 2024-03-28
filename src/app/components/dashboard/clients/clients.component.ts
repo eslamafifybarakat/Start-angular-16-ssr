@@ -20,12 +20,12 @@ export class ClientsComponent {
 
   loadingIndicator: boolean = false;
   customersList: any = [
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date(), status: 1 },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date(), status: 1 },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date(), status: 1 },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date(), status: true },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date(), status: 1 },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date(), status: 1 },
+    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
+    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
+    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
+    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
+    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
+    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
   ];
   customersCount: number = 0;
   tableHeaders: any = [];
