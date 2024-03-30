@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, SkeletonModule],
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
