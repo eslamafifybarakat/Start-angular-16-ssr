@@ -24,7 +24,7 @@
     </div>
     <div class="col-sm-6">
       <div class="d-flex flex-wrap gap-2 justify-content-end py-3">
-        <label class="d-flex align-items-center justify-content-center gap-2 pointer btn badge-info btn-solid-main p-2"
+        <label class="d-flex align-items-center justify-content-center gap-2 pointer badge-info badge-btn mb-0"
           [class.loaded]="loaded">
           <input #inputFile type="file" name="file" [accept]="accept" (change)="handleInputChange($event)" hidden />
           <span>
@@ -40,7 +40,7 @@
           <span class="fw-500 text-main-color">{{'general.replace'|translate}}</span>
         </label>
         <button class="btn badge-danger d-flex align-items-center
-          gap-2" (click)="remove()">
+          gap-2 badge-btn" (click)="remove()">
           <span>
             <svg width="16" height="21" viewBox="0 0 19 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path

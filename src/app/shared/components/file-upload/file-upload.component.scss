@@ -17,14 +17,16 @@
     width: 90px;
     border-radius: var(--dashboard-border-radius) !important;
   }
-  .badge-info {
-    background-color: #ddeeee;
+  .badge-btn {
     border-radius: 11px;
     height: 2.6rem;
+    border: none;
+    padding: 0.9rem;
+  }
+  .badge-info {
+    background-color: #ddeeee;
   }
   .badge-danger {
     background: #e5555530;
-    border-radius: 11px;
-    height: 2.6rem;
   }
 }
