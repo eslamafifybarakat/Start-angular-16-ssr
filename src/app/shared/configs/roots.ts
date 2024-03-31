@@ -15,6 +15,7 @@ export const roots = {
     getCitiesByCountryId: "/City/GetCitysByCountryId",
   },
   dashboard: {
-    getClients: '/getClients'
+    getClients: '/getClients',
+    filterClients: '/filterClients',
   }
 }

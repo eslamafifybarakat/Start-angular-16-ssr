@@ -11,10 +11,12 @@ import { AddEditClientComponent } from './add-edit-client/add-edit-client.compon
 import { Router } from '@angular/router';
 import { ClientCardComponent } from './client-card/client-card.component';
 import { Subject, debounceTime, finalize, map } from 'rxjs';
+import { SidebarModule } from 'primeng/sidebar';
+import { FilterClientsComponent } from './filter-clients/filter-clients.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, DynamicTableComponent, TranslateModule, CommonModule, DynamicTableLocalActionsComponent, ClientCardComponent],
+  imports: [CommonModule, DynamicTableComponent, TranslateModule, CommonModule, DynamicTableLocalActionsComponent, ClientCardComponent, SidebarModule, FilterClientsComponent],
   selector: 'app-clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss']
@@ -46,7 +48,7 @@ export class ClientsComponent {
   showActionFiles: boolean = false;
 
   private searchSubject = new Subject<any>();
-
+  openFilter: boolean = false;
   constructor(
     private clientsService: ClientsService,
     private publicService: PublicService,
@@ -173,7 +175,12 @@ export class ClientsComponent {
       }
     });
   }
-  filterItem(): void { }
+  filterItem(): void {
+    this.openFilter = true;
+  }
+  closeFilter(): void {
+    this.openFilter = false;
+  }
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/' + item.id]);
   }

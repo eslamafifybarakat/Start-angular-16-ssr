@@ -95,7 +95,6 @@
       </ng-template>
     </ng-container>
   </div>
-
   <!-- Show Cards in tablet and mobile -->
   <div class="mt-3 d-md-none d-block">
     <div class="row pt-4">
@@ -118,4 +117,8 @@
       </div>
     </ng-template>
   </div>
+  <!-- Filter sidebar -->
+  <p-sidebar [(visible)]="openFilter" position="bottom" [baseZIndex]="10000">
+    <filter-clients (closeSidebar)="closeFilter()"></filter-clients>
+  </p-sidebar>
 </div>

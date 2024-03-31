@@ -62,7 +62,8 @@
     "details":"Details",
     "edit":"Edit",
     "no_records_found": "No record found",
-    "reset":"Reset"
+    "reset":"Reset",
+    "filter":"Filter"
   },
   "summary": {
     "faster": "Faster",

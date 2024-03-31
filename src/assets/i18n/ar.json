@@ -62,7 +62,8 @@
     "details":"تفاصيل",
     "edit":"تحديث",
     "no_records_found": "لا يوجد سجلات",
-    "reset":"إعادة الضبط"
+    "reset":"إعادة الضبط",
+    "filter":"فلتر"
   },
   "summary": {
     "faster": "أٍسرع",

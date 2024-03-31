@@ -33,4 +33,7 @@ export class ClientsService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.getClients}`, { params: params })
   }
+  filterClientsList(data: any): Observable<any> {
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.filterClients}`, data)
+  }
 }
