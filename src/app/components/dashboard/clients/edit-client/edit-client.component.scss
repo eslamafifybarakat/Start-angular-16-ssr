@@ -6,4 +6,33 @@
     padding: 1rem;
     border-radius: 10px;
   }
+  .input-group {
+    .form-control {
+      border-right: 0;
+      border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
+    }
+    .input-group-text {
+      border: 1px solid var(--second-border-color);
+      border-left: 0;
+    }
+    .edit-input {
+      width: 2.4rem;
+      min-width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 10px;
+      background-color: #eaeaea;
+    }
+    &:dir(rtl) {
+      .form-control {
+        border-right: 1px solid var(--second-border-color);
+        border-left: 0;
+        border-radius: 0 var(--border-input-radius) var(--border-input-radius) 0;
+      }
+      .input-group-text {
+        border-left: 1px solid var(--second-border-color);
+        border-right: 0;
+        border-radius: var(--border-input-radius) 0 0 var(--border-input-radius);
+      }
+    }
+  }
 }
