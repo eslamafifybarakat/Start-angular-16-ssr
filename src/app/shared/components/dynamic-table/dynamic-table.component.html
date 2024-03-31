@@ -798,7 +798,7 @@
             <ng-container *ngIf="!isSearch">
               <img [src]="notFoundImage" onerror="this.src='assets/images/not-found/no-data.svg'"
                 class="mb-3 notFound-img" alt="notFound">
-              <p class="fw-500">{{notFoundText}}</p>
+              <p class="fw-500">{{notFoundText|translate}}</p>
             </ng-container>
             <ng-container *ngIf="isSearch">
               <img [src]="notFoundImage" onerror="this.src='assets/images/not-found/no-data.svg'"
@@ -812,10 +812,18 @@
     <ng-container *ngIf="isLoading && !isSearch">
       <tr>
         <td class="p-0" [attr.colspan]="showReport?tableHeaders?.length+2:tableHeaders?.length+1">
-          <!-- <app-skeleton [type]="'table'" [tableItems]="skeletonItems"></app-skeleton> -->
-        </td>
+          <p-table [value]="skeletonItems">
+            <ng-template pTemplate="body" let-item>
+      <tr>
+        <ng-container *ngFor="let item of skeletonItems">
+          <td class="p-4"><p-skeleton width="50%" height="1.3rem" borderRadius="6px"></p-skeleton></td>
+        </ng-container>
       </tr>
-    </ng-container>
+  </ng-template>
+  </p-table>
+  </td>
+  </tr>
+  </ng-container>
 
   </ng-template>
   </p-table>

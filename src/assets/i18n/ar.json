@@ -60,7 +60,8 @@
     "replace":"تبديل",
     "delete":"حذف",
     "details":"تفاصيل",
-    "edit":"تحديث"
+    "edit":"تحديث",
+    "no_records_found": "لا يوجد سجلات"
   },
   "summary": {
     "faster": "أٍسرع",

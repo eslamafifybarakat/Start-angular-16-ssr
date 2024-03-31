@@ -1,3 +1,4 @@
+import { ClientsList } from './../../../../interfaces/dashboard/clients';
 import { Component, Inject, Input, PLATFORM_ID } from '@angular/core';
 import { keys } from './../../../../shared/configs/localstorage-key';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -11,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./client-card.component.scss']
 })
 export class ClientCardComponent {
-  @Input() item: any;
+  @Input() item: ClientsList;
   currentLanguage: string;
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,

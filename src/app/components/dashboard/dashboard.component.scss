@@ -31,3 +31,12 @@
     }
   }
 }
+@media (max-width: 767px) {
+  .dash {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  aside-menu {
+    display: none;
+  }
+}

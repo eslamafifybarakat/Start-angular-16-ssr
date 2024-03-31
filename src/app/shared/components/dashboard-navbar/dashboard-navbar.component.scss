@@ -1,3 +1,8 @@
 .navbar {
   border-radius: 10px;
+  .bars-btn {
+    border: 2px solid var(--bg-main-color);
+    border-radius: 6px;
+    width: 2.5rem;
+  }
 }

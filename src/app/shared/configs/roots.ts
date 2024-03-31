@@ -13,6 +13,8 @@ export const roots = {
   supplier: {
     getCountries: "/Country/GetCountrys",
     getCitiesByCountryId: "/City/GetCitysByCountryId",
+  },
+  dashboard: {
+    getClients: '/getClients'
   }
-
 }

@@ -60,7 +60,8 @@
     "replace":"Replace",
     "delete":"Delete",
     "details":"Details",
-    "edit":"Edit"
+    "edit":"Edit",
+    "no_records_found": "No record found"
   },
   "summary": {
     "faster": "Faster",

@@ -17,6 +17,7 @@ import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   standalone: true,
@@ -33,7 +34,8 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
     TooltipModule,
     TableModule,
     CheckboxModule,
-    InputSwitchModule
+    InputSwitchModule,
+    SkeletonModule
   ],
   selector: 'dynamic-table',
   templateUrl: './dynamic-table.component.html',
