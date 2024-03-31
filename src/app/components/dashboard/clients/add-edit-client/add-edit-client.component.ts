@@ -4,12 +4,12 @@ import { PublicService } from './../../../../services/generic/public.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ClientsService } from './../../services/clients.service';
 import { patterns } from './../../../../shared/configs/patterns';
-import { ChangeDetectorRef, Component } from '@angular/core';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 

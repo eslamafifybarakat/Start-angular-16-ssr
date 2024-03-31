@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-white-color justify-content-between m-3 px-3">
   <span class="navbar-brand m-0 d-flex gap-2 align-items-center">
-    <button class="bars-btn bg-transparent d-md-none d-block">
+    <button class="bars-btn bg-transparent d-md-none d-block" (click)="openSidebar()">
       <i class="pi pi-bars fs-5-1 text-main-color"></i>
     </button>
     <p class="mb-0 fw-500 fs-5">
@@ -16,3 +16,6 @@
     </li>
   </ul>
 </nav>
+<p-sidebar [(visible)]="showSidebar" [baseZIndex]="10000">
+  <aside-menu></aside-menu>
+</p-sidebar>
