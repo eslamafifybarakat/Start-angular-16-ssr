@@ -128,7 +128,6 @@ export class ClientsComponent {
     this.cdr.detectChanges();
   }
   getCustomers(): void {
-
   }
 
   search(event: any): void {
@@ -174,6 +173,7 @@ export class ClientsComponent {
       }
     });
   }
+  filterItem(): void { }
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/' + item.id]);
   }
