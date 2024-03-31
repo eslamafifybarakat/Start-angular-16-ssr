@@ -311,3 +311,21 @@
     }
   }
 }
+.badge-btn {
+  border-radius: 11px;
+  height: 2.6rem;
+  border: none;
+  padding: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.badge-edit,
+.badge-details {
+  background-color: #359a9c2b;
+  color: var(--text-main-color);
+}
+.badge-delete {
+  background: #e5555530;
+  color: #e55555;
+}

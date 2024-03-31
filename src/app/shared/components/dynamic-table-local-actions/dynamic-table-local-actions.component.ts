@@ -78,6 +78,8 @@ export class DynamicTableLocalActionsComponent {
   @Input() showPaginator: boolean = true;
   @Input() enablePaginator: boolean = true;
   @Input() showActions: boolean = false;
+  @Input() showActionsIcons: boolean = false;
+  @Input() showActionsButtons: boolean = false;
   @Input() showConfirm: boolean = false;
   @Input() showDetails: boolean = false;
   @Input() showDelete: boolean = false;
@@ -181,7 +183,7 @@ export class DynamicTableLocalActionsComponent {
   isClear: boolean = false;
   isFilter: boolean = false;
   paginateOption: any = null;
-  perPge: any = 30;
+  perPge: any = 10;
   driverStatusList: any = [];
   orderStatusList: any = [];
   supervisorsList: any = [];

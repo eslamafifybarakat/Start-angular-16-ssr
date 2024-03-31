@@ -75,6 +75,8 @@ export class DynamicTableComponent {
   @Input() showCopy: boolean = false;
 
   @Input() showActions: boolean = false;
+  @Input() showActionsIcons: boolean = false;
+  @Input() showActionsButtons: boolean = false;
   @Input() showDetails: boolean = false;
   @Input() showDelete: boolean = false;
   @Input() showEdit: boolean = false;

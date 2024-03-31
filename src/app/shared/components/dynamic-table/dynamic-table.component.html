@@ -445,41 +445,62 @@
       <ng-container *ngIf="showActions">
         <td>
           <div class="d-flex gap-2">
-            <ng-container *ngIf="showDetails">
-              <a class="fw-500 details" (click)="detailsHandlerEmit(item)" pTooltip="{{'general.details'|translate}}"
-                tooltipPosition="top">
-                <i class="far fa-eye"></i>
-              </a>
-            </ng-container>
-
-            <ng-container *ngIf="showEdit">
-              <a class="d-flex align-items-center
+            <ng-container *ngIf="showActionsIcons">
+              <ng-container *ngIf="showDetails">
+                <a class="fw-500 details" (click)="detailsHandlerEmit(item)" pTooltip="{{'general.details'|translate}}"
+                  tooltipPosition="top">
+                  <i class="far fa-eye"></i>
+                </a>
+              </ng-container>
+              <ng-container *ngIf="showEdit">
+                <a class="d-flex align-items-center
                       gap-2" (click)="editHandlerEmit(item)" pTooltip="{{'general.edit'|translate}}"
-                tooltipPosition="top">
-                <span><i class="fas fa-pen edit"></i></span>
-              </a>
-            </ng-container>
-            <ng-container *ngIf="showCopyAction">
-              <a class="d-flex align-items-center
+                  tooltipPosition="top">
+                  <span><i class="fas fa-pen edit"></i></span>
+                </a>
+              </ng-container>
+              <ng-container *ngIf="showCopyAction">
+                <a class="d-flex align-items-center
                       gap-2" (click)="copyActionHandlerEmit(item)" pTooltip="{{'general.copy'|translate}}"
-                tooltipPosition="top">
-                <span><i class="fas fa-copy"></i></span>
-              </a>
-            </ng-container>
-            <ng-container *ngIf="showDelete">
-              <a class="d-flex align-items-center
+                  tooltipPosition="top">
+                  <span><i class="fas fa-copy"></i></span>
+                </a>
+              </ng-container>
+              <ng-container *ngIf="showDelete">
+                <a class="d-flex align-items-center
                       gap-2" (click)="deleteHandlerEmit(item)" pTooltip="{{'general.delete'|translate}}"
-                tooltipPosition="top">
-                <span><i class="fas fa-trash-alt remove"></i></span>
-              </a>
-            </ng-container>
-            <ng-container *ngIf="showResetPassword">
-              <a class="d-flex align-items-center
+                  tooltipPosition="top">
+                  <span><i class="fas fa-trash-alt remove"></i></span>
+                </a>
+              </ng-container>
+              <ng-container *ngIf="showResetPassword">
+                <a class="d-flex align-items-center
                       gap-2" (click)="resetPasswordHandlerEmit(item)" pTooltip="{{'form.resetPassword'|translate}}"
-                tooltipPosition="top">
-                <span><i class="pi pi-unlock
+                  tooltipPosition="top">
+                  <span><i class="pi pi-unlock
                   reset-password fs-5-1"></i></span>
-              </a>
+                </a>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="showActionsButtons">
+              <ng-container *ngIf="showDetails">
+                <a class="badge-btn badge-details" (click)="detailsHandlerEmit(item)">
+                  <!-- <i class="far fa-eye"></i> -->
+                  {{'general.details'|translate}}
+                </a>
+              </ng-container>
+              <ng-container *ngIf="showEdit">
+                <a class="badge-btn badge-edit" (click)="editHandlerEmit(item)">
+                  <!-- <span><i class="fas fa-pen edit"></i></span> -->
+                  {{'general.edit'|translate}}
+                </a>
+              </ng-container>
+              <ng-container *ngIf="showDelete">
+                <a class="badge-btn badge-delete" (click)="deleteHandlerEmit(item)">
+                  <!-- <span><i class="fas fa-trash-alt remove"></i></span> -->
+                  {{'general.delete'|translate}}
+                </a>
+              </ng-container>
             </ng-container>
           </div>
         </td>
