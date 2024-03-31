@@ -77,6 +77,13 @@ label {
     width: 100%;
   }
 }
+.modal-form {
+  p-dropdown .p-inputtext {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .p-inputtext,
 .p-password {
   width: 100%;
@@ -205,11 +212,10 @@ input::-webkit-inner-spin-button {
   // }
   // border-color: var(--border-input-color);
 }
-p-dropdown .p-inputtext {
-  padding-left: 0;
-  padding-right: 0;
+
+.p-dropdown {
+  width: 100%;
 }
-.p-dropdown,
 .p-multiselect {
   line-height: 0;
   width: 100%;
@@ -342,5 +348,19 @@ p-dropdown .p-inputtext {
         padding-left: initial;
       }
     }
+  }
+}
+.p-column-filter-buttonbar {
+  .p-button-sm {
+    background-color: var(--bg-main-color);
+    border-color: var(--bg-main-color);
+    color: var(--text-white-color);
+    border-radius: 8px;
+  }
+  .p-button-outlined {
+    border-color: var(--bg-main-color);
+    color: var(--text-main-color);
+    border-radius: 8px;
+    background-color: transparent;
   }
 }

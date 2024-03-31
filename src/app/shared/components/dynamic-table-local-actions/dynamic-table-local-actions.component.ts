@@ -17,6 +17,7 @@ import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PaginatorModule } from 'primeng/paginator';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   standalone: true,
@@ -34,7 +35,8 @@ import { PaginatorModule } from 'primeng/paginator';
     TooltipModule,
     TableModule,
     CheckboxModule,
-    PaginatorModule
+    PaginatorModule,
+    SkeletonModule
   ],
   selector: 'dynamic-table-local-actions',
   templateUrl: './dynamic-table-local-actions.component.html',

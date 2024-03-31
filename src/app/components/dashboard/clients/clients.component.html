@@ -50,8 +50,8 @@
   </div>
   <div class="mt-3 d-md-block d-none">
     <ng-container *ngIf="dataStyleType=='list'">
-      <dynamic-table [isLoading]="loadingIndicator" [showHeader]="false" [showClear]="false" [showSearch]="false"
-        (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
+      <dynamic-table-local-actions [isLoading]="loadingIndicator" [showHeader]="false" [showClear]="false"
+        [showSearch]="false" (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
         (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
         [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="true" [showEdit]="true"
         [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
@@ -61,7 +61,7 @@
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
         [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-        [enableFilterIsWorking]="true" (vipHandler)="VIPCustomerAction($event)"></dynamic-table>
+        [enableFilterIsWorking]="true" (vipHandler)="VIPCustomerAction($event)"></dynamic-table-local-actions>
     </ng-container>
     <ng-container *ngIf="dataStyleType=='grid'">
       <div class="row pt-4">
