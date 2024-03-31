@@ -117,10 +117,9 @@ hr {
 }
 
 .global-card {
+  border: 1px solid #8c95a336;
+  border-radius: var(--border-radius-card);
   background-color: var(--bg-white-color);
-  border-radius: 20px;
-  box-shadow: 0px 3px 15px 0px #0000001a;
-  padding: 1rem;
 }
 
 .general-dropdown {

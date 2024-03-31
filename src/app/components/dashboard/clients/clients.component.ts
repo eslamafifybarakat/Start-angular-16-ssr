@@ -6,10 +6,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddEditClientComponent } from './add-edit-client/add-edit-client.component';
+import { Router } from '@angular/router';
+import { ClientCardComponent } from './client-card/client-card.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, DynamicTableComponent, TranslateModule, CommonModule, DynamicTableLocalActionsComponent],
+  imports: [CommonModule, DynamicTableComponent, TranslateModule, CommonModule, DynamicTableLocalActionsComponent, ClientCardComponent],
   selector: 'app-clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss']
@@ -22,12 +24,12 @@ export class ClientsComponent {
 
   loadingIndicator: boolean = false;
   customersList: any = [
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
-    { name: "name", mobileNumber: '01009887876', id: '33u2929899', date: new Date() },
+    { fullName: "Ali Ahmed", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
+    { fullName: "Mohamed Ali", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
+    { fullName: "Celine Ahmed", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
+    { fullName: "Nour Ahmed", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
+    { fullName: "Kareem Ibrahim", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
+    { fullName: "Ahmed Ibrahim", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
   ];
   customersCount: number = 0;
   tableHeaders: any = [];
@@ -49,13 +51,14 @@ export class ClientsComponent {
 
   constructor(
     private publicService: PublicService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router
   ) { }
   ngOnInit(): void {
     this.tableHeaders = [
-      { field: 'name', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'fullName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'id', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'date', header: 'dashboard.tableHeader.date', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'birthDate', header: 'dashboard.tableHeader.date', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'mobileNumber', header: 'dashboard.tableHeader.mobilePhone', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'status', header: 'dashboard.tableHeader.status', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: false, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
       { field: 'propertyType', header: 'dashboard.tableHeader.propertyType', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
@@ -145,6 +148,9 @@ export class ClientsComponent {
         this.getAllCustomers();
       }
     });
+  }
+  editItem(item: any): void {
+    this.router.navigate(['Dashboard/Clients/' + item.id]);
   }
   deleteItem(item: any): void {
 

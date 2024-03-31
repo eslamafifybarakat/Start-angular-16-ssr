@@ -58,7 +58,9 @@
     "clickToUpload": "Click to upload or drag and drop",
     "supports": "Supports",
     "replace":"Replace",
-    "delete":"Delete"
+    "delete":"Delete",
+    "details":"Details",
+    "edit":"Edit"
   },
   "summary": {
     "faster": "Faster",

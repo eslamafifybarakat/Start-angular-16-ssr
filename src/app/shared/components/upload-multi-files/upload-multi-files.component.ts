@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { SkeletonModule } from 'primeng/skeleton';
 import { ImageModule } from 'primeng/image';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   standalone: true,
   imports: [CommonModule, TranslateModule, SkeletonModule, ImageModule],
-  selector: 'app-file-upload',
-  templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.scss']
+  selector: 'app-upload-multi-files',
+  templateUrl: './upload-multi-files.component.html',
+  styleUrls: ['./upload-multi-files.component.scss']
 })
-export class FileUploadComponent implements OnInit {
+export class UploadMultiFilesComponent {
   @Input() showFile: boolean = false;
   @Input() isSupportAll: boolean = true;
   @Input() isEdit: boolean = false;
@@ -102,6 +102,4 @@ export class FileUploadComponent implements OnInit {
     this.imageSize = size;
   }
 }
-
-
 

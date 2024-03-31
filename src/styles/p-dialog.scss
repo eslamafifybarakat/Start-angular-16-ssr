@@ -5,6 +5,9 @@
   .p-dialog-content {
     border-radius: 0 0 var(--border-radius-dialog) var(--border-radius-dialog);
   }
+  .p-dialog-header-icon {
+    border-radius: 50%;
+  }
 }
 // Confirm Dialog
 .p-confirm-dialog-reject,

@@ -58,7 +58,9 @@
     "clickToUpload": "إنقر للتحميل أو السحب والإفلات",
     "supports": "يدعم",
     "replace":"تبديل",
-    "delete":"حذف"
+    "delete":"حذف",
+    "details":"تفاصيل",
+    "edit":"تحديث"
   },
   "summary": {
     "faster": "أٍسرع",

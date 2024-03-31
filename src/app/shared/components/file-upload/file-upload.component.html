@@ -1,5 +1,5 @@
 <div class="uploader row w-100 d-flex justify-content-center align-items-center m-auto"
-  [class.justify-content-between]="showFile" [class.uploader-second-style]="isChangeStyle">
+  [class.justify-content-between]="showFile">
   <!-- Show Img -->
   <ng-container *ngIf="showFile && !isLoading">
     <div class="col-sm-6 p-0">
@@ -14,10 +14,11 @@
           <img class="fit-object-cover" src="assets/image/icons/doc.svg" />
         </ng-container>
         <ng-container *ngIf="type.includes('image')">
-          <img class="fit-object-cover shadow upload-image" [src]="imageName" />
+          <p-image class="shadow" [src]="imageSrc" [previewImageSrc]="imageSrc" alt="Image" width="70"
+            [preview]="showPreview"></p-image>
         </ng-container>
         <div class="text-truncate">
-          <p class="fw-500 mb-2">{{name}}</p>
+          <p class="fw-500 mb-1">{{name}}</p>
           <p class="mb-0 text-desc-color">{{imageSize}}</p>
         </div>
       </div>
@@ -88,14 +89,7 @@
           </div>
           <p class="fw-500 mb-0">{{"general.clickToUpload"|translate}}</p>
           <small class="text-desc-color">{{"general.supports"|translate}}
-            <span>
-              <ng-container *ngIf="isSupportAll; else notAll">
-                PNG, JPG, GIF up to 10MB
-              </ng-container>
-              <ng-template #notAll>
-                (.xlsx)
-              </ng-template>
-            </span>
+            {{supports}}
           </small>
         </a>
       </div>
