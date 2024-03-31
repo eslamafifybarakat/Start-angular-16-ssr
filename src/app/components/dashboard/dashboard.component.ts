@@ -24,7 +24,7 @@ export class DashboardComponent {
     // this.sharedService.showSideMenu.subscribe((res: any) => {
     //   this.toggleSideMenu = res
     // })
-    console.log(this.getLetterByIndex(5));
+    // console.log(this.getLetterByIndex(5));
   }
 
   onToggleSideNav(data: any): void {

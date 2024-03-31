@@ -264,6 +264,11 @@ export class DynamicTableLocalActionsComponent {
     //     this.changePageActiveNumber(res?.page);
     //   }
     // });
+    this.publicService?.resetTable?.subscribe((res: any) => {
+      if (res) {
+        this.dt.clear();
+      }
+    });
     this.url = this.router?.url;
     this.skeletonItems = [0, 1, 2, 3, 4, 5];
     this.showReport == true ? this.skeletonItems?.push({ action: true }, { report: true }) : this.skeletonItems?.push({ action: true });

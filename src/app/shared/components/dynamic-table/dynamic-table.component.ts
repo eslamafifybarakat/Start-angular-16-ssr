@@ -232,6 +232,7 @@ export class DynamicTableComponent {
   collapseAssignMenu: boolean = false;
 
   currLang: any = '';
+  @ViewChild('dt1') dt: any;
 
   constructor(
     // private supervisorsService: SupervisorsService,
@@ -252,6 +253,11 @@ export class DynamicTableComponent {
     //     this.changePageActiveNumber(res?.page);
     //   }
     // });
+    this.publicService?.resetTable?.subscribe((res: any) => {
+      if (res) {
+        this.dt.clear();
+      }
+    });
     this.url = this.router?.url;
 
     this.skeletonItems = [0, 1, 2, 3, 4, 5];

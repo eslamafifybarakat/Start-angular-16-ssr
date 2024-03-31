@@ -1,6 +1,6 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PublicService {
   show_loader = new Subject<boolean>();
+  resetTable = new BehaviorSubject<boolean>(false);
 
   constructor(
     private translate: TranslateService,

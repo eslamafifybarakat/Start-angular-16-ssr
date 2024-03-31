@@ -180,15 +180,13 @@ export class ClientsComponent {
   deleteItem(item: any): void {
 
   }
-  VIPCustomerAction(item: any): void {
 
-  }
-
-  clearTable(event: any): void {
+  clearTable(): void {
     this.searchKeyword = '';
     this.sortObj = {};
     this.filtersArray = [];
     this.page = 1;
+    this.publicService.resetTable.next(true);
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllClients();
   }

@@ -2,9 +2,8 @@
   <div class="table-content">
     <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="showPaginator"
       [rowsPerPageOptions]="rowsPerPageOptions" [rows]="paginatorRows" [columns]="selectedColumns"
-      responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true" styleClass="p-datatable-striped"
-      (onSort)="customSort($event)" [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)"
-      (onPage)="onPage($event)">
+      responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true" (onSort)="customSort($event)"
+      [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)" (onPage)="onPage($event)">
       <ng-template pTemplate="caption" *ngIf="showHeader">
         <div class="caption d-flex justify-content-between align-items-center flex-wrap gap-3">
 
