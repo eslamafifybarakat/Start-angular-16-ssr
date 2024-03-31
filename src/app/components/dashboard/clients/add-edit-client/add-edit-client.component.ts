@@ -2,6 +2,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ClientsService } from './../../services/clients.service';
 import { patterns } from './../../../../shared/configs/patterns';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -20,7 +21,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-edit-client.component.scss']
 })
 export class AddEditClientComponent {
-  private unsubscribe: Subscription[] = [];
+  private subscriptions: Subscription[] = [];
 
   modalData: any;
   isEdit: boolean = false;
@@ -42,11 +43,10 @@ export class AddEditClientComponent {
   ];
   isLoadingDistricts: boolean = false;
   constructor(
-    // private customersService: CustomersService,
+    private clientsService: ClientsService,
     public alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
-    private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     protected router: Router,
     public fb: FormBuilder,
@@ -97,7 +97,6 @@ export class AddEditClientComponent {
     return this.modalForm?.controls;
   }
   patchValue(): void {
-    console.log(this.modalData);
     this.modalForm?.patchValue({
       fullName: this.modalData?.item?.name,
       phoneNumber: this.modalData?.item?.phoneNumber,
@@ -105,42 +104,57 @@ export class AddEditClientComponent {
   }
 
   submit(): void {
-    const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
-      myObject['name'] = this.modalForm?.value?.fullName;
-      myObject['mobileNumber'] = this.modalForm?.value?.fullName;
-
-      if (this.isEdit) {
-        myObject['id'] = this.customerId;
-        // myObject['lastModifiedBy'] = 0;
-      } else {
-        // myObject['createBy'] = 0;
-      }
-      this.publicService?.show_loader?.next(true);
-      // this.customersService?.addOrUpdateCustomer(myObject, this.customerId ? this.customerId : null)?.subscribe(
-      //   (res: any) => {
-      //     if (res?.isSuccess == true && res?.statusCode == 200) {
-      //       this.ref.close({ listChanged: true, item: res?.data });
-      //       this.publicService?.show_loader?.next(false);
-      //       res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-      //     } else {
-      //       res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-      //       this.publicService?.show_loader?.next(false);
-      //     }
-      //   },
-      //   (err: any) => {
-      //     err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-      //     this.publicService?.show_loader?.next(false);
-      //   });
+      const formData = this.extractFormData();
+      this.addClient(formData);
     } else {
       this.publicService?.validateAllFormFields(this.modalForm);
     }
+  }
+  private extractFormData(): any {
+    return {
+      fullName: this.modalForm?.value?.fullName,
+      phoneNumber: this.modalForm?.value?.phoneNumber,
+      email: this.modalForm?.value?.email,
+      id: this.modalForm?.value?.id,
+      birthDate: this.modalForm?.value?.birthDate
+    };
+  }
+  private addClient(formData: any): void {
+    this.publicService?.show_loader?.next(true);
+    let subscribeAddClient = this.clientsService?.addClient(formData)?.subscribe(
+      (res: any) => {
+        this.handleAddClientSuccess(res);
+      },
+      (err: any) => {
+        this.handleAddClientError(err);
+      }
+    );
+    this.subscriptions.push(subscribeAddClient);
+  }
+  private handleAddClientSuccess(response: any): void {
+    this.publicService?.show_loader?.next(false);
+    if (response?.isSuccess && response?.statusCode === 200) {
+      this.ref.close({ listChanged: true, item: response?.data });
+      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
+    } else {
+      response?.message ? this.alertsService?.openToast('error', 'error', response?.message) : '';
+    }
+  }
+  private handleAddClientError(error: any): void {
+    this.publicService?.show_loader?.next(false);
+    error?.message ? this.alertsService?.openToast('error', 'error', error?.message) : '';
   }
 
   cancel(): void {
     this.ref?.close({ listChanged: false });
   }
+
   ngOnDestroy(): void {
-    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
+    this.subscriptions.forEach((subscription: Subscription) => {
+      if (subscription && subscription.closed) {
+        subscription.unsubscribe();
+      }
+    });
   }
 }
