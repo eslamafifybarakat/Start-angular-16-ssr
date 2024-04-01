@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
+import { TableSkeletonComponent } from './../../../../shared/skeleton/table-skeleton/table-skeleton.component';
+import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { AddEditClientComponent } from '../add-edit-client/add-edit-client.component';
 import { FilterClientsComponent } from '../filter-clients/filter-clients.component';
 import { ClientCardComponent } from './../client-card/client-card.component';
@@ -32,8 +34,10 @@ import { Router } from '@angular/router';
 
     // Components
     DynamicTableLocalActionsComponent,
+    TableSkeletonComponent,
     DynamicTableComponent,
     ClientCardComponent,
+    SkeletonComponent,
   ],
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',

@@ -62,29 +62,46 @@
     <div class="mt-3 d-md-block d-none">
       <!-- Table -->
       <ng-container *ngIf="dataStyleType=='list'">
-        <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false" [showSearch]="false"
-          [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
-          (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
-          [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
-          [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
-          (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
-          (customSortHandler)="enableSortFilter?sortItems($event):''"
-          (filterHandler)="enableSortFilter?filterItems($event):''" [results]="clientsCount" [paginatorRows]="perPage"
-          [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-          [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
-          (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-          [enableFilterIsWorking]="true"></dynamic-table>
+        <!-- Loading Table -->
+        <ng-container *ngIf="isLoadingClientsList; else noLoadingClients">
+          <table-skeleton></table-skeleton>
+        </ng-container>
+
+        <!-- Table List -->
+        <ng-template #noLoadingClients>
+          <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false"
+            [showSearch]="false" [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
+            (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
+            [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
+            [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+            (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
+            (customSortHandler)="enableSortFilter?sortItems($event):''"
+            (filterHandler)="enableSortFilter?filterItems($event):''" [results]="clientsCount" [paginatorRows]="perPage"
+            [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
+            [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+            (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
+            [enableFilterIsWorking]="true"></dynamic-table>
+        </ng-template>
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">
         <div class="row pt-4">
-          <ng-container *ngIf="clientsList.length>0; else noClients">
-            <ng-container *ngFor="let card of clientsList; let i=index">
-              <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <client-card [item]="card"></client-card>
-              </div>
-            </ng-container>
+          <!-- Loading Cards -->
+          <ng-container *ngIf="isLoadingClientsList; else noLoadingCards">
+            <skeleton type="clientsList"></skeleton>
           </ng-container>
+
+          <!-- Cards List -->
+          <ng-template #noLoadingCards>
+            <ng-container *ngIf="clientsList.length>0; else noClients">
+              <ng-container *ngFor="let card of clientsList; let i=index">
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                  <client-card [item]="card" (editItemHandler)="editItem($event)"></client-card>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-template>
+
         </div>
         <ng-template #noClients>
           <div class="row justify-content-center pt-4">
@@ -102,13 +119,20 @@
     <!-- Show Cards in tablet and mobile -->
     <div class="mt-3 d-md-none d-block">
       <div class="row pt-4">
-        <ng-container *ngIf="clientsList.length>0; else noClients">
-          <ng-container *ngFor="let card of clientsList; let i=index">
-            <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-              <client-card [item]="card"></client-card>
-            </div>
-          </ng-container>
+        <!-- Loading Cards -->
+        <ng-container *ngIf="isLoadingClientsList; else noLoadingCards">
+          <skeleton type="clientsList"></skeleton>
         </ng-container>
+        <!-- Cards List -->
+        <ng-template #noLoadingCards>
+          <ng-container *ngIf="clientsList.length>0; else noClients">
+            <ng-container *ngFor="let card of clientsList; let i=index">
+              <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
+                <client-card (editItemHandler)="editItem($event)" [item]="card"></client-card>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-template>
       </div>
       <ng-template #noClients>
         <div class="row justify-content-center pt-4">
