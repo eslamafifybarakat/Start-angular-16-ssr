@@ -135,7 +135,11 @@
   "editCustomer": "تعديل العميل",
   "search":"ابحث حسب اسم العميل أو رقم الجوال",
   "customerDetails":"تفاصيل سجلات العميل",
-  "recordDetails":"تفاصيل السجل"
+  "recordDetails":"تفاصيل السجل",
+  "licenseDetails":"تفاصيل رخصة البلدية",
+  "certificateDetails":"تفاصيل شهادة السلامة",
+  "medicalDetails":"تفاصيل التأمين الطبي",
+  "fileDetails":"تفاصيل ملف مكتب العمل"
 }
       },
       "auth": {
@@ -222,7 +226,9 @@
         "licenseDate":"تاريخ إنتهاء الرخصة",
         "licenseNumber":"رقم الرخصة ",
         "recordDate":"تاريخ إنتهاء السجل",
-        "registrationNumber":"رقم السجل "
+        "registrationNumber":"رقم السجل ",
+        "businessLicense":"ملف مكتب العمل",
+        "businessLicenseNumber":"رقم ملف مكتب العمل"
       },
       "placeholders": {
         "searchEstkdam": "ابحث عن الإستقدام الذى تريده",
@@ -253,7 +259,9 @@
     "licenseDate":"تاريخ إنتهاء الرخصة",
     "licenseNumber":"أدخل رقم الرخصة ",
     "recordDate":"تاريخ إنتهاء السجل",
-    "registrationNumber":"أدخل رقم السجل "
+    "registrationNumber":"أدخل رقم السجل ",
+    "businessLicense":"أدخل ملف مكتب العمل",
+    "businessLicenseNumber":"أدخل رقم ملف مكتب العمل"
       },
       "validations": {
         "username": "اسم المستخدم مطلوب",

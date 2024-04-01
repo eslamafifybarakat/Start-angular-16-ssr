@@ -136,7 +136,11 @@
   "editCustomer": "Edit Customer",
   "search":"Search by customer name or mobile number",
   "customerDetails":"Customer records details",
-  "recordDetails":"Record details"
+  "recordDetails":"Record details",
+  "licenseDetails":"Municipality license details",
+  "certificateDetails":"Safety certificate details",
+  "medicalDetails":"Medical insurance details",
+  "fileDetails":"Labor office file details"
 }
   },
   "auth": {
@@ -221,7 +225,9 @@
     "licenseDate":"License expiration date",
     "licenseNumber":"license number",
     "recordDate":"Record expiration date",
-    "registrationNumber":"Registration number"
+    "registrationNumber":"Registration number",
+    "businessLicense":"Business License",
+    "businessLicenseNumber":"Business License Number"
   },
   "placeholders": {
     "searchEstkdam": "Find the employment you want",
@@ -252,7 +258,9 @@
     "licenseDate":"Enter license expiration date",
     "licenseNumber":"Enter license number",
     "recordDate":"Enter record expiration date",
-    "registrationNumber":"Enter registration number"
+    "registrationNumber":"Enter registration number",
+    "businessLicense":"Enter business license",
+    "businessLicenseNumber":"Enter business license number"
   },
   "validations": {
     "username": "Username is required",
