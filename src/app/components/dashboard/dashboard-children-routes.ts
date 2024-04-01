@@ -10,6 +10,11 @@ export const dashBoardChildrenRoutes: any[] = [
     component: ClientsComponent,
     pathMatch: 'full'
   },
+  // {
+  //   path: 'Statistics',
+  //   component: ClientsComponent,
+  //   pathMatch: 'full'
+  // },
   {
     path: 'Clients/:id',
     component: EditClientComponent,

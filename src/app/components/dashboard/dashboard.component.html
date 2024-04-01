@@ -1,11 +1,9 @@
 <div id="dashboard">
   <aside-menu (onToggleSideNav)="onToggleSideNav($event)"></aside-menu>
-  <!-- <app-navbar [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-navbar> -->
   <div class="main" [class.dash]="!toggleSideMenu" [ngClass]="getDashClass()">
     <dashboard-navbar></dashboard-navbar>
     <div class="container-fluid py-3">
       <router-outlet></router-outlet>
     </div>
-    <!-- <app-footer></app-footer> -->
   </div>
 </div>
