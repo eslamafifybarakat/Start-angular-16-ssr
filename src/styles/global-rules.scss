@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=Reenie+Beanie&family=Tajawal:wght@400;500;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
 
 html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: "Tajawal", sans-serif !important;
+  font-family: "Cairo", sans-serif;
   background-color: var(--bg-body-color);
 }
 *:focus,

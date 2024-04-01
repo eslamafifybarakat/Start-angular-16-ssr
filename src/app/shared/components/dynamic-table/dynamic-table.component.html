@@ -414,7 +414,7 @@
       <ng-container *ngIf="col?.type=='date'">
         <ng-container *ngIf="enableDateFormate; else initialFormate">
           <td>
-            {{item[col?.field] | date:dateFormateString}}
+            {{item[col?.field] | date: dateFormateString:'':currentLanguage}}
           </td>
         </ng-container>
         <ng-template #initialFormate>
@@ -831,13 +831,13 @@
       </tr>
     </ng-container>
     <ng-container *ngIf="isLoading && !isSearch">
-      <tr>
-        <td class="p-0" [attr.colspan]="showReport?tableHeaders?.length+2:tableHeaders?.length+1">
+      <tr class="bg-transparent">
+        <td class="p-0 border-0" [attr.colspan]="showReport?tableHeaders?.length+2:tableHeaders?.length+1">
           <p-table [value]="skeletonItems">
             <ng-template pTemplate="body" let-item>
       <tr>
         <ng-container *ngFor="let item of skeletonItems">
-          <td class="p-4"><p-skeleton width="50%" height="1.3rem" borderRadius="6px"></p-skeleton></td>
+          <td><p-skeleton width="50%" height="1.3rem" borderRadius="6px"></p-skeleton></td>
         </ng-container>
       </tr>
   </ng-template>

@@ -62,12 +62,6 @@
         transition: all 0.3s ease;
         border-radius: 9px;
         padding: 1rem;
-        &.active {
-          background-color: var(--bg-white-color);
-          position: relative;
-          color: var(--text-main-color) !important;
-        }
-
         .aside-nav-link-text {
           font-size: 1.1rem;
         }
@@ -83,6 +77,11 @@
         color: var(--text-main-color) !important;
       }
     }
+  }
+  .active .aside-nav-link {
+    background-color: var(--bg-white-color);
+    position: relative;
+    color: var(--text-main-color) !important;
   }
   .sub-nav {
     transition: all 0.3s ease;

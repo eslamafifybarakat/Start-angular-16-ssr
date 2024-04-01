@@ -1,23 +1,24 @@
-import { TranslateModule } from '@ngx-translate/core';
-import { keys } from './../../configs/localstorage-key';
-import { Router } from '@angular/router';
-import { PublicService } from './../../../services/generic/public.service';
-import { Component, EventEmitter, Output, ViewChild, Input } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, Input, Inject, PLATFORM_ID } from '@angular/core';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { Paginator } from 'primeng/paginator';
-import { Subscription } from 'rxjs';
+import { PublicService } from './../../../services/generic/public.service';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CommonModule } from '@angular/common';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
-import { TooltipModule } from 'primeng/tooltip';
-import { TableModule } from 'primeng/table';
-import { CheckboxModule } from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { keys } from './../../configs/localstorage-key';
+import { TranslateModule } from '@ngx-translate/core';
 import { PaginatorModule } from 'primeng/paginator';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
+import { Paginator } from 'primeng/paginator';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -242,10 +243,11 @@ export class DynamicTableLocalActionsComponent {
   url: any;
   collapseAssignMenu: boolean = false;
 
-  currLang: any = '';
+  currentLanguage: string;
   userLoginData: any = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}');
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     // private supervisorsService: SupervisorsService,
     // private driversService: DriversService,
     private dialogService: DialogService,
@@ -258,8 +260,9 @@ export class DynamicTableLocalActionsComponent {
   ) { }
 
   ngOnInit(): void {
-    this.currLang = window.localStorage.getItem(keys?.language);
-    // this.publicService?.changePageSub?.subscribe((res: any) => {
+    if (isPlatformBrowser(this.platformId)) {
+      this.currentLanguage = window?.localStorage?.getItem(keys?.language);
+    }    // this.publicService?.changePageSub?.subscribe((res: any) => {
     //   if (res?.page) {
     //     this.changePageActiveNumber(res?.page);
     //   }
@@ -398,21 +401,21 @@ export class DynamicTableLocalActionsComponent {
   }
   deleteHandlerEmit(item: any): void {
     if (this.enableConfirmDeleteDialog) {
-      // const ref = this.dialogService.open(ConfirmDeleteComponent, {
-      //   data: {
-      //     name: item[this.keyDelete],
-      //     enableConfirm: this.enableConfirmedByShowInput,
-      //   },
-      //   header: this.publicService?.translateTextFromJson('general.confirm_delete'),
-      //   dismissableMask: false,
-      //   width: '35%'
-      // });
+      const ref = this.dialogService.open(ConfirmDeleteComponent, {
+        data: {
+          name: item[this.keyDelete],
+          enableConfirm: this.enableConfirmedByShowInput,
+        },
+        header: this.publicService?.translateTextFromJson('general.confirm_delete'),
+        dismissableMask: false,
+        width: '35%'
+      });
 
-      // ref.onClose.subscribe((res: any) => {
-      //   if (res?.confirmed) {
-      //     this.deleteHandler?.emit({ item: item, confirmed: res?.confirmed });
-      //   }
-      // });
+      ref.onClose.subscribe((res: any) => {
+        if (res?.confirmed) {
+          this.deleteHandler?.emit({ item: item, confirmed: res?.confirmed });
+        }
+      });
     } else {
       this.deleteHandler?.emit({ item: item, confirmed: true });
     }

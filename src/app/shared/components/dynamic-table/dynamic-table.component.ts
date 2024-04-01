@@ -2,12 +2,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { keys } from './../../configs/localstorage-key';
 import { Router } from '@angular/router';
 import { PublicService } from './../../../services/generic/public.service';
-import { Component, EventEmitter, Output, ViewChild, Input } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, Input, Inject, PLATFORM_ID } from '@angular/core';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { Paginator } from 'primeng/paginator';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
@@ -231,10 +231,11 @@ export class DynamicTableComponent {
   url: any;
   collapseAssignMenu: boolean = false;
 
-  currLang: any = '';
+  currentLanguage: string;
   @ViewChild('dt1') dt: any;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     // private supervisorsService: SupervisorsService,
     // private driversService: DriversService,
     private dialogService: DialogService,
@@ -247,7 +248,9 @@ export class DynamicTableComponent {
   ) { }
 
   ngOnInit(): void {
-    this.currLang = window.localStorage.getItem(keys?.language);
+    if (isPlatformBrowser(this.platformId)) {
+      this.currentLanguage = window?.localStorage?.getItem(keys?.language);
+    }
     // this.publicService?.changePageSub?.subscribe((res: any) => {
     //   if (res?.page) {
     //     this.changePageActiveNumber(res?.page);
