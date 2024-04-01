@@ -12,7 +12,7 @@ export const clientsChildrenRoutes: any[] = [
     pathMatch: 'full'
   },
   {
-    path: 'Clients/:id',
+    path: ':id',
     component: EditClientComponent,
     pathMatch: 'full'
   },

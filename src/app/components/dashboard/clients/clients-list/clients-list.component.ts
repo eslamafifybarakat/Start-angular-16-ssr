@@ -1,7 +1,8 @@
+import { AlertsService } from './../../../../services/generic/alerts.service';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
 import { SidebarModule } from 'primeng/sidebar';
+import { CommonModule } from '@angular/common';
 
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
@@ -13,7 +14,7 @@ import { ClientCardComponent } from './../client-card/client-card.component';
 //Services
 import { PublicService } from './../../../../services/generic/public.service';
 import { ClientsList } from './../../../../interfaces/dashboard/clients';
-import { catchError, debounceTime, finalize, tap } from 'rxjs/operators';
+import { catchError, debounceTime, finalize, map, tap } from 'rxjs/operators';
 import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -74,6 +75,7 @@ export class ClientsListComponent {
     private clientsService: ClientsService,
     private publicService: PublicService,
     private dialogService: DialogService,
+    private alertsService: AlertsService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) { }
@@ -95,32 +97,44 @@ export class ClientsListComponent {
         this.searchHandler(event);
       });
   }
+  // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.dataStyleType = type;
   }
-
-  private getAllClients(preventLoading?: boolean): void {
-    if (!preventLoading) {
-      this.isLoadingClientsList = true;
+  // ======Start get all clients=========
+  getAllClients(): void {
+    this.isLoadingClientsList = true;
+    this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
+      .pipe(
+        map((res: any) => this.processClientsListResponse(res)),
+        catchError(err => this.handleError(err)),
+        finalize(() => this.finalizeClientListLoading())
+      ).subscribe();
+  }
+  private processClientsListResponse(response: any): void {
+    if (response) {
+      this.clientsCount = response.total;
+      this.pagesCount = Math.ceil(this.clientsCount / this.perPage);
+      this.clientsList = response.data;
+      // return response.data.map((item: any) => ({
+      //   id: item.id ?? null,
+      //   fullName: item.fullName ?? '',
+      //   birthDate: item.birthDate ?? '',
+      //   mobileNumber: item.mobileNumber ?? '',
+      // }))
+    } else {
+      this.handleError(response.error);
+      return;
     }
-    let officesListSubscription: Subscription = this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null).pipe(
-      tap((res: any) => {
-        if (res.code == 200) {
-          if (res.data) {
-            this.clientsList = res.data.items;
-            this.clientsCount = res.data.total;
-          }
-        } else {
-          this.handleError(res?.message);
-        }
-      }),
-      catchError(err => this.handleError(err)),
-      finalize(() => {
-        this.finalizeClientListLoading();
-      })
-    ).subscribe();
-
-    this.subscriptions.push(officesListSubscription);
+  }
+  private finalizeClientListLoading(): void {
+    this.isLoadingClientsList = false;
+    this.isLoadingSearch = false;
+    this.enableSortFilter = false;
+    setTimeout(() => {
+      this.enableSortFilter = true;
+    }, 200);
+    this.setDummyData();
   }
   private setDummyData(): void {
     this.clientsList = [
@@ -135,24 +149,11 @@ export class ClientsListComponent {
   }
   /* --- Handle api requests error messages --- */
   private handleError(err: any): any {
-    this.setErrorMessage(err || 'An error has occurred');
+    this.alertsService?.openToast('error', 'error', err || 'An error has occurred');
     this.finalizeClientListLoading();
   }
-  private setErrorMessage(message: string): void {
-    // Implementation for displaying the error message, e.g., using a sweetalert
-    // this.alertsService?.openSweetAlert('error', message);
-  }
+  // ======End get all clients=========
 
-  private finalizeClientListLoading(): void {
-    this.isLoadingClientsList = false;
-    this.isLoadingSearch = false;
-    this.enableSortFilter = false;
-    setTimeout(() => {
-      this.enableSortFilter = true;
-      this.setDummyData();
-    }, 200);
-
-  }
   handleSearch(event: any): void {
     this.searchSubject.next(event);
   }
@@ -167,19 +168,7 @@ export class ClientsListComponent {
     }
     this.cdr.detectChanges();
   }
-  getCustomers(): void {
-  }
-
-  search(event: any): void {
-    this.isLoadingSearch = true;
-    this.searchKeyword = event;
-    if (event?.length > 0) {
-      this.isSearch = true;
-    }
-    this.page = 1;
-    // this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllClients();
-  }
+  // ======Start pagination==========
   onPageChange(e: any): void {
     this.page = e?.page + 1;
     //  this.getAllClients();
@@ -190,10 +179,11 @@ export class ClientsListComponent {
     this.page = 1;
     // this.publicService?.changePageSub?.next({ page: this.page });
   }
+  // ======End pagination==========
 
   itemDetails(item?: any): void {
-
   }
+
   addOrEditItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditClientComponent, {
       data: {
@@ -213,19 +203,23 @@ export class ClientsListComponent {
       }
     });
   }
+  // Filter clients
   filterItem(): void {
     this.openFilter = true;
   }
   closeFilter(): void {
     this.openFilter = false;
   }
+  // Edit client
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/' + item.id]);
   }
+  // Delete client
   deleteItem(item: any): void {
 
   }
 
+  // Clear table
   clearTable(): void {
     this.searchKeyword = '';
     this.sortObj = {};
@@ -235,6 +229,7 @@ export class ClientsListComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllClients();
   }
+  // Sort table
   sortItems(event: any): void {
     if (event?.order == 1) {
       this.sortObj = {
@@ -250,6 +245,7 @@ export class ClientsListComponent {
       this.getAllClients();
     }
   }
+  // filter table
   filterItems(event: any): void {
     this.filtersArray = [];
     Object.keys(event)?.forEach((key: any) => {
@@ -312,6 +308,7 @@ export class ClientsListComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllClients();
   }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {
       if (subscription && subscription.closed) {

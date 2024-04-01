@@ -58,18 +58,18 @@
   <div class="mt-3 d-md-block d-none">
     <!-- Table -->
     <ng-container *ngIf="dataStyleType=='list'">
-      <dynamic-table-local-actions [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false"
-        [showSearch]="false" (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
-        [showActionsButtons]="true" (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders"
-        [tableData]="clientsList" [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true"
-        [showEdit]="true" [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+      <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false" [showSearch]="false"
+        [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
+        (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
+        [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
+        [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
         (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
         (customSortHandler)="enableSortFilter?sortItems($event):''"
         (filterHandler)="enableSortFilter?filterItems($event):''" [results]="clientsCount" [paginatorRows]="perPage"
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
         [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-        [enableFilterIsWorking]="true"></dynamic-table-local-actions>
+        [enableFilterIsWorking]="true"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
