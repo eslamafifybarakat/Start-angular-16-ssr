@@ -1,4 +1,3 @@
-import { AlertsService } from './../../../../services/generic/alerts.service';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarModule } from 'primeng/sidebar';
@@ -12,6 +11,7 @@ import { FilterClientsComponent } from '../filter-clients/filter-clients.compone
 import { ClientCardComponent } from './../client-card/client-card.component';
 
 //Services
+import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { ClientsList } from './../../../../interfaces/dashboard/clients';
 import { catchError, debounceTime, finalize, map, tap } from 'rxjs/operators';
@@ -32,7 +32,6 @@ import { Router } from '@angular/router';
 
     // Components
     DynamicTableLocalActionsComponent,
-    FilterClientsComponent,
     DynamicTableComponent,
     ClientCardComponent,
   ],
@@ -205,11 +204,23 @@ export class ClientsListComponent {
   }
   // Filter clients
   filterItem(): void {
-    this.openFilter = true;
+    this.clearTable();
+    const ref = this.dialogService?.open(FilterClientsComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '45%',
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res) {
+        this.page = 1;
+        this.filtersArray = res.conditions;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllClients();
+      }
+    });
   }
-  closeFilter(): void {
-    this.openFilter = false;
-  }
+
   // Edit client
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/' + item.id]);

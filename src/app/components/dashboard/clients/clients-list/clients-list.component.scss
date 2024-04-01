@@ -45,32 +45,7 @@
     }
   }
 }
-:host::ng-deep {
-  #clients {
-    .p-sidebar-bottom {
-      width: 40vw;
-      right: 0;
-      left: inherit;
-      border-radius: 12px;
-      margin: 5px;
-      height: auto;
-      .p-sidebar-header,
-      .p-sidebar-footer {
-        display: none;
-      }
-      .p-sidebar-content {
-        padding: 1rem 0.5rem;
-      }
-    }
-  }
-  @media (max-width: 767px) {
-    #clients {
-      .p-sidebar-bottom {
-        width: 80% !important;
-      }
-    }
-  }
-}
+
 @media (max-width: 576px) {
   .search {
     .input-group {

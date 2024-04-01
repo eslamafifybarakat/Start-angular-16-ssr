@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   standalone: true,
@@ -17,26 +18,22 @@ import { Subscription } from 'rxjs';
 })
 export class FilterClientsComponent {
   private subscriptions: Subscription[] = [];
-  @Output() closeSidebar = new EventEmitter();
 
   modalForm = this.fb?.group(
     {
       fullName: ['', {
         validators: [
-          Validators.required,
           Validators?.minLength(3)], updateOn: "blur"
       }],
       id: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
       phoneNumber: ['', {
         validators: [
           Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
       }],
       birthDate: [null, {
-        validators: [
-          Validators.required]
+        validators: []
       }],
 
     }
@@ -48,53 +45,34 @@ export class FilterClientsComponent {
     private clientsService: ClientsService,
     public alertsService: AlertsService,
     public publicService: PublicService,
-    private cdr: ChangeDetectorRef,
+    private config: DynamicDialogConfig,
+    private ref: DynamicDialogRef,
     public fb: FormBuilder,
   ) { }
 
-  submit(): void {
-    if (this.modalForm?.valid) {
-      const formData = this.extractFormData();
-      this.handleClientFiltering(formData);
-    } else {
-      this.publicService?.validateAllFormFields(this.modalForm);
-    }
-  }
-  private extractFormData(): any {
-    return {
+  submit(): any {
+    let data = {
       fullName: this.modalForm?.value?.fullName,
       mobileNumber: this.modalForm?.value?.phoneNumber,
       id: this.modalForm?.value?.id,
       birthDate: this.modalForm?.value?.birthDate
     };
-  }
-  private handleClientFiltering(formData: any): void {
-    this.publicService?.show_loader?.next(true);
-    let subscribeFilter = this.clientsService?.filterClientsList(formData)?.subscribe(
-      (res: any) => {
-        this.handleFilteringSuccess(res);
-      },
-      (err: any) => {
-        this.handleFilteringError(err);
+    let conditions = [];
+    for (const [key, value] of Object.entries(data)) {
+      // Check if the value exists and is not empty
+      if (value) {
+        // Determine the operator based on the type of data
+        const operator = (typeof value === 'string') ? 'startsWith' : 'dateIs';
+        // Push the condition object into the conditions array
+        conditions.push({ "column": key, "type": typeof value, "data": value, "operator": operator });
       }
-    );
-    this.subscriptions.push(subscribeFilter);
-  }
-  private handleFilteringSuccess(response: any): void {
-    this.publicService?.show_loader?.next(false);
-    if (response?.isSuccess && response?.statusCode === 200) {
-      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
-    } else {
-      response?.message ? this.alertsService?.openToast('error', 'error', response?.message) : '';
     }
-  }
-  private handleFilteringError(error: any): void {
-    this.publicService?.show_loader?.next(false);
-    error?.message ? this.alertsService?.openToast('error', 'error', error?.message) : '';
+    this.ref.close({ conditions: conditions });
+    // conditions: [{ "column": "fullName", "type": "text", "data": "lll", "operator": "startsWith" }, { "column": "id", "type": "text", "data": "oo", "operator": "startsWith" }, { "column": "birthDate", "type": "date", "data": "2024-04-22T22:00:00.000Z", "operator": "dateIs" }, { "column": "mobileNumber", "type": "text", "data": "555", "operator": "startsWith" }]
   }
 
-  cancel(): void {
-    this.closeSidebar.emit();
+  close(): void {
+    this.ref.close();
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

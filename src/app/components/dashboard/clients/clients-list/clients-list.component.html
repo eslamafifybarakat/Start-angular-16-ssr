@@ -17,8 +17,11 @@
         (click)="filterItem()">
         <i class="pi pi-filter"></i>
       </button>
+      <button class="btn btn-solid-main d-flex align-items-center gap-2 d-md-none d-block" (click)="filterItem()">
+        <i class="pi pi-filter"></i>
+      </button>
       <!-- Data style list or grid (table or card) -->
-      <div class="data-style d-flex align-items-center gap-2 p-2">
+      <div class="data-style d-md-flex d-none align-items-center gap-2 p-2">
         <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
           <svg width="20" height="14" viewBox="0 0 25 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -117,8 +120,4 @@
       </div>
     </ng-template>
   </div>
-  <!-- Filter sidebar -->
-  <p-sidebar [(visible)]="openFilter" position="bottom" [baseZIndex]="10000">
-    <filter-clients (closeSidebar)="closeFilter()"></filter-clients>
-  </p-sidebar>
 </div>

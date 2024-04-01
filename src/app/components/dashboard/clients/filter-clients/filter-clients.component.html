@@ -1,19 +1,10 @@
 <div id="modal-form">
-  <div class="d-flex justify-content-between p-3 pt-0
-  ">
-    <h6 class="mb-0 fs-5">
-      {{'general.filter'|translate}}
-    </h6>
-    <a (click)="cancel()">
-      <i class="pi pi-times"></i>
-    </a>
-  </div>
   <div class="filter-content">
     <form [formGroup]="modalForm" (ngSubmit)="submit()" class="mx-2">
       <div class="row mx-0">
         <div class="col-lg-6">
           <div class="mb-3">
-            <label for="fullName" class="mb-2 required">{{'labels.fullName'|translate}}</label>
+            <label for="fullName" class="mb-2">{{'labels.fullName'|translate}}</label>
             <input type="text" class="form-control" formControlName="fullName"
               (input)="publicService?.clearValidationErrors(formControls?.fullName)"
               [class.border-red]="formControls?.fullName?.invalid && (formControls?.fullName?.dirty || formControls?.fullName?.touched)"
@@ -38,7 +29,7 @@
         </div>
         <div class="col-lg-6">
           <div class="mb-3">
-            <label for="id" class="mb-2 required">{{'labels.id'|translate}}</label>
+            <label for="id" class="mb-2">{{'labels.id'|translate}}</label>
             <input type="number" class="form-control" formControlName="id"
               (input)="publicService?.clearValidationErrors(formControls?.id)"
               [class.border-red]="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)"
@@ -56,7 +47,7 @@
         </div>
         <div class="col-lg-6">
           <div class="mb-3">
-            <label for="phoneNumber" class="mb-2 required">{{'labels.phoneNumber'|translate}}</label>
+            <label for="phoneNumber" class="mb-2">{{'labels.phoneNumber'|translate}}</label>
             <input type="text" class="form-control" formControlName="phoneNumber" autocomplete="cc-name" [min]="0"
               (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
               [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)"
@@ -81,7 +72,7 @@
         </div>
         <div class="col-lg-6">
           <div class="mb-3">
-            <label for="birthDate" class="mb-2 required">{{'labels.birthDate'|translate}}</label>
+            <label for="birthDate" class="mb-2">{{'labels.birthDate'|translate}}</label>
             <div
               [class.border-red]="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)"
               class="birthDate">
@@ -103,13 +94,22 @@
           </div>
         </div>
       </div>
-      <button type="submit"
-        class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2 w-100 fs-5-1 mt-3">
-        <span>
-          {{'general.filter'|translate}}
-        </span>
-        <i class="pi pi-filter"></i>
-      </button>
+      <div class="d-flex justify-content-end gap-3">
+        <button type="button" (click)="close()"
+          class="btn btn-outline-main d-flex align-items-center justify-content-center gap-2  fs-5-1 mt-3">
+          <span>
+            {{'general.cancel'|translate}}
+          </span>
+          <i class="pi pi-times"></i>
+        </button>
+        <button type="submit"
+          class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2  fs-5-1 mt-3">
+          <span>
+            {{'general.filter'|translate}}
+          </span>
+          <i class="pi pi-filter"></i>
+        </button>
+      </div>
     </form>
   </div>
 </div>

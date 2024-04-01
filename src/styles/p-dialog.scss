@@ -9,6 +9,11 @@
     border-radius: 50%;
   }
 }
+@media (max-width: 767px) {
+  .p-dialog {
+    width: 85% !important;
+  }
+}
 // Confirm Dialog
 .p-confirm-dialog-reject,
 .p-confirm-dialog-accept,

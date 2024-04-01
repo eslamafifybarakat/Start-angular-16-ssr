@@ -9,6 +9,11 @@
     border-color: var(--bg-main-color);
     color: var(--text-white-color);
   }
+  .btn-outline-main {
+    background-color: transparent;
+    border: 1px solid var(--bg-main-color);
+    color: var(--text-main-color);
+  }
   .filter-content {
     max-height: 55vh;
     overflow: auto;
