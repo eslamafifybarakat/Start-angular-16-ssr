@@ -73,7 +73,7 @@ export class AsideMenuComponent {
 </g>
 </svg>
     `,
-        routerLink: '/statistics',
+        routerLink: '/Dashboard/Statistics',
         state: false
       },
       {
