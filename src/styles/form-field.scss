@@ -145,18 +145,6 @@ label {
   border: none;
 }
 
-.border-red {
-  border: 1px solid #dc3545 !important;
-  border-radius: var(--border-input-radius);
-  .ng-select-container {
-    border: 0 !important;
-  }
-  .p-dropdown,
-  .form-control {
-    border: 0 !important;
-  }
-}
-
 .border-green {
   border: 1px solid #198754 !important;
   border-radius: 0.625rem !important;
@@ -406,10 +394,22 @@ input::-webkit-inner-spin-button {
 .form-control.is-valid,
 .was-validated .form-control:valid {
   background-image: url(../assets/images/auth/valid.svg) !important;
-  border: 1px solid var(--second-border-color) !important;
+  border: 1px solid var(--second-border-color);
   &:dir(rtl) {
     padding-left: calc(1.5em + 0.75rem);
     padding-right: 0.7rem;
     background-position: left calc(0.375em + 0.1875rem) center;
+  }
+}
+
+.border-red {
+  border: 1px solid #dc3545 !important;
+  border-radius: var(--border-input-radius);
+  .ng-select-container {
+    border: 0 !important;
+  }
+  .p-dropdown,
+  .form-control {
+    border: 0 !important;
   }
 }

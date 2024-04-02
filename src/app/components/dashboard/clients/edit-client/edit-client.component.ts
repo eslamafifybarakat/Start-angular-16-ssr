@@ -1,3 +1,4 @@
+import { AlertsService } from './../../../../services/generic/alerts.service';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
@@ -10,7 +11,9 @@ import { UploadMultiFilesComponent } from '../../../../shared/components/upload-
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PublicService } from './../../../../services/generic/public.service';
 import { patterns } from './../../../../shared/configs/patterns';
-import { Component } from '@angular/core';
+import { ClientsService } from '../../services/clients.service';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -30,6 +33,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-client.component.scss']
 })
 export class EditClientComponent {
+  private subscriptions: Subscription[] = [];
+
   isFullNameReadOnly: boolean = true;
   isIdReadOnly: boolean = true;
   isPhoneNumberReadOnly: boolean = true;
@@ -47,6 +52,7 @@ export class EditClientComponent {
     { name: 'name1', image: 'assets/images/navbar/sidebar-bg.svg' }
   ];
   imgIndex: any = 0;
+
   modalForm = this.fb?.group(
     {
       fullName: ['', {
@@ -72,12 +78,21 @@ export class EditClientComponent {
       }],
     }
   );
-
   get formControls(): any {
     return this.modalForm?.controls;
   }
+
+  isLoadingCheckId: Boolean = false;
+  idNotAvailable: Boolean = false;
+
+  isLoadingCheckEmail: Boolean = false;
+  emailNotAvailable: Boolean = false;
+
   constructor(
+    private clientsService: ClientsService,
+    private alertsService: AlertsService,
     public publicService: PublicService,
+    private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
   ) { }
   ngOnInit(): void {
@@ -116,4 +131,101 @@ export class EditClientComponent {
     }
   }
 
+  // Check If National Identity is valid or not
+  checkNationalIdentityAvailable(): void {
+    if (!this.formControls.id.valid) {
+      return; // Exit early if ID is not valid
+    }
+
+    const nationalIdentity = this.modalForm.value.id;
+    const data = { nationalIdentity };
+
+    this.isLoadingCheckId = true;
+
+    let checkIdSubscription = this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+      (res: any) => {
+        this.handleIdResponse(res);
+      },
+      (err: any) => {
+        this.handleIdError(err);
+      }
+    );
+    this.subscriptions.push(checkIdSubscription);
+  }
+  private handleIdResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.idNotAvailable = !res.result;
+    } else {
+      this.idNotAvailable = false;
+      if (res?.message) {
+        this.alertsService?.openToast('error', 'error', res.message);
+      }
+    }
+    this.isLoadingCheckId = false;
+    this.cdr.detectChanges();
+  }
+  private handleIdError(err: any): void {
+    // this.idNotAvailable = false;
+    this.idNotAvailable = true;
+    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
+    this.alertsService?.openToast('error', 'error', errorMessage);
+    this.isLoadingCheckId = false;
+
+  }
+  // Check If Email is valid or not
+  checkEmailAvailable(): void {
+    if (!this.formControls.email.valid) {
+      return; // Exit early if email is not valid
+    }
+
+    const email = this.modalForm.value.email;
+    const data = { email };
+
+    this.isLoadingCheckEmail = true;
+
+    let checkEmailSubscription = this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+      (res: any) => {
+        this.handleEmailResponse(res);
+      },
+      (err: any) => {
+        this.handleEmailError(err);
+      }
+    );
+    this.subscriptions.push(checkEmailSubscription);
+  }
+  private handleEmailResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.emailNotAvailable = !res.result;
+    } else {
+      this.emailNotAvailable = false;
+      if (res?.message) {
+        this.alertsService?.openToast('error', 'error', res.message);
+      }
+    }
+    this.isLoadingCheckEmail = false;
+    this.cdr.detectChanges();
+  }
+  private handleEmailError(err: any): void {
+    this.emailNotAvailable = false;
+    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
+    this.alertsService?.openToast('error', 'error', errorMessage);
+    this.isLoadingCheckEmail = false;
+  }
+
+  onKeyUpEvent(type: string): void {
+    if (type == 'id') {
+      this.isLoadingCheckId = false;
+    }
+    if (type == 'email') {
+      this.isLoadingCheckEmail = false;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      if (subscription && subscription.closed) {
+        subscription.unsubscribe();
+      }
+    });
+  }
 }

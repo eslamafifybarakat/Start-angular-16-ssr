@@ -91,7 +91,7 @@ export class AddEditClientComponent {
 
     this.isLoadingCheckId = true;
 
-    this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+    let checkIdSubscription = this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
       (res: any) => {
         this.handleIdResponse(res);
       },
@@ -99,6 +99,7 @@ export class AddEditClientComponent {
         this.handleIdError(err);
       }
     );
+    this.subscriptions.push(checkIdSubscription);
   }
   private handleIdResponse(res: any): void {
     if (res?.success && res?.result != null) {
@@ -131,7 +132,7 @@ export class AddEditClientComponent {
 
     this.isLoadingCheckEmail = true;
 
-    this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+    let checkEmailSubscription = this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
       (res: any) => {
         this.handleEmailResponse(res);
       },
@@ -139,6 +140,7 @@ export class AddEditClientComponent {
         this.handleEmailError(err);
       }
     );
+    this.subscriptions.push(checkEmailSubscription);
   }
   private handleEmailResponse(res: any): void {
     if (res?.success && res?.result != null) {
@@ -167,6 +169,7 @@ export class AddEditClientComponent {
       this.isLoadingCheckEmail = false;
     }
   }
+
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
