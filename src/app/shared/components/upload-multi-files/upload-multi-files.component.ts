@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ImageModule } from 'primeng/image';
 import { SkeletonModule } from 'primeng/skeleton';
+import { CommonModule } from '@angular/common';
+import { ImageModule } from 'primeng/image';
 
 @Component({
   standalone: true,
@@ -26,9 +26,6 @@ export class UploadMultiFilesComponent {
   loaded: boolean = false;
   isLoading: boolean = false;
 
-  name: string = '';
-  imageSize: any;
-  type: string = '';
   @Input() filesNames: any = [];
   @Input() filesSrc: any = [];
   @Input() index: any = 0;
@@ -38,8 +35,8 @@ export class UploadMultiFilesComponent {
   ngOnInit(): void {
     if (this.isEdit) {
       this.showFile = true;
-      this.name = this.imageSrc;
-      this.type = this.imageSrc;
+      // this.name = this.imageSrc;
+      // this.type = this.imageSrc;
     }
   }
 
@@ -56,8 +53,6 @@ export class UploadMultiFilesComponent {
     );
     this.uploadHandler?.emit({ file: file });
     this.formatSizeUnits(file?.size);
-    this.name = file?.name;
-    this.type = file?.type;
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
@@ -117,7 +112,7 @@ export class UploadMultiFilesComponent {
     else if (size > 1) { size = size + " bytes"; }
     else if (size == 1) { size = size + " byte"; }
     else { size = "0 bytes"; }
-    this.imageSize = size;
+    return size;
   }
 }
 
