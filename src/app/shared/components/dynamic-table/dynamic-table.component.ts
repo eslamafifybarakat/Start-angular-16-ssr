@@ -1,6 +1,7 @@
 // Modules
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -17,7 +18,6 @@ import { TableModule } from 'primeng/table';
 import { Component, EventEmitter, Output, ViewChild, Input, Inject, PLATFORM_ID } from '@angular/core';
 import { PublicService } from './../../../services/generic/public.service';
 import { keys } from './../../configs/localstorage-key';
-import { Paginator } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -34,6 +34,7 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
     MultiSelectModule,
     InputSwitchModule,
     TranslateModule,
+    PaginatorModule,
     SkeletonModule,
     DropdownModule,
     CalendarModule,
@@ -107,7 +108,6 @@ export class DynamicTableComponent {
   // Nested table
   @Input() rowExpand: boolean = false;
   @Input() itemExpandKey: string = '';
-
   @Input() tableChildHeaders: any = [];
   @Input() showChildHeader: boolean = false;
 
@@ -134,6 +134,7 @@ export class DynamicTableComponent {
   @Output() copyActionHandler: EventEmitter<any> = new EventEmitter();
   @Output() deleteHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyHandler: EventEmitter<any> = new EventEmitter();
+
   // pagination handler
   @Output() paginateHandler: EventEmitter<any> = new EventEmitter();
   @Output() paginateOptionsHandler: EventEmitter<any> = new EventEmitter();

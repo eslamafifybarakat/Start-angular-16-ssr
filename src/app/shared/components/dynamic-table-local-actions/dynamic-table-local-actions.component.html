@@ -6,8 +6,6 @@
       [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)" (onPage)="onPage($event)">
       <ng-template pTemplate="caption" *ngIf="showHeader">
         <div class="caption d-flex justify-content-between align-items-center flex-wrap gap-3">
-
-
           <!-- <div class="d-flex align-items-center gap-3 dropdown-arrow">
             <p-dropdown #dropdown [options]="rowsPerPageOptions" (onChange)="paginatorOption($event)"
               (onHide)="hide()"></p-dropdown>
@@ -20,100 +18,16 @@
                   (input)="dt1.filterGlobal(search?.value,'contains')"
                   placeholder="{{'placeholder.search'|translate}}" />
               </span>
-
-
               <ng-container *ngIf="search.value && !isLoadingSearch">
                 <i (click)="clearSearchValue(search);clear(dt1)" class="pi pi-times text-danger cursor-pointer"></i>
               </ng-container>
               <ng-container *ngIf="isLoadingSearch">
                 <i class="pi pi-spin pi-spinner"></i>
               </ng-container>
-
             </span>
-
-
-
           </ng-container>
 
           <div class="d-flex align-items-center gap-3">
-
-
-            <ng-container *ngIf="enableArticleNoteStatusButton">
-              <div class="dropdown">
-                <button data-bs-toggle="dropdown" aria-expanded="false" pButton
-                  class="p-button-outlined p-button-secondary clear px-2 fw-bold" (click)="clear(dt1)">
-                  <i class="pi pi-arrow-right-arrow-left"></i>
-                  <span class="lh-0 ps-1">
-                    {{'general.changeStatus'|translate}}
-                  </span>
-                </button>
-                <ul class="dropdown-menu border-0 p-3">
-                  <ng-container *ngFor="let item of articleStatusList">
-                    <li><a class="dropdown-item d-flex gap-1" (click)="itemChangeStatusActionEmitter(item)">
-                        {{item?.name}}
-                      </a>
-                    </li>
-                  </ng-container>
-
-                </ul>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="enableAssignToButton">
-              <div class="dropdown" (clickOutside)="collapseAssignMenu == true ? collapseAssignMenu = false :''">
-                <button [attr.aria-expanded]="!collapseAssignMenu" (click)="collapseAssignMenu = !collapseAssignMenu;"
-                  pButton class="p-button-outlined p-button-secondary clear px-2 fw-bold">
-                  <i class="pi pi-arrow-right scaleX-rtl"></i>
-                  <span class="lh-0 ps-1">
-                    {{'labels.assignTo'|translate}}
-                  </span>
-                </button>
-                <ul class="dropdown-menu border-0 pt-0" [class.show]="collapseAssignMenu">
-                  <div class="assignUserMenuSearch">
-                    <span class="p-input-icon-right w-100 p-3 ">
-                      <span class="p-input-icon-left ml-auto w-100">
-                        <i class="pi pi-search"></i>
-                        <input pInputText class="search-input" type="text" #search (keyup)="filterUsers(search?.value)"
-                          placeholder="{{'placeholder.searchUser'|translate}}" />
-                      </span>
-                      <ng-container *ngIf="search.value">
-                        <i (click)="clearSearchUserValue(search);collapseAssignMenu=true"
-                          class="pi pi-times text-danger cursor-pointer mx-3"></i>
-                      </ng-container>
-                    </span>
-                    <hr class="m-0">
-                  </div>
-                  <div class="p-3 assignUserMenu">
-                    <ng-container *ngFor="let item of newAssignedUsers">
-                      <li><a class="dropdown-item d-flex gap-1" (click)="itemAssignUserActionEmitter(item)">
-                          {{item?.name}}
-                        </a>
-                      </li>
-                    </ng-container>
-
-                  </div>
-                </ul>
-              </div>
-            </ng-container>
-
-
-
-            <ng-container *ngIf="enableAddNewQuestion">
-              <div class="dropdown">
-                <button data-bs-toggle="dropdown" aria-expanded="false" pButton
-                  label="{{'dashboard.usersList.addNewQuestion'|translate}}"
-                  class="p-button-outlined p-button-secondary clear">
-                </button>
-                <ul class="dropdown-menu border-0 p-3">
-                  <ng-container *ngFor="let item of newQuestionList">
-                    <li><a class="dropdown-item d-flex gap-1">
-                        {{item?.name}}
-                      </a>
-                    </li>
-                  </ng-container>
-
-                </ul>
-              </div>
-            </ng-container>
             <ng-container *ngIf="enableDeleteButton">
               <button (click)="deleteSelectedItems()" [disabled]="!selectedItems || !selectedItems?.length"
                 class="btn btn-danger clear">{{'general.delete'|translate}}</button>
@@ -121,8 +35,6 @@
             <div class="d-flex flex-wrap flex-row-reverse gap-3">
               <ng-container *ngIf="showClear">
                 <!-- label="{{'general.reset'|translate}}"  -->
-
-
                 <button pButton class="p-button-outlined p-button-secondary clear action-btn" icon="pi pi-refresh"
                   tooltipPosition="topfoo" pTooltip="{{'general.reset'|translate}}" (click)="clear(dt1)">
                 </button>
@@ -145,7 +57,6 @@
                 <img src="assets/images/icons/pdf.svg" class="action-btn" alt="">
               </a> -->
             </div>
-
           </div>
         </div>
       </ng-template>
@@ -208,8 +119,7 @@
                             </div>
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?tanksList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='propertyType'?propertyTypeList:col?.list=='userType'?userTypeList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:col?.list=='districts'?districtsList:''"
+                            <p-multiSelect [ngModel]="value" [options]="col?.list=='driverStatus'?driverStatusList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <div class="p-multiselect-representative-option">
@@ -316,9 +226,6 @@
 
           <ng-container *ngIf="showActions">
             <th>{{"dashboard.tableHeader.actions"|translate}}</th>
-          </ng-container>
-          <ng-container *ngIf="showReport">
-            <th>{{"dashboard.tableHeader.report"|translate}}</th>
           </ng-container>
           <ng-container *ngIf="showConfirm">
             <th></th>
@@ -524,14 +431,6 @@
                   </a>
                 </ng-container>
               </ng-container>
-              <ng-container *ngIf="item?.isVip == true">
-                <a class="d-flex align-items-center
-                  gap-2" (click)="vipHandlerEmit(item)" pTooltip="VIP" tooltipPosition="top">
-                  <span>
-                    <img src="assets/images/icons/vip.png" class="vip" alt="vip">
-                  </span>
-                </a>
-              </ng-container>
             </ng-container>
             <ng-container *ngIf="showActionsButtons">
               <ng-container *ngIf="showDetails">
@@ -553,16 +452,6 @@
                 </a>
               </ng-container>
             </ng-container>
-          </div>
-        </td>
-      </ng-container>
-      <ng-container *ngIf="showReport">
-        <td>
-          <div class="d-flex gap-2">
-            <a class="fw-500" (click)="reportHandlerEmit(item)" pTooltip="{{'general.report'|translate}}"
-              tooltipPosition="top">
-              <i class="pi pi-download fs-5-1"></i>
-            </a>
           </div>
         </td>
       </ng-container>
@@ -653,8 +542,7 @@
                             </div>
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?rolesList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='propertyType'?propertyTypeList:col?.list=='userType'?userTypeList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:col?.list=='districts'?districtsList:''"
+                            <p-multiSelect [ngModel]="value" [options]="col?.list=='driverStatus'?driverStatusList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <ng-container *ngIf="col?.status; else noStatus">
@@ -703,13 +591,9 @@
           <ng-container *ngIf="showActions">
             <th>{{"dashboard.tableHeader.actions"|translate}}</th>
           </ng-container>
-          <ng-container *ngIf="showReport">
-            <th>{{"dashboard.tableHeader.report"|translate}}</th>
-          </ng-container>
           <ng-container *ngIf="showCopy">
             <th>ID</th>
           </ng-container>
-
         </tr>
         </ng-container>
 
@@ -851,16 +735,6 @@
                 </div>
               </td>
             </ng-container>
-            <ng-container *ngIf="showReport">
-              <td>
-                <div class="d-flex gap-2">
-                  <a class="fw-500" (click)="reportHandlerEmit(item)" pTooltip="{{'general.report'|translate}}"
-                    tooltipPosition="top">
-                    <i class="pi pi-download fs-5-1"></i>
-                  </a>
-                </div>
-              </td>
-            </ng-container>
             <ng-container *ngIf="showCopy">
               <td>
                 <div class="d-flex gap-2">
@@ -904,7 +778,7 @@
     </ng-container>
     <ng-container *ngIf="isLoading && !isSearch">
       <tr class="bg-transparent">
-        <td class="p-0 border-0" [attr.colspan]="showReport?tableHeaders?.length+2:tableHeaders?.length+1">
+        <td class="p-0 border-0" [attr.colspan]="tableHeaders?.length+1">
           <p-table [value]="skeletonItems">
             <ng-template pTemplate="body" let-item>
       <tr>
