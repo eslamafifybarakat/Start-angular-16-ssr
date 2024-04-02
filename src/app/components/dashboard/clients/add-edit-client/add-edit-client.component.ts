@@ -113,7 +113,8 @@ export class AddEditClientComponent {
     this.cdr.detectChanges();
   }
   private handleIdError(err: any): void {
-    this.idNotAvailable = false;
+    // this.idNotAvailable = false;
+    this.idNotAvailable = true;
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService?.openToast('error', 'error', errorMessage);
     this.isLoadingCheckId = false;

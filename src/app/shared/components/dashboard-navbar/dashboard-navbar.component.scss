@@ -4,6 +4,7 @@
     border: 2px solid var(--bg-main-color);
     border-radius: 6px;
     width: 2.5rem;
+    height: 2rem;
   }
 }
 :host::ng-deep {
@@ -27,7 +28,6 @@
 @media (max-width: 576px) {
   .bars-btn {
     width: 2rem !important;
-    height: 2rem;
   }
   .fs-5 {
     font-size: 1.15rem !important;

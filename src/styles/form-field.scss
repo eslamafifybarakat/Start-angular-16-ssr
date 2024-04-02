@@ -372,7 +372,7 @@ input::-webkit-inner-spin-button {
 .input-number {
   &.input-group {
     background: #ffffffb2;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--second-border-color);
     border-radius: 10px;
     .form-control {
       height: 2.9rem;
@@ -401,5 +401,15 @@ input::-webkit-inner-spin-button {
         }
       }
     }
+  }
+}
+.form-control.is-valid,
+.was-validated .form-control:valid {
+  background-image: url(../assets/images/auth/valid.svg) !important;
+  border: 1px solid var(--second-border-color) !important;
+  &:dir(rtl) {
+    padding-left: calc(1.5em + 0.75rem);
+    padding-right: 0.7rem;
+    background-position: left calc(0.375em + 0.1875rem) center;
   }
 }
