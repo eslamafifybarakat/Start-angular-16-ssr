@@ -262,7 +262,7 @@
     "registrationNumber":"Enter registration number",
     "businessLicense":"Enter business license",
     "businessLicenseNumber":"Enter business license number"
-  },
+    },
   "validations": {
     "username": "Username is required",
     "password": "Password is required",

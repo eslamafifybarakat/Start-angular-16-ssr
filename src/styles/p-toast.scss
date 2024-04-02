@@ -5,8 +5,11 @@
     .p-toast-message-content {
       background-color: #fff !important;
       color: #111 !important;
+      align-items: center;
       .p-toast-summary {
         text-transform: capitalize !important;
+        display: none;
+        margin-bottom: 0;
       }
       .p-toast-detail {
         margin-top: 0 !important;

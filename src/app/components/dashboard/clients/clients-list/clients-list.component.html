@@ -14,11 +14,12 @@
           <span>{{'dashboard.customers.addCustomer'|translate}}</span>
         </button>
         <!-- Filter Button -->
-        <button [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
-          (click)="filterItem()">
+        <button *ngIf="clientsList?.length>0" [class.d-none]="dataStyleType=='list'"
+          class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
           <i class="pi pi-filter"></i>
         </button>
-        <button class="btn btn-solid-main d-flex align-items-center gap-2 d-md-none d-block" (click)="filterItem()">
+        <button *ngIf="clientsList?.length>0"
+          class="btn btn-solid-main d-flex align-items-center gap-2 d-md-none d-block" (click)="filterItem()">
           <i class="pi pi-filter"></i>
         </button>
         <!-- Data style list or grid (table or card) -->
@@ -49,8 +50,8 @@
               <i *ngIf="!isLoadingSearch&&search.value" class="pi pi-times text-danger pointer"
                 (click)="clearSearch(search)"></i>
               <input type="text" class="form-control border-0 bg-transparent px-1" #search
-                (keyup)="handleSearch(search.value)" placeholder="{{'dashboard.customers.search' | translate}}"
-                aria-label="search" aria-describedby="basic-addon1">
+                (keyup)="handleSearch(search.value)" placeholder="{{'placeholders.search' | translate}}"
+                [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
             </span>
           </div>
         </div>
@@ -65,25 +66,25 @@
       <!-- Table -->
       <ng-container *ngIf="dataStyleType=='list'">
         <!-- Loading Table -->
-        <ng-container *ngIf="isLoadingClientsList; else noLoadingClients">
+        <!-- <ng-container *ngIf="isLoadingClientsList; else noLoadingClients">
           <table-skeleton></table-skeleton>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Table List -->
-        <ng-template #noLoadingClients>
-          <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false"
-            [showSearch]="false" [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
-            (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
-            [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
-            [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
-            (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
-            (customSortHandler)="enableSortFilter?sortItems($event):''"
-            (filterHandler)="enableSortFilter?filterItems($event):''" [results]="clientsCount" [paginatorRows]="perPage"
-            [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-            [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
-            (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-            [enableFilterDriverStatus]="true"></dynamic-table>
-        </ng-template>
+        <!-- <ng-template #noLoadingClients> -->
+        <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false" [showSearch]="false"
+          [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
+          (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
+          [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
+          [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+          (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
+          (customSortHandler)="enableSortFilter?sortItems($event):''"
+          (filterHandler)="enableSortFilter?filterItems($event):''" [results]="clientsCount" [paginatorRows]="perPage"
+          [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
+          [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+          (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
+          [enableFilterDriverStatus]="true"></dynamic-table>
+        <!-- </ng-template> -->
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">

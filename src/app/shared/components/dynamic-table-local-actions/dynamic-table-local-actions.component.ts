@@ -474,11 +474,11 @@ export class DynamicTableLocalActionsComponent {
 
   // Clear table
   clear(table: any): void {
-    this.search.nativeElement.value = null;
+    // this.search.nativeElement.value = null;
     // this.dropdown.value = this.paginateOption;
     this.isClear = true;
-    table?.clear();
-    this.showPaginator ? '' : this.clearHandler?.emit({ isClear: true });
+    // table?.clear();
+    // this.showPaginator ? '' : this.clearHandler?.emit({ isClear: true });
     this.tableHeaders?.forEach((element: any) => {
       element.showAscSort = false;
       element.showDesSort = false;

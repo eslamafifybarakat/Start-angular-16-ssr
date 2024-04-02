@@ -213,10 +213,17 @@ export class DynamicTableComponent {
         this.changePageActiveNumber(res?.page);
       }
     });
+    // Loading table
+    this.publicService?.isLoadingTable?.subscribe((res: any) => {
+      if (res) {
+        this.isLoading = true;
+      }
+    });
     // Clear table
     this.publicService?.resetTable?.subscribe((res: any) => {
       if (res) {
         this.dt.clear();
+        this.clear();
       }
     });
     // url
@@ -408,19 +415,20 @@ export class DynamicTableComponent {
   }
 
   // Clear table
-  clear(table: any): void {
-    this.search.nativeElement.value = null;
+  clear(table?: any): void {
     // this.dropdown.value = this.paginateOption;
     this.isClear = true;
-    table?.clear();
-    this.clearHandler?.emit({ isClear: true });
+    // this.clearHandler?.emit({ isClear: true });
     this.tableHeaders?.forEach((element: any) => {
       element.showAscSort = false;
       element.showDesSort = false;
       element.showDefaultSort = true;
     });
+    console.log('kkk');
     this.collapse = false;
     this.collapseEnd = false;
+    // this.search.nativeElement.value = null;
+    // table?.clear();
   }
 
   // Sort table

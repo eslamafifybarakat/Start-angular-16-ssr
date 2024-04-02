@@ -102,6 +102,7 @@ export class ClientsListComponent {
   }
   // Toggle data style table or card
   changeDateStyle(type: string): void {
+    this.clearTable();
     this.dataStyleType = type;
   }
   // ======Start get all clients=========
@@ -179,8 +180,6 @@ export class ClientsListComponent {
   // ======Start pagination==========
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    console.log('KK');
-
     this.getAllClients();
   }
   onPaginatorOptionsChange(e: any): void {
@@ -215,7 +214,6 @@ export class ClientsListComponent {
   }
   // Filter clients
   filterItem(): void {
-    this.clearTable();
     const ref = this.dialogService?.open(FilterClientsComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
       dismissableMask: false,

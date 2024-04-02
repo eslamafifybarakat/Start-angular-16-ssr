@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 export class PublicService {
   show_loader = new Subject<boolean>();
   resetTable = new BehaviorSubject<boolean>(false);
+  isLoadingTable = new BehaviorSubject<boolean>(false);
   changePageSub = new BehaviorSubject<{}>({});
 
   constructor(
