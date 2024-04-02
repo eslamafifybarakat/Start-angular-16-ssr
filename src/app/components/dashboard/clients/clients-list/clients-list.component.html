@@ -7,7 +7,7 @@
           {{clientsCount}}
         </span>
       </div>
-      <div class="d-flex gap-3 flex-lg-nowrap flex-wrap">
+      <div class="d-flex gap-3 flex-lg-nowrap flex-wrap" [class.disabled-actions]="isLoadingClientsList">
         <!-- Add Customer -->
         <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addOrEditItem()">
           <i class="pi pi-plus"></i>
@@ -46,8 +46,10 @@
             </span>
             <span class="p-input-icon-right d-inline-block w-100">
               <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
-              <input type="text" class="form-control border-0 bg-transparent px-1" #search2
-                (keyup)="handleSearch(search2.value)" placeholder="{{'dashboard.customers.search' | translate}}"
+              <i *ngIf="!isLoadingSearch&&search.value" class="pi pi-times text-danger pointer"
+                (click)="clearSearch(search)"></i>
+              <input type="text" class="form-control border-0 bg-transparent px-1" #search
+                (keyup)="handleSearch(search.value)" placeholder="{{'dashboard.customers.search' | translate}}"
                 aria-label="search" aria-describedby="basic-addon1">
             </span>
           </div>
@@ -80,7 +82,7 @@
             [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
             [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
             (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-            [enableFilterIsWorking]="true"></dynamic-table>
+            [enableFilterDriverStatus]="true"></dynamic-table>
         </ng-template>
       </ng-container>
       <!-- Card -->

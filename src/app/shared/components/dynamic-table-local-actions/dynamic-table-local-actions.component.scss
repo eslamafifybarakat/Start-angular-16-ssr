@@ -124,6 +124,9 @@
           transform: scaleX(-1);
         }
       }
+      .p-link:hover {
+        background-color: transparent;
+      }
     }
 
     .p-dropdown {

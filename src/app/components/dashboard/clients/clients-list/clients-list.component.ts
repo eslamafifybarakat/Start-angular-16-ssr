@@ -109,7 +109,7 @@ export class ClientsListComponent {
     this.isLoadingClientsList = true;
     this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
-        map((res: any) => this.processClientsListResponse(res)),
+        tap((res: any) => this.processClientsListResponse(res)),
         catchError(err => this.handleError(err)),
         finalize(() => this.finalizeClientListLoading())
       ).subscribe();
@@ -152,7 +152,7 @@ export class ClientsListComponent {
   }
   /* --- Handle api requests error messages --- */
   private handleError(err: any): any {
-    this.alertsService?.openToast('error', 'error', err || 'An error has occurred');
+    this.alertsService?.openToast('error', 'error', err || this.publicService.translateTextFromJson('general.errorOccur'));
     this.finalizeClientListLoading();
   }
   // ======End get all clients=========
@@ -171,16 +171,23 @@ export class ClientsListComponent {
     }
     this.cdr.detectChanges();
   }
+  clearSearch(search: any): void {
+    search.value = null;
+    this.getAllClients();
+  }
+
   // ======Start pagination==========
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    //  this.getAllClients();
+    console.log('KK');
+
+    this.getAllClients();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
     this.pagesCount = Math?.ceil(this.clientsCount / this.perPage);
     this.page = 1;
-    // this.publicService?.changePageSub?.next({ page: this.page });
+    this.publicService?.changePageSub?.next({ page: this.page });
   }
   // ======End pagination==========
 
@@ -229,10 +236,44 @@ export class ClientsListComponent {
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/' + item.id]);
   }
-  // Delete client
+  //========Start Delete client==========
   deleteItem(item: any): void {
+    if (!item?.confirmed) {
+      return;
+    }
 
+    const data = {
+      name: item?.item?.title
+    };
+
+    this.publicService.show_loader.next(true);
+
+    this.clientsService?.deleteClientById(item?.item?.id, data)?.subscribe(
+      (res: any) => {
+        this.processDeleteResponse(res);
+      },
+      (err) => {
+        this.handleErrorDelete(err);
+      }
+    ).add(() => {
+      this.publicService.show_loader.next(false);
+      this.cdr.detectChanges();
+    });
   }
+  private processDeleteResponse(res: any): void {
+    const messageType = res?.code === 200 ? 'success' : 'error';
+    const message = res?.message || '';
+
+    this.alertsService.openToast(messageType, messageType, message);
+    if (messageType === 'success') {
+      this.getAllClients();
+    }
+  }
+  private handleErrorDelete(err: any): void {
+    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
+    this.alertsService.openToast('error', 'error', errorMessage);
+  }
+  //========End Delete client==========
 
   // Clear table
   clearTable(): void {

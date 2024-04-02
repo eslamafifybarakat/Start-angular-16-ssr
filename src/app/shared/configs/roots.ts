@@ -15,8 +15,10 @@ export const roots = {
     getCitiesByCountryId: "/City/GetCitysByCountryId",
   },
   dashboard: {
-    getClients: '/getClients',
-    addClient: '/addClient',
-    filterClients: '/filterClients',
+    clients: {
+      getClients: '/getClients',
+      addClient: '/addClient',
+      deleteClients: '/deleteClients',
+    }
   }
 }

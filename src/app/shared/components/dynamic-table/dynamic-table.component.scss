@@ -115,6 +115,9 @@
           transform: scaleX(-1) !important;
         }
       }
+      .p-link:hover {
+        background-color: transparent;
+      }
     }
     .p-dropdown {
       height: 40px !important;

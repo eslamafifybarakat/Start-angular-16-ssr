@@ -31,12 +31,16 @@ export class ClientsService {
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
     }
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.getClients}`, { params: params })
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getClients}`, { params: params })
   }
   addClient(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.addClient}`, data)
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data)
   }
-  filterClientsList(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.filterClients}`, data)
+  deleteClientById(id: number, data: any): Observable<any> {
+    let params = new HttpParams();
+    if (data?.name) {
+      params = params.append("name", data?.name);
+    }
+    return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.clients.deleteClients}/delete/` + id, { params: params });
   }
 }

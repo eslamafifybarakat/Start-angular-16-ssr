@@ -18,6 +18,7 @@ import { registerLocaleData } from '@angular/common';
 import localeAr from '@angular/common/locales/ar';
 
 import { BottomNavigationComponent } from './shared/components/bottom-navigation/bottom-navigation.component';
+import { OverlayLoadingComponent } from './shared/components/overlay-loading/overlay-loading.component';
 import { NavbarMobileComponent } from './shared/components/navbar-mobile/navbar-mobile.component';
 import { ScrollTopComponent } from './shared/components/scroll-top/scroll-top.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -32,6 +33,7 @@ registerLocaleData(localeAr);
   ],
   imports: [
     BottomNavigationComponent,
+    OverlayLoadingComponent,
     NavbarMobileComponent,
     ScrollTopComponent,
     NavbarComponent,
