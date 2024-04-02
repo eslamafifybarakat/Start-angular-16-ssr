@@ -45,3 +45,19 @@
     }
   }
 }
+.uploaded-files {
+  .files-h {
+    max-height: 13rem;
+    overflow: auto;
+    &::-webkit-scrollbar-thumb {
+      background: var(--bg-main-color);
+      border-radius: 10px;
+    }
+  }
+  .file-img {
+    width: 45px;
+    min-width: 45px;
+    height: 45px;
+    border-radius: 8px;
+  }
+}

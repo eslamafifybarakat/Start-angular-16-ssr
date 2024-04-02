@@ -1,16 +1,30 @@
-import { patterns } from './../../../../shared/configs/patterns';
-import { PublicService } from './../../../../services/generic/public.service';
-import { UploadMultiFilesComponent } from './../../../../shared/components/upload-multi-files/upload-multi-files.component';
-import { FileUploadComponent } from './../../../../shared/components/file-upload/file-upload.component';
+// Modules
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
+import { CommonModule } from '@angular/common';
+
+// Components
+import { UploadMultiFilesComponent } from './../../../../shared/components/upload-multi-files/upload-multi-files.component';
+
+//Services
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { PublicService } from './../../../../services/generic/public.service';
+import { patterns } from './../../../../shared/configs/patterns';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, FileUploadComponent, UploadMultiFilesComponent, CalendarModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    // Modules
+    ReactiveFormsModule,
+    TranslateModule,
+    CalendarModule,
+    CommonModule,
+    FormsModule,
+
+    // Components
+    UploadMultiFilesComponent,
+  ],
   selector: 'app-edit-client',
   templateUrl: './edit-client.component.html',
   styleUrls: ['./edit-client.component.scss']

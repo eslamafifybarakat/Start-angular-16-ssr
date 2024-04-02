@@ -7,7 +7,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 @Component({
   standalone: true,
   imports: [CommonModule, TranslateModule, SkeletonModule, ImageModule],
-  selector: 'app-upload-multi-files',
+  selector: 'upload-multi-files',
   templateUrl: './upload-multi-files.component.html',
   styleUrls: ['./upload-multi-files.component.scss']
 })
@@ -29,7 +29,9 @@ export class UploadMultiFilesComponent {
   name: string = '';
   imageSize: any;
   type: string = '';
-
+  @Input() filesNames: any = [];
+  @Input() filesSrc: any = [];
+  @Input() index: any = 0;
   constructor(
   ) { }
 
@@ -45,6 +47,13 @@ export class UploadMultiFilesComponent {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     let formData = new FormData();
     formData.append('files', file);
+    this.filesNames.push(
+      {
+        name: file?.name,
+        size: this.formatSizeUnits(file?.size),
+        index: this.index
+      }
+    );
     this.uploadHandler?.emit({ file: file });
     this.formatSizeUnits(file?.size);
     this.name = file?.name;
@@ -85,13 +94,22 @@ export class UploadMultiFilesComponent {
     this.isEdit = false;
     this.showFile = true;
     var reader = e.target;
+    this.filesSrc?.push({ index: this.index, img: reader.result });
     this.imageSrc = reader.result;
   }
 
   remove(): void {
     this.showFile = false;
   }
-
+  removeImgFile(file: any): void {
+    this.filesNames?.forEach((item: any, index: any) => {
+      if (item?.index == file?.index) {
+        this.filesNames.splice(index, 1);
+        this.filesSrc.splice(index, 1);
+      }
+    });
+    // this.uploadHandlerEmit(null);
+  }
   formatSizeUnits(size: any): void {
     if (size >= 1073741824) { size = (size / 1073741824).toFixed(2) + " GB"; }
     else if (size >= 1048576) { size = (size / 1048576).toFixed(2) + " MB"; }
