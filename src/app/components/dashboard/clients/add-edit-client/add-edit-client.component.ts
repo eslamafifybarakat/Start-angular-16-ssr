@@ -11,8 +11,8 @@ import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { ClientsService } from './../../services/clients.service';
 import { patterns } from './../../../../shared/configs/patterns';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -71,10 +71,6 @@ export class AddEditClientComponent {
           Validators.required, Validators.pattern(patterns?.email)], updateOn: "blur"
       }],
       birthDate: [null, {
-        validators: [
-          Validators.required]
-      }],
-      country: [null, {
         validators: [
           Validators.required]
       }],

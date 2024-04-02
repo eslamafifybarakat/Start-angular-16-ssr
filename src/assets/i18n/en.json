@@ -140,7 +140,8 @@
   "licenseDetails":"Municipality license details",
   "certificateDetails":"Safety certificate details",
   "medicalDetails":"Medical insurance details",
-  "fileDetails":"Labor office file details"
+  "fileDetails":"Labor office file details",
+  "customerDataDetails":"Customer data details"
 }
   },
   "auth": {

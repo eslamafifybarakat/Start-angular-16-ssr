@@ -139,7 +139,8 @@
   "licenseDetails":"تفاصيل رخصة البلدية",
   "certificateDetails":"تفاصيل شهادة السلامة",
   "medicalDetails":"تفاصيل التأمين الطبي",
-  "fileDetails":"تفاصيل ملف مكتب العمل"
+  "fileDetails":"تفاصيل ملف مكتب العمل",
+  "customerDataDetails":"تفاصيل بيانات العميل"
 }
       },
       "auth": {
