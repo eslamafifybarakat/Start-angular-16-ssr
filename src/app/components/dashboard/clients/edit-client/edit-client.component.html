@@ -145,7 +145,7 @@
                     [class.border-red]="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)"
                     [class.is-valid]="!isLoadingCheckId &&!idNotAvailable && formControls?.id?.valid && (formControls?.id?.dirty || formControls?.id?.touched)"
                     placeholder="{{'placeholders.id'|translate}}" (blur)="checkNationalIdentityAvailable()"
-                    (keyup)="onKeyUpEvent('id')">
+                    (keyup)="onKeyUpEvent('id')" [class.disabled]="isLoadingCheckId">
                   <ng-container *ngIf="isLoadingCheckId">
                     <i class="pi pi-spin pi-spinner"></i>
                   </ng-container>
@@ -187,7 +187,7 @@
                 [class.border-red]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
                 <span class="p-input-icon-right w-100">
                   <input type="email" class="form-control" formControlName="email" autocomplete="cc-name"
-                    [class.prevent-click]="isEmailReadOnly"
+                    [class.disabled]="isLoadingCheckEmail" [class.prevent-click]="isEmailReadOnly"
                     (input)="publicService?.clearValidationErrors(formControls?.email)"
                     [class.border-red]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
                     [class.is-valid]="!isLoadingCheckEmail &&!emailNotAvailable && formControls?.email?.valid && (formControls?.email?.dirty || formControls?.email?.touched)"

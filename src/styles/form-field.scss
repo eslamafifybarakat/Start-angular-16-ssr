@@ -395,11 +395,12 @@ input::-webkit-inner-spin-button {
 .was-validated .form-control:valid {
   background-image: url(../assets/images/auth/valid.svg) !important;
   border: 1px solid var(--second-border-color);
-  &:dir(rtl) {
-    padding-left: calc(1.5em + 0.75rem);
-    padding-right: 0.7rem;
-    background-position: left calc(0.375em + 0.1875rem) center;
-  }
+}
+.form-control.is-valid:dir(rtl),
+.was-validated .form-control:valid:dir(rtl) {
+  padding-left: calc(1.5em + 0.75rem);
+  padding-right: 0.7rem;
+  background-position: left calc(0.375em + 0.1875rem) center;
 }
 
 .border-red {

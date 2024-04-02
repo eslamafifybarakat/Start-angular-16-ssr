@@ -11,37 +11,34 @@
   justify-content: center;
   align-items: center;
 }
-
-#loader {
-  border: 10px solid #f3f3f3;
-  /* Light grey */
-  border-top: 10px solid #ad1414;
-  /* Blue */
+.loader {
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  animation: spin 2s linear infinite;
-  z-index: 1000;
+  display: inline-block;
+  border-top: 5px solid #fff;
+  border-right: 5px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
-
-@keyframes spin {
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border-left: 5px solid var(--bg-main-color);
+  border-bottom: 5px solid transparent;
+  animation: rotation 0.5s linear infinite reverse;
+}
+@keyframes rotation {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
-}
-
-#loaderText {
-  display: inline-block;
-  color: #f3f3f3;
-  padding: 10px 0px;
-}
-
-#uploadPercentage {
-  display: inline-block;
-  color: #f3f3f3;
-  font-size: 16px;
 }

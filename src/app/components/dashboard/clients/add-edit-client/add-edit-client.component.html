@@ -34,8 +34,8 @@
               (input)="publicService?.clearValidationErrors(formControls?.id)"
               [class.border-red]="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)"
               [class.is-valid]="!isLoadingCheckId &&!idNotAvailable && formControls?.id?.valid && (formControls?.id?.dirty || formControls?.id?.touched)"
-              placeholder="{{'placeholders.id'|translate}}" (blur)="checkNationalIdentityAvailable()"
-              (keyup)="onKeyUpEvent('id')">
+              [class.disabled]="isLoadingCheckId" placeholder="{{'placeholders.id'|translate}}"
+              (blur)="checkNationalIdentityAvailable()" (keyup)="onKeyUpEvent('id')">
             <ng-container *ngIf="isLoadingCheckId">
               <i class="pi pi-spin pi-spinner"></i>
             </ng-container>
@@ -96,8 +96,8 @@
               (input)="publicService?.clearValidationErrors(formControls?.email)"
               [class.border-red]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
               [class.is-valid]="!isLoadingCheckEmail &&!emailNotAvailable && formControls?.email?.valid && (formControls?.email?.dirty || formControls?.email?.touched)"
-              placeholder="{{'placeholders.email'|translate}}" (blur)="checkEmailAvailable()"
-              (keyup)="onKeyUpEvent('email')">
+              [class.disabled]="isLoadingCheckEmail" placeholder="{{'placeholders.email'|translate}}"
+              (blur)="checkEmailAvailable()" (keyup)="onKeyUpEvent('email')">
             <ng-container *ngIf="isLoadingCheckEmail">
               <i class="pi pi-spin pi-spinner"></i>
             </ng-container>
