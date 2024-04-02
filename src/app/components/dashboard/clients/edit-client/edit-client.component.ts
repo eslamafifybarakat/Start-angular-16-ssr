@@ -4,7 +4,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 
 // Components
-import { UploadMultiFilesComponent } from './../../../../shared/components/upload-multi-files/upload-multi-files.component';
+import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 
 //Services
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -43,6 +43,10 @@ export class EditClientComponent {
     email: 'ahmedIbrahim@amil.com',
     birthDate: new Date(),
   };
+  filesNames: any = [
+    { name: 'name1', image: 'assets/images/navbar/sidebar-bg.svg' }
+  ];
+  imgIndex: any = 0;
   modalForm = this.fb?.group(
     {
       fullName: ['', {
@@ -79,7 +83,12 @@ export class EditClientComponent {
   ngOnInit(): void {
     this.patchValue();
   }
+  // Upload Gallery imgs
+  uploadFiles(e: any): void {
+    this.filesNames = e.files;
+    console.log(e.files);
 
+  }
   patchValue(): void {
     this.modalForm?.patchValue({
       fullName: this.details?.fullName,

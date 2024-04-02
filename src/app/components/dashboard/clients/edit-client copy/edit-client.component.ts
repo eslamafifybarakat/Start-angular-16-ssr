@@ -1,6 +1,6 @@
 import { PublicService } from './../../../../services/generic/public.service';
-import { UploadMultiFilesComponent } from './../../../../shared/components/upload-multi-files/upload-multi-files.component';
-import { FileUploadComponent } from './../../../../shared/components/file-upload/file-upload.component';
+import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
+import { FileUploadComponent } from '../../../../shared/components/upload-files/file-upload/file-upload.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';

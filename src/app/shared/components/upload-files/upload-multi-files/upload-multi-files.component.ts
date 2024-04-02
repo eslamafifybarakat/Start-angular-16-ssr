@@ -14,7 +14,6 @@ import { ImageModule } from 'primeng/image';
 export class UploadMultiFilesComponent {
   @Input() showFile: boolean = false;
   @Input() isSupportAll: boolean = true;
-  @Input() isEdit: boolean = false;
   @Input() showPreview: boolean = false;
   @Input() accept: string = 'image/*';
   @Input() imageSrc: string = '';
@@ -26,20 +25,31 @@ export class UploadMultiFilesComponent {
   loaded: boolean = false;
   isLoading: boolean = false;
 
+  filesSrc: any = [];
   @Input() filesNames: any = [];
-  @Input() filesSrc: any = [];
   @Input() index: any = 0;
   constructor(
   ) { }
 
   ngOnInit(): void {
-    if (this.isEdit) {
-      this.showFile = true;
-      // this.name = this.imageSrc;
-      // this.type = this.imageSrc;
+    if (this.filesNames.length > 0) {
+      this.filesNames.forEach((element: any, index: any) => {
+        this.filesSrc.push({
+          index: element.index,
+          img: element.image
+        })
+      });
     }
   }
 
+  uploadHandlerEmit(): void {
+    this.filesNames.forEach((file: any, index: any) => {
+      file['img'] = this.filesSrc[index].img;
+    });
+    console.log(this.filesNames);
+
+    this.uploadHandler?.emit({ files: this.filesNames });
+  }
   handleInputChange(e: any): void {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     let formData = new FormData();
@@ -51,14 +61,13 @@ export class UploadMultiFilesComponent {
         index: this.index
       }
     );
-    this.uploadHandler?.emit({ file: file });
     this.formatSizeUnits(file?.size);
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
       this.showFile = true;
       this.loaded = false;
-    }, 1000);
+    }, 500);
     var reader = new FileReader();
     reader.onload = this._handleReaderLoaded?.bind(this);
     reader.readAsDataURL(file);
@@ -86,16 +95,12 @@ export class UploadMultiFilesComponent {
   }
 
   _handleReaderLoaded(e: any): void {
-    this.isEdit = false;
     this.showFile = true;
     var reader = e.target;
     this.filesSrc?.push({ index: this.index, img: reader.result });
-    this.imageSrc = reader.result;
+    this.uploadHandlerEmit();
   }
 
-  remove(): void {
-    this.showFile = false;
-  }
   removeImgFile(file: any): void {
     this.filesNames?.forEach((item: any, index: any) => {
       if (item?.index == file?.index) {
@@ -103,7 +108,7 @@ export class UploadMultiFilesComponent {
         this.filesSrc.splice(index, 1);
       }
     });
-    // this.uploadHandlerEmit(null);
+    this.uploadHandlerEmit();
   }
   formatSizeUnits(size: any): void {
     if (size >= 1073741824) { size = (size / 1073741824).toFixed(2) + " GB"; }
