@@ -1,6 +1,10 @@
 :host::ng-deep {
   #dynamic-global-data-table {
     .p-datatable-table {
+      font-family: "Poppins", sans-serif !important;
+      &:dir(rtl) {
+        font-family: "Cairo", sans-serif !important;
+      }
       border-collapse: separate;
       border-spacing: 0 15px !important;
     }
@@ -31,6 +35,7 @@
         color: #777;
         height: 2rem !important;
         padding-bottom: 4px;
+        font-size: 0.9rem;
       }
       .p-datatable-tbody > tr > td {
         border-color: rgba(140, 149, 163, 0.21);
