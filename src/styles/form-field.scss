@@ -366,3 +366,40 @@ input::-webkit-inner-spin-button {
     background-color: transparent;
   }
 }
+.p-column-filter-overlay-menu .p-column-filter-operator {
+  background-color: #359a9c30;
+}
+.input-number {
+  &.input-group {
+    background: #ffffffb2;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    .form-control {
+      height: 2.9rem;
+      margin: 0 !important;
+    }
+    .input-group-text {
+      background-color: transparent !important;
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        height: 55%;
+        width: 1px;
+        right: 1px;
+        background: #8c95a34d;
+      }
+      &:dir(rtl) {
+        &:before {
+          left: 2px;
+          right: inherit;
+        }
+      }
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+}

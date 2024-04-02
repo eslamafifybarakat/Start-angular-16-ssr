@@ -62,13 +62,16 @@
           <div class="col-lg-4 col-md-6">
             <div class="mb-3">
               <label for="phoneNumber" class="mb-2 required">{{'labels.phoneNumber'|translate}}</label>
-              <div class="input-group bg-white-color d-flex flex-nowrap"
+              <div class="input-number input-group bg-white-color d-flex flex-nowrap"
                 [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
-                <input type="text" class="form-control" [class.prevent-click]="isPhoneNumberReadOnly"
+                <span class="input-group-text border-0 text-muted-color fs-6-1 " id="basic-addon1">
+                  +966
+                </span>
+                <input type="text" class="form-control border-0" [class.prevent-click]="isPhoneNumberReadOnly"
                   formControlName="phoneNumber" autocomplete="cc-name" [min]="0"
                   (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
                   placeholder="{{'placeholders.phoneNumber'|translate}}">
-                <span class="input-group-text bg-white-color p-1" id="basic-addon1">
+                <span class="input-group-text bg-white-color p-1 border-0" id="basic-addon1">
                   <a *ngIf="isPhoneNumberReadOnly" class="edit-input d-flex justify-content-center align-items-center"
                     (click)="editInput('phoneNumber')">
                     <svg width="22" height="20" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,7 +92,7 @@
                   </ng-container>
                   <ng-container *ngIf="formControls?.phoneNumber?.errors?.['pattern']">
                     <span class="text-danger fs-8 d-block">
-                      {{'validations.phone_length'|translate}}
+                      {{'validations.phoneLength'|translate}}
                     </span>
                   </ng-container>
                 </ng-container>

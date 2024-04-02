@@ -74,6 +74,8 @@ export class ClientsListComponent {
 
   private searchSubject = new Subject<any>();
   openFilter: boolean = false;
+
+  filterCards: any = [];
   constructor(
     private clientsService: ClientsService,
     private publicService: PublicService,
@@ -218,12 +220,14 @@ export class ClientsListComponent {
       header: this.publicService?.translateTextFromJson('general.filter'),
       dismissableMask: false,
       width: '45%',
+      data: this.filterCards,
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
       if (res) {
         this.page = 1;
         this.filtersArray = res.conditions;
+        this.filterCards = res.conditions;
         // this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllClients();
       }

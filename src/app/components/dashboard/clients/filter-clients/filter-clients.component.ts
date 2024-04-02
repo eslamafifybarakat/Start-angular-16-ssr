@@ -1,14 +1,13 @@
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { patterns } from './../../../../shared/configs/patterns';
-import { ClientsService } from '../../services/clients.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   standalone: true,
@@ -42,13 +41,37 @@ export class FilterClientsComponent {
     return this.modalForm?.controls;
   }
   constructor(
-    private clientsService: ClientsService,
     public alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     public fb: FormBuilder,
   ) { }
+
+  ngOnInit(): void {
+    let data = this.config.data;
+    if (data) {
+      this.patchValue(data);
+    }
+  }
+
+  patchValue(data: any): void {
+    let filters = data;
+    filters.forEach((item: any) => {
+      if (item.column == 'id') {
+        this.formControls.id.setValue(item.data);
+      }
+      if (item.column == 'fullName') {
+        this.formControls.fullName.setValue(item.data);
+      }
+      if (item.column == 'mobileNumber') {
+        this.formControls.phoneNumber.setValue(item.data);
+      }
+      if (item.column == 'birthDate') {
+        this.formControls.birthDate.setValue(item.data);
+      }
+    });
+  }
 
   submit(): any {
     let data = {

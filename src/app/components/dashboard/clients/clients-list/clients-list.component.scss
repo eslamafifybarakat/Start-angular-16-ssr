@@ -14,6 +14,11 @@
     border: 1px solid var(--bg-main-color);
     color: var(--text-main-color);
   }
+  .badge-main {
+    background-color: #359a9c30;
+    padding: 0.65rem 0.4rem;
+    min-width: 2rem;
+  }
   .data-style {
     background: #ffffffb2;
     border: 1px solid #8c95a336;
@@ -35,7 +40,7 @@
       border: 1px solid #8c95a336;
       border-radius: 10px;
       width: 25rem;
-      min-width: 15rem;
+      // min-width: 15rem;
       .form-control {
         height: 2.9rem;
       }
@@ -50,10 +55,21 @@
   }
 }
 
-@media (max-width: 576px) {
-  .search {
-    .input-group {
-      width: 18rem !important;
+@media (max-width: 767px) {
+  #clients {
+    .btn {
+      height: 2.6rem;
+      padding: 0.7rem;
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  #clients {
+    .title-header {
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
   }
 }

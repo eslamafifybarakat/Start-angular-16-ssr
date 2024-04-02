@@ -24,3 +24,12 @@
     }
   }
 }
+@media (max-width: 576px) {
+  .bars-btn {
+    width: 2rem !important;
+    height: 2rem;
+  }
+  .fs-5 {
+    font-size: 1.15rem !important;
+  }
+}

@@ -48,10 +48,15 @@
         <div class="col-lg-6">
           <div class="mb-3">
             <label for="phoneNumber" class="mb-2">{{'labels.phoneNumber'|translate}}</label>
-            <input type="text" class="form-control" formControlName="phoneNumber" autocomplete="cc-name" [min]="0"
-              (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
-              [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)"
-              placeholder="{{'placeholders.phoneNumber'|translate}}">
+            <div class="input-number input-group bg-white-color d-flex flex-nowrap w-100"
+              [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+              <span class="input-group-text border-0 text-muted-color fs-6-1 " id="basic-addon1">
+                +966
+              </span>
+              <input type="number" class="form-control border-0" formControlName="phoneNumber" autocomplete="cc-name"
+                [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
+                placeholder="{{'placeholders.phoneNumber'|translate}}">
+            </div>
             <div class="mt-2">
               <ng-container
                 *ngIf="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
@@ -63,7 +68,7 @@
 
                 <ng-container *ngIf="formControls?.phoneNumber?.errors?.['pattern']">
                   <span class="text-danger fs-8 d-block">
-                    {{'validations.phone_length'|translate}}
+                    {{'validations.phoneLength'|translate}}
                   </span>
                 </ng-container>
               </ng-container>

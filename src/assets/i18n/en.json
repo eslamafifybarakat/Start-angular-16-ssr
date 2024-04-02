@@ -294,7 +294,8 @@
     "eightChars": "Must contain at least 8 characters (12 characters recommended)",
     "specialChar": "It must contain symbols (such as @,!,&,%,$,.....)",
     "containChar": "It must contain at least one capital letter",
-    "notContainInfo": "It does not contain information such as name"
+    "notContainInfo": "It does not contain information such as name",
+    "phoneLength":"Phone Length must be 9"
   },
   "footer": {
     "allRight": "All Rights Reserved © 2022.",
