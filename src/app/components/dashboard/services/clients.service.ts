@@ -43,4 +43,7 @@ export class ClientsService {
     }
     return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.clients.deleteClients}/delete/` + id, { params: params });
   }
+  IsNationalIdentityAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + roots.dashboard.clients.IsNationalIdentityAvailable, data);
+  }
 }

@@ -1,21 +1,32 @@
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AlertsService } from './../../../../services/generic/alerts.service';
-import { PublicService } from './../../../../services/generic/public.service';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ClientsService } from './../../services/clients.service';
-import { patterns } from './../../../../shared/configs/patterns';
+// Modules
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+
+//Services
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AlertsService } from './../../../../services/generic/alerts.service';
+import { PublicService } from './../../../../services/generic/public.service';
+import { ClientsService } from './../../services/clients.service';
+import { patterns } from './../../../../shared/configs/patterns';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule, CommonModule, CalendarModule, DropdownModule, MultiSelectModule],
+  imports: [
+    // Modules
+    ReactiveFormsModule,
+    MultiSelectModule,
+    TranslateModule,
+    CalendarModule,
+    DropdownModule,
+    CommonModule,
+    FormsModule,
+  ],
   selector: 'app-add-edit-client',
   templateUrl: './add-edit-client.component.html',
   styleUrls: ['./add-edit-client.component.scss']
@@ -23,45 +34,22 @@ import { Subscription } from 'rxjs';
 export class AddEditClientComponent {
   private subscriptions: Subscription[] = [];
 
-  modalData: any;
-  isEdit: boolean = false;
-  customerId: any;
-  countries: any = [
-    { name: 'country1' },
-    { name: 'country2' },
-    { name: 'country3' },
-    { name: 'country4' },
-    { name: 'country1' },
-  ];
-  isLoadingCountries: boolean = false;
-  districtsList: any = [
-    { name: "district1" },
-    { name: "district2" },
-    { name: "district3" },
-    { name: "district4" },
-    { name: "district5" },
-  ];
-  isLoadingDistricts: boolean = false;
+  isLoadingCheckId: Boolean = false;
+  idNotAvailable: Boolean = false;
+
+  isLoadingCheckEmail: Boolean = false;
+  emailNotAvailable: Boolean = false;
+
   constructor(
     private clientsService: ClientsService,
-    public alertsService: AlertsService,
+    private alertsService: AlertsService,
     public publicService: PublicService,
-    private config: DynamicDialogConfig,
+    private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
-    protected router: Router,
-    public fb: FormBuilder,
+    private fb: FormBuilder,
   ) { }
 
-  ngOnInit(): void {
-    this.modalData = this.config?.data;
-    if (this.modalData?.item?.id) {
-      this.customerId = this.modalData?.item?.id;
-    }
-    this.isEdit = this.modalData?.type == 'edit' ? true : false;
-    if (this.isEdit) {
-      this.patchValue();
-    }
-  }
+  ngOnInit(): void { }
 
   modalForm = this.fb?.group(
     {
@@ -92,17 +80,96 @@ export class AddEditClientComponent {
       }],
     }
   );
-
   get formControls(): any {
     return this.modalForm?.controls;
   }
-  patchValue(): void {
-    this.modalForm?.patchValue({
-      fullName: this.modalData?.item?.name,
-      phoneNumber: this.modalData?.item?.phoneNumber,
-    })
+
+  // Check If National Identity is valid or not
+  checkNationalIdentityAvailable(): void {
+    if (!this.formControls.id.valid) {
+      return; // Exit early if ID is not valid
+    }
+
+    const nationalIdentity = this.modalForm.value.id;
+    const data = { nationalIdentity };
+
+    this.isLoadingCheckId = true;
+
+    this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+      (res: any) => {
+        this.handleIdResponse(res);
+      },
+      (err: any) => {
+        this.handleIdError(err);
+      }
+    );
+  }
+  private handleIdResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.idNotAvailable = !res.result;
+    } else {
+      this.idNotAvailable = false;
+      if (res?.message) {
+        this.alertsService?.openToast('error', 'error', res.message);
+      }
+    }
+    this.isLoadingCheckId = false;
+    this.cdr.detectChanges();
+  }
+  private handleIdError(err: any): void {
+    this.idNotAvailable = false;
+    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
+    this.alertsService?.openToast('error', 'error', errorMessage);
+    this.isLoadingCheckId = false;
+
+  }
+  // Check If Email is valid or not
+  checkEmailAvailable(): void {
+    if (!this.formControls.email.valid) {
+      return; // Exit early if email is not valid
+    }
+
+    const email = this.modalForm.value.email;
+    const data = { email };
+
+    this.isLoadingCheckEmail = true;
+
+    this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+      (res: any) => {
+        this.handleEmailResponse(res);
+      },
+      (err: any) => {
+        this.handleEmailError(err);
+      }
+    );
+  }
+  private handleEmailResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.emailNotAvailable = !res.result;
+    } else {
+      this.emailNotAvailable = false;
+      if (res?.message) {
+        this.alertsService?.openToast('error', 'error', res.message);
+      }
+    }
+    this.isLoadingCheckEmail = false;
+    this.cdr.detectChanges();
+  }
+  private handleEmailError(err: any): void {
+    this.emailNotAvailable = false;
+    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
+    this.alertsService?.openToast('error', 'error', errorMessage);
+    this.isLoadingCheckEmail = false;
   }
 
+  onKeyUpEvent(type: string): void {
+    if (type == 'id') {
+      this.isLoadingCheckId = false;
+    }
+    if (type == 'email') {
+      this.isLoadingCheckEmail = false;
+    }
+  }
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();

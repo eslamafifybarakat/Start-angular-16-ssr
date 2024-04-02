@@ -194,7 +194,7 @@ export class ClientsListComponent {
   itemDetails(item?: any): void {
   }
 
-  addOrEditItem(item?: any, type?: any): void {
+  addItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditClientComponent, {
       data: {
         item,
@@ -208,7 +208,7 @@ export class ClientsListComponent {
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
         this.page = 1;
-        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllClients();
       }
     });
