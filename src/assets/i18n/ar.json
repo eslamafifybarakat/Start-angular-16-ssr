@@ -61,7 +61,7 @@
     "delete":"حذف",
     "details":"تفاصيل",
     "edit":"تحديث",
-    "no_records_found": "لا يوجد سجلات",
+    "no_records_found": "لم يتم إضافة سجلات حتي الآن",
     "reset":"إعادة الضبط",
     "filter":"فلتر"
   },

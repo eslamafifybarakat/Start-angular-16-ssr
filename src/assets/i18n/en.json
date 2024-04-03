@@ -61,7 +61,7 @@
     "delete":"Delete",
     "details":"Details",
     "edit":"Edit",
-    "no_records_found": "No record found",
+    "no_records_found": "No records have been added yet",
     "reset":"Reset",
     "filter":"Filter"
   },

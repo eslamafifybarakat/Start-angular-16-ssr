@@ -107,7 +107,7 @@ export class DynamicTableLocalActionsComponent {
   // Not found image or text default value
   @Input() notFoundImage: string = 'assets/image/not-found/no-data.svg';
   @Input() notFoundText: string = this.publicService?.translateTextFromJson("general.no_records_found");
-
+  @Input() addBtnText: string = '';
   // key of item with filterArray
   @Input() arrayChildKey: string = '';
 
@@ -136,6 +136,7 @@ export class DynamicTableLocalActionsComponent {
   // Actions handler
   @Output() detailsHandler: EventEmitter<any> = new EventEmitter();
   @Output() confirmHandler: EventEmitter<any> = new EventEmitter();
+  @Output() addHandler: EventEmitter<any> = new EventEmitter();
   @Output() editHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyActionHandler: EventEmitter<any> = new EventEmitter();
   @Output() deleteHandler: EventEmitter<any> = new EventEmitter();
@@ -375,6 +376,9 @@ export class DynamicTableLocalActionsComponent {
   }
   colEventHandlerEmit(item: any, type?: string): void {
     this.colEventHandler.emit({ item: item, type: type });
+  }
+  addHandlerEmit(): void {
+    this.addHandler.emit();
   }
   editHandlerEmit(item: any): void {
     this.editHandler.emit(item);
