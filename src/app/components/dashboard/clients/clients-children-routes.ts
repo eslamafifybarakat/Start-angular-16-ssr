@@ -1,4 +1,5 @@
 
+import { RecordDetailsComponent } from "../records/record-details/record-details.component";
 import { ClientsListComponent } from "./clients-list/clients-list.component";
 import { EditClientComponent } from "./edit-client/edit-client.component";
 import { ErrorsComponent } from "../../errors/errors.component";
@@ -12,8 +13,13 @@ export const clientsChildrenRoutes: any[] = [
     pathMatch: 'full'
   },
   {
-    path: ':id',
+    path: 'Details/:id',
     component: EditClientComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'Record-Details',
+    component: RecordDetailsComponent,
     pathMatch: 'full'
   },
   { path: '**', component: ErrorsComponent }

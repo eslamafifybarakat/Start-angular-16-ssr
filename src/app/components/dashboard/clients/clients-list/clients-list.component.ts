@@ -234,7 +234,7 @@ export class ClientsListComponent {
 
   // Edit client
   editItem(item: any): void {
-    this.router.navigate(['Dashboard/Clients/' + item.id]);
+    this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
   //========Start Delete client==========
   deleteItem(item: any): void {

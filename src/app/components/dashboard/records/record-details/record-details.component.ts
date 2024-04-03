@@ -1,4 +1,4 @@
-import { PublicService } from './../../../../services/generic/public.service';
+import { PublicService } from '../../../../services/generic/public.service';
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 import { FileUploadComponent } from '../../../../shared/components/upload-files/file-upload/file-upload.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,11 +15,11 @@ import { MaxDigitsDirective } from '../../directives/max-digits.directive';
     // Directive
     MaxDigitsDirective
   ],
-  selector: 'app-edit-client',
-  templateUrl: './edit-client.component.html',
-  styleUrls: ['./edit-client.component.scss']
+  selector: 'app-record-details',
+  templateUrl: './record-details.component.html',
+  styleUrls: ['./record-details.component.scss']
 })
-export class EditClientComponent {
+export class RecordDetailsComponent {
   isRegistrationNumberReadOnly: boolean = true;
   isRecordDateReadOnly: boolean = true;
   isLicenseNumberReadOnly: boolean = true;

@@ -228,7 +228,7 @@ export class RecordsComponent {
 
   // Edit client
   editItem(item: any): void {
-    // this.router.navigate(['Dashboard/Clients/' + item.id]);
+    this.router.navigate(['Dashboard/Clients/Record-Details']);
   }
   //========Start Delete client==========
   deleteItem(item: any): void {
