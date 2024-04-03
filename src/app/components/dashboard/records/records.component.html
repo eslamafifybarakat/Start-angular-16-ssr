@@ -130,7 +130,7 @@
       <div class="row pt-4">
         <!-- Loading Cards -->
         <ng-container *ngIf="isLoadingRecordsList; else noLoadingCards">
-          <skeleton type="recordsList"></skeleton>
+          <skeleton type="clientsList"></skeleton>
         </ng-container>
 
         <!-- Cards List -->
@@ -163,7 +163,7 @@
     <div class="row pt-4">
       <!-- Loading Cards -->
       <ng-container *ngIf="isLoadingRecordsList; else noLoadingCards">
-        <skeleton type="recordsList"></skeleton>
+        <skeleton type="clientsList"></skeleton>
       </ng-container>
       <!-- Cards List -->
       <ng-template #noLoadingCards>
