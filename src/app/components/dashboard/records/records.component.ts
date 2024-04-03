@@ -10,6 +10,7 @@ import { DynamicTableLocalActionsComponent } from './../../../shared/components/
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
 import { RecordCardComponent } from './record-card/record-card.component';
+import { AddRecordComponent } from './add-record/add-record.component';
 
 //Services
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
@@ -187,23 +188,23 @@ export class RecordsComponent {
   }
 
   addItem(item?: any, type?: any): void {
-    // const ref = this.dialogService?.open(AddEditClientComponent, {
-    //   data: {
-    //     item,
-    //     type: type == 'edit' ? 'edit' : 'add'
-    //   },
-    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.customers.editCustomer') : this.publicService?.translateTextFromJson('dashboard.customers.addCustomer'),
-    //   dismissableMask: false,
-    //   width: '60%',
-    //   styleClass: 'custom-modal',
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res?.listChanged) {
-    //     this.page = 1;
-    //     this.publicService?.changePageSub?.next({ page: this.page });
-    //     this.getAllRecords();
-    //   }
-    // });
+    const ref = this.dialogService?.open(AddRecordComponent, {
+      data: {
+        item,
+        type: type == 'edit' ? 'edit' : 'add'
+      },
+      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.records.editRecord') : this.publicService?.translateTextFromJson('dashboard.records.addRecord'),
+      dismissableMask: false,
+      width: '60%',
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.page = 1;
+        this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllRecords();
+      }
+    });
   }
   // Filter clients
   filterItem(): void {

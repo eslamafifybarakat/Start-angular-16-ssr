@@ -228,7 +228,10 @@
     "recordDate":"Record expiration date",
     "registrationNumber":"Registration number",
     "businessLicense":"Business License",
-    "businessLicenseNumber":"Business License Number"
+    "businessLicenseNumber":"Business License Number",
+    "recordName":"Record Name",
+    "recordNumber":"Record Number",
+    "endDate":"End Date"
   },
   "placeholders": {
     "searchEstkdam": "Find the employment you want",
@@ -261,7 +264,10 @@
     "recordDate":"Enter record expiration date",
     "registrationNumber":"Enter registration number",
     "businessLicense":"Enter business license",
-    "businessLicenseNumber":"Enter business license number"
+    "businessLicenseNumber":"Enter business license number",
+    "recordName":"Enter record name",
+    "recordNumber":"Enter record number",
+    "endDate":"End Date"
     },
   "validations": {
     "username": "Username is required",

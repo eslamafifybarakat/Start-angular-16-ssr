@@ -228,7 +228,10 @@
         "recordDate":"تاريخ إنتهاء السجل",
         "registrationNumber":"رقم السجل ",
         "businessLicense":"ملف مكتب العمل",
-        "businessLicenseNumber":"رقم ملف مكتب العمل"
+        "businessLicenseNumber":"رقم ملف مكتب العمل",
+        "recordName":"اسم السجل",
+        "recordNumber":"رقم السجل",
+        "endDate":"تاريخ الانتهاء"
       },
       "placeholders": {
         "searchEstkdam": "ابحث عن الإستقدام الذى تريده",
@@ -261,7 +264,10 @@
     "recordDate":"تاريخ إنتهاء السجل",
     "registrationNumber":"أدخل رقم السجل ",
     "businessLicense":"أدخل ملف مكتب العمل",
-    "businessLicenseNumber":"أدخل رقم ملف مكتب العمل"
+    "businessLicenseNumber":"أدخل رقم ملف مكتب العمل",
+    "recordName":"أدخل اسم السجل",
+    "recordNumber":"أدخل رقم السجل",
+    "endDate":"تاريخ الانتهاء"
       },
       "validations": {
         "username": "اسم المستخدم مطلوب",
