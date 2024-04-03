@@ -71,9 +71,16 @@
             <span class="input-group-text border-0 text-muted-color fs-6-1 " id="basic-addon1">
               +966
             </span>
-            <input type="number" class="form-control border-0" formControlName="phoneNumber" autocomplete="cc-name"
-              MaxDigits [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
-              placeholder="{{'placeholders.phoneNumber'|translate}}">
+            <span class="p-input-icon-right w-100 d-flex flex-nowrap">
+              <input type="number" class="form-control border-0" formControlName="phoneNumber" autocomplete="cc-name"
+                MaxDigits [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
+                placeholder="{{'placeholders.phoneNumber'|translate}}" [class.disabled]="isLoadingCheckPhone"
+                (blur)="checkPhoneAvailable()" (keyup)="onKeyUpEvent('phoneNumber')"
+                [class.is-valid]="!isLoadingCheckPhone &&!phoneNotAvailable && formControls?.phoneNumber?.valid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+              <ng-container *ngIf="isLoadingCheckPhone">
+                <i class="pi pi-spin pi-spinner"></i>
+              </ng-container>
+            </span>
           </div>
           <div class="mt-2">
             <ng-container
@@ -88,6 +95,13 @@
                   {{'validations.phoneNotCorrect'|translate}}
                 </span>
               </ng-container>
+            </ng-container>
+            <ng-container *ngIf="phoneNotAvailable">
+              <span class="text-danger fs-8 d-block">
+                {{'labels.phoneNumber'|translate}}<span class="text-main-color fw-bold px-1">
+                  {{modalForm.value.phoneNumber}}</span>
+                {{'auth.isUsedBefore'|translate}}
+              </span>
             </ng-container>
           </div>
         </div>

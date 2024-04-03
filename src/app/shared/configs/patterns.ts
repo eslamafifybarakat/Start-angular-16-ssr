@@ -6,5 +6,5 @@ export const patterns = {
   id: /^\d{10}$/,
   // phone: /^\d{9}$/,
   // phone: /^\+966\d{9}$/,
-  phone: '051[10][0-9]{5}'
+  phone: '051[01]\d{5}'
 };

@@ -108,8 +108,8 @@ export class ClientsListComponent {
     this.dataStyleType = type;
   }
   // ======Start get all clients=========
-  getAllClients(): void {
-    this.isLoadingClientsList = true;
+  getAllClients(isFiltering?: boolean): void {
+    isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingClientsList = true;
     this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
         tap((res: any) => this.processClientsListResponse(res)),
@@ -137,6 +137,7 @@ export class ClientsListComponent {
     this.isLoadingClientsList = false;
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
+    this.publicService.showSearchLoader.next(false);
     setTimeout(() => {
       this.enableSortFilter = true;
     }, 200);
@@ -168,7 +169,7 @@ export class ClientsListComponent {
     this.perPage = 20;
     this.searchKeyword = keyWord;
     this.isLoadingClientsList = true;
-    this.getAllClients();
+    this.getAllClients(true);
     if (keyWord?.length > 0) {
       this.isLoadingSearch = true;
     }
@@ -176,7 +177,7 @@ export class ClientsListComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
-    this.getAllClients();
+    this.getAllClients(true);
   }
 
   // ======Start pagination==========
@@ -229,7 +230,7 @@ export class ClientsListComponent {
         this.filtersArray = res.conditions;
         this.filterCards = res.conditions;
         // this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllClients();
+        this.getAllClients(true);
       }
     });
   }

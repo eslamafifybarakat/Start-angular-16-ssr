@@ -19,7 +19,9 @@ export const roots = {
       getClients: '/getClients',
       addClient: '/addClient',
       deleteClients: '/deleteClients',
-      IsNationalIdentityAvailable: "/nationalIdentity"
+      IsNationalIdentityAvailable: "/nationalIdentity",
+      IsEmailAvailable: "/check_email",
+      IsPhoneAvailable: "/check_phone"
     }
   }
 }

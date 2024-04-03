@@ -46,4 +46,10 @@ export class ClientsService {
   IsNationalIdentityAvailable(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + roots.dashboard.clients.IsNationalIdentityAvailable, data);
   }
+  IsEmailAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + roots.dashboard.clients.IsEmailAvailable, data);
+  }
+  IsPhoneAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + roots.dashboard.clients.IsPhoneAvailable, data);
+  }
 }

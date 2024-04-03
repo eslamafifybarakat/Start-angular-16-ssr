@@ -67,10 +67,17 @@
                 <span class="input-group-text border-0 text-muted-color fs-6-1 " id="basic-addon1">
                   +966
                 </span>
-                <input MaxDigits type="text" class="form-control border-0" [class.prevent-click]="isPhoneNumberReadOnly"
-                  formControlName="phoneNumber" autocomplete="cc-name" [min]="0"
-                  (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
-                  placeholder="{{'placeholders.phoneNumber'|translate}}">
+                <span class="p-input-icon-right w-100">
+                  <input MaxDigits type="text" class="form-control border-0"
+                    [class.prevent-click]="isPhoneNumberReadOnly" formControlName="phoneNumber" autocomplete="cc-name"
+                    [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
+                    placeholder="{{'placeholders.phoneNumber'|translate}}" (blur)="checkPhoneAvailable()"
+                    (keyup)="onKeyUpEvent('phoneNumber')" [class.disabled]="isLoadingCheckPhone"
+                    [class.is-valid]="!isLoadingCheckPhone &&!phoneNotAvailable && formControls?.phoneNumber?.valid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
+                  <ng-container *ngIf="isLoadingCheckPhone">
+                    <i class="pi pi-spin pi-spinner"></i>
+                  </ng-container>
+                </span>
                 <span class="input-group-text bg-white-color p-1 border-0" id="basic-addon1">
                   <a *ngIf="isPhoneNumberReadOnly" class="edit-input d-flex justify-content-center align-items-center"
                     (click)="editInput('phoneNumber')">
@@ -95,6 +102,13 @@
                       {{'validations.phoneNotCorrect'|translate}}
                     </span>
                   </ng-container>
+                </ng-container>
+                <ng-container *ngIf="phoneNotAvailable">
+                  <span class="text-danger fs-8 d-block">
+                    {{'labels.phoneNumber'|translate}}<span class="text-main-color fw-bold px-1">
+                      {{modalForm.value.phoneNumber}}</span>
+                    {{'auth.isUsedBefore'|translate}}
+                  </span>
                 </ng-container>
               </div>
             </div>

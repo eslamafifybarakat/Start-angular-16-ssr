@@ -38,11 +38,17 @@ import { Subscription } from 'rxjs';
 export class AddEditClientComponent {
   private subscriptions: Subscription[] = [];
 
+  // check id variable
   isLoadingCheckId: Boolean = false;
   idNotAvailable: Boolean = false;
 
+  // check email variable
   isLoadingCheckEmail: Boolean = false;
   emailNotAvailable: Boolean = false;
+
+  // check phone variable
+  isLoadingCheckPhone: Boolean = false;
+  phoneNotAvailable: Boolean = false;
 
   // BirthDate
   readonly minAge = 18;
@@ -89,7 +95,7 @@ export class AddEditClientComponent {
     return this.modalForm?.controls;
   }
 
-  // Check If National Identity is valid or not
+  //=======Start Check If National Identity is valid or not========
   checkNationalIdentityAvailable(): void {
     if (!this.formControls.id.valid) {
       return; // Exit early if ID is not valid
@@ -130,7 +136,9 @@ export class AddEditClientComponent {
     this.isLoadingCheckId = false;
 
   }
-  // Check If Email is valid or not
+  //=======End Check If National Identity is valid or not========
+
+  //======= Start Check If Email is valid or not============
   checkEmailAvailable(): void {
     if (!this.formControls.email.valid) {
       return; // Exit early if email is not valid
@@ -141,7 +149,7 @@ export class AddEditClientComponent {
 
     this.isLoadingCheckEmail = true;
 
-    let checkEmailSubscription = this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+    let checkEmailSubscription = this.clientsService?.IsEmailAvailable(data)?.subscribe(
       (res: any) => {
         this.handleEmailResponse(res);
       },
@@ -169,6 +177,48 @@ export class AddEditClientComponent {
     this.alertsService?.openToast('error', 'error', errorMessage);
     this.isLoadingCheckEmail = false;
   }
+  //======= End Check If Email is valid or not============
+
+  //======= Start Check If Phone is valid or not============
+  checkPhoneAvailable(): void {
+    if (!this.formControls.phoneNumber.valid) {
+      return; // Exit early if email is not valid
+    }
+
+    const phone = this.modalForm.value.phoneNumber;
+    const data = { phone };
+
+    this.isLoadingCheckPhone = true;
+
+    let checkPhoneSubscription = this.clientsService?.IsPhoneAvailable(data)?.subscribe(
+      (res: any) => {
+        this.handlePhoneResponse(res);
+      },
+      (err: any) => {
+        this.handlePhoneError(err);
+      }
+    );
+    this.subscriptions.push(checkPhoneSubscription);
+  }
+  private handlePhoneResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.phoneNotAvailable = !res.result;
+    } else {
+      this.phoneNotAvailable = false;
+      if (res?.message) {
+        this.alertsService?.openToast('error', 'error', res.message);
+      }
+    }
+    this.isLoadingCheckPhone = false;
+    this.cdr.detectChanges();
+  }
+  private handlePhoneError(err: any): void {
+    this.phoneNotAvailable = false;
+    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
+    this.alertsService?.openToast('error', 'error', errorMessage);
+    this.isLoadingCheckPhone = false;
+  }
+  //======= End Check If Phone is valid or not============
 
   onKeyUpEvent(type: string): void {
     if (type == 'id') {
@@ -176,6 +226,9 @@ export class AddEditClientComponent {
     }
     if (type == 'email') {
       this.isLoadingCheckEmail = false;
+    }
+    if (type == 'phoneNumber') {
+      this.isLoadingCheckPhone = false;
     }
   }
 

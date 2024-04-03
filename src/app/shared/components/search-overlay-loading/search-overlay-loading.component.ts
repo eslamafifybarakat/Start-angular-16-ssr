@@ -1,7 +1,8 @@
 import { PublicService } from './../../../services/generic/public.service';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { keys } from '../../configs/localstorage-key';
 
 @Component({
   standalone: true,
@@ -11,11 +12,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-overlay-loading.component.scss']
 })
 export class SearchOverlayLoadingComponent {
+  currentLanguage: string | null = '';
   show_overlay: boolean = false;
-  constructor(private publicService: PublicService) { }
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private publicService: PublicService
+  ) { }
 
   ngOnInit(): void {
-    this.publicService.show_loader.subscribe((res: any) => {
+    if (isPlatformBrowser(this.platformId)) {
+      this.currentLanguage = window?.localStorage?.getItem(keys?.language);
+    }
+
+    this.publicService.showSearchLoader.subscribe((res: any) => {
       if (res == true) {
         this.show_overlay = true;
       } else {

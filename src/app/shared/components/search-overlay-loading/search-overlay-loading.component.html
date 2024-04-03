@@ -13,6 +13,11 @@
       <circle class="back" cx="17" cy="17" r="14"></circle>
       <circle class="front" cx="17" cy="17" r="14"></circle>
     </svg>
-    <div class="text fs-5 mt-3" data-text="Searching"></div>
+    <ng-container *ngIf="currentLanguage=='ar'; else enText">
+      <div class="text fs-5 mt-3 text-nowrap" data-text="جاري المعالجة"></div>
+    </ng-container>
+    <ng-template #enText>
+      <div class="text fs-5 mt-3 text-nowrap" data-text="Searching"></div>
+    </ng-template>
   </div>
 </div>
