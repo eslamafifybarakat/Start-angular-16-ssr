@@ -17,6 +17,7 @@ import { ToastModule } from 'primeng/toast';
 import { registerLocaleData } from '@angular/common';
 import localeAr from '@angular/common/locales/ar';
 
+import { SearchOverlayLoadingComponent } from './shared/components/search-overlay-loading/search-overlay-loading.component';
 import { BottomNavigationComponent } from './shared/components/bottom-navigation/bottom-navigation.component';
 import { OverlayLoadingComponent } from './shared/components/overlay-loading/overlay-loading.component';
 import { NavbarMobileComponent } from './shared/components/navbar-mobile/navbar-mobile.component';
@@ -32,6 +33,7 @@ registerLocaleData(localeAr);
     AppComponent
   ],
   imports: [
+    SearchOverlayLoadingComponent,
     BottomNavigationComponent,
     OverlayLoadingComponent,
     NavbarMobileComponent,

@@ -1,15 +1,16 @@
 import { PublicService } from './../../../services/generic/public.service';
-import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
-  selector: 'overlay-loading',
-  templateUrl: './overlay-loading.component.html',
-  styleUrls: ['./overlay-loading.component.scss']
+  imports: [CommonModule, TranslateModule],
+  selector: 'search-overlay-loading',
+  templateUrl: './search-overlay-loading.component.html',
+  styleUrls: ['./search-overlay-loading.component.scss']
 })
-export class OverlayLoadingComponent implements OnInit {
+export class SearchOverlayLoadingComponent {
   show_overlay: boolean = false;
   constructor(private publicService: PublicService) { }
 
