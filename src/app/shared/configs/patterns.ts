@@ -5,5 +5,6 @@ export const patterns = {
   vatNumber: /^[0-9]{11,20}/,
   id: /^\d{10}$/,
   // phone: /^\d{9}$/,
-  phone: /^\+966\d{9}$/,
+  // phone: /^\+966\d{9}$/,
+  phone: '051[10][0-9]{5}'
 };

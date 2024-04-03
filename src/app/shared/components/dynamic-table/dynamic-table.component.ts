@@ -225,7 +225,7 @@ export class DynamicTableComponent {
     this.url = this.router?.url;
 
     // skeletonItems array
-    this.skeletonItems = [0, 1, 2, 3, 4, 5];
+    this.skeletonItems = [1, 2, 3, 4, 5, 8];
 
     // Selected Columns
     this._selectedColumns = this.tableHeaders;

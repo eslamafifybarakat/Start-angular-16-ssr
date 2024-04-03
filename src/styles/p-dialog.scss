@@ -8,6 +8,10 @@
   .p-dialog-header-icon {
     border-radius: 50%;
   }
+  font-family: "Poppins", sans-serif !important;
+  &:dir(rtl) {
+    font-family: "Cairo", sans-serif !important;
+  }
 }
 @media (max-width: 767px) {
   .p-dialog {
