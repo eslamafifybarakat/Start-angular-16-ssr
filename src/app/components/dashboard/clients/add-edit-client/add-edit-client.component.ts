@@ -267,12 +267,12 @@ export class AddEditClientComponent {
       this.ref.close({ listChanged: true, item: response?.data });
       response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
     } else {
-      response?.message ? this.alertsService?.openToast('error', 'error', response?.message) : '';
+      response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
     }
   }
   private handleAddClientError(error: any): void {
     this.publicService?.show_loader?.next(false);
-    error?.message ? this.alertsService?.openToast('error', 'error', error?.message) : '';
+    error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
 
   cancel(): void {

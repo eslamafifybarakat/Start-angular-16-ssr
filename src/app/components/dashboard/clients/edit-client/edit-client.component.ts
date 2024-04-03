@@ -10,11 +10,12 @@ import { UploadMultiFilesComponent } from '../../../../shared/components/upload-
 //Services
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PublicService } from './../../../../services/generic/public.service';
+import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { patterns } from './../../../../shared/configs/patterns';
 import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 
 @Component({
   standalone: true,
@@ -39,6 +40,8 @@ import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 export class EditClientComponent {
   private subscriptions: Subscription[] = [];
 
+  clientId: number;
+
   isFullNameReadOnly: boolean = true;
   isIdReadOnly: boolean = true;
   isPhoneNumberReadOnly: boolean = true;
@@ -47,15 +50,15 @@ export class EditClientComponent {
 
   details: any = {
     fullName: 'Ahmed Ibrahim',
-    id: '3448484874874',
+    id: '3448484844',
     phoneNumber: '432222222',
     email: 'ahmedIbrahim@amil.com',
     birthDate: new Date(),
   };
-  filesNames: any = [
-    { name: 'name1', image: 'assets/images/navbar/sidebar-bg.svg' }
-  ];
-  imgIndex: any = 0;
+  // filesNames: any = [
+  //   { name: 'name1', image: 'assets/images/navbar/sidebar-bg.svg' }
+  // ];
+  // imgIndex: any = 0;
 
   // BirthDate
   readonly minAge = 18;
@@ -108,16 +111,17 @@ export class EditClientComponent {
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
+    private router: Router,
   ) { }
   ngOnInit(): void {
     this.patchValue();
   }
   // Upload Gallery imgs
-  uploadFiles(e: any): void {
-    this.filesNames = e.files;
-    console.log(e.files);
+  // uploadFiles(e: any): void {
+  //   this.filesNames = e.files;
+  //   console.log(e.files);
 
-  }
+  // }
   patchValue(): void {
     this.modalForm?.patchValue({
       fullName: this.details?.fullName,
@@ -280,6 +284,52 @@ export class EditClientComponent {
       this.isLoadingCheckPhone = false;
     }
   }
+
+  // =========Start submit edit client==========
+  submit(): void {
+    if (this.modalForm?.valid) {
+      const formData = this.extractFormData();
+      this.editClient(formData);
+    } else {
+      this.publicService?.validateAllFormFields(this.modalForm);
+    }
+  }
+  private extractFormData(): any {
+    return {
+      id: this.clientId,
+      fullName: this.modalForm?.value?.fullName,
+      phoneNumber: this.modalForm?.value?.phoneNumber,
+      email: this.modalForm?.value?.email,
+      nationalityId: this.modalForm?.value?.id,
+      birthDate: this.modalForm?.value?.birthDate
+    };
+  }
+  private editClient(formData: any): void {
+    this.publicService?.show_loader?.next(true);
+    let subscribeAddClient = this.clientsService?.editClient(formData)?.subscribe(
+      (res: any) => {
+        this.handleEditClientSuccess(res);
+      },
+      (err: any) => {
+        this.handleEditClientError(err);
+      }
+    );
+    this.subscriptions.push(subscribeAddClient);
+  }
+  private handleEditClientSuccess(response: any): void {
+    this.publicService?.show_loader?.next(false);
+    if (response?.isSuccess && response?.statusCode === 200) {
+      this.router.navigate(['/Dashboard/Clients']);
+      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
+    } else {
+      response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+    }
+  }
+  private handleEditClientError(error: any): void {
+    this.publicService?.show_loader?.next(false);
+    error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+  }
+  // =========End submit edit client==========
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

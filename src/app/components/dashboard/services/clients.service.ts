@@ -36,6 +36,9 @@ export class ClientsService {
   addClient(data: any): Observable<any> {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data)
   }
+  editClient(data: any): Observable<any> {
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data)
+  }
   deleteClientById(id: number, data: any): Observable<any> {
     let params = new HttpParams();
     if (data?.name) {

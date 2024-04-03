@@ -18,6 +18,7 @@ export const roots = {
     clients: {
       getClients: '/getClients',
       addClient: '/addClient',
+      editClient: '/editClient',
       deleteClients: '/deleteClients',
       IsNationalIdentityAvailable: "/nationalIdentity",
       IsEmailAvailable: "/check_email",
