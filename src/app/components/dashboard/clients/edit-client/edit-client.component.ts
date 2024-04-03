@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 // Components
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
+import { RecordsComponent } from '../../records/records.component';
 
 //Services
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -29,6 +30,7 @@ import { Subscription } from 'rxjs';
 
     // Components
     UploadMultiFilesComponent,
+    RecordsComponent,
 
     // Directive
     MaxDigitsDirective

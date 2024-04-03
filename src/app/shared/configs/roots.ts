@@ -23,6 +23,10 @@ export const roots = {
       IsNationalIdentityAvailable: "/nationalIdentity",
       IsEmailAvailable: "/check_email",
       IsPhoneAvailable: "/check_phone"
+    },
+    records: {
+      getRecords: '/getRecords',
+      addRecords: '/addRecords',
     }
   }
 }

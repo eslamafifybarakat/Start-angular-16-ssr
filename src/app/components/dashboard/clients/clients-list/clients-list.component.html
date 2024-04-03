@@ -83,7 +83,7 @@
       </div>
       <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingClientsList">
         <!-- Search Handler -->
-        <div class="col-8">
+        <div class="col-sm-8 col-9">
           <div class="search" role="search">
             <div class="input-group bg-white-color d-flex flex-nowrap w-100">
               <span class="input-group-text border-0" id="basic-addon1">
@@ -101,10 +101,10 @@
           </div>
         </div>
         <!-- Clear -->
-        <div class="col-4 d-flex justify-content-end">
+        <div class="col-sm-4 col-3 d-flex justify-content-end">
           <button class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap h-100" (click)="clearTable()">
             <i class="pi pi-refresh"></i>
-            <span>{{'general.reset'|translate}}</span>
+            <span class="d-sm-inline-block d-none">{{'general.reset'|translate}}</span>
           </button>
         </div>
       </div>
@@ -112,13 +112,8 @@
     <div class="mt-3 d-md-block d-none">
       <!-- Table -->
       <ng-container *ngIf="dataStyleType=='list'">
-        <!-- Loading Table -->
-        <!-- <ng-container *ngIf="isLoadingClientsList; else noLoadingClients">
-          <table-skeleton></table-skeleton>
-        </ng-container> -->
 
         <!-- Table List -->
-        <!-- <ng-template #noLoadingClients> -->
         <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false" [showSearch]="false"
           [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
           (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
@@ -131,7 +126,6 @@
           [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
           [enableFilterDriverStatus]="true"></dynamic-table>
-        <!-- </ng-template> -->
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">
