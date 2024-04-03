@@ -213,12 +213,7 @@ export class DynamicTableComponent {
         this.changePageActiveNumber(res?.page);
       }
     });
-    // Loading table
-    this.publicService?.isLoadingTable?.subscribe((res: any) => {
-      if (res) {
-        this.isLoading = true;
-      }
-    });
+
     // Clear table
     this.publicService?.resetTable?.subscribe((res: any) => {
       if (res) {

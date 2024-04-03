@@ -1,4 +1,7 @@
-<div id="dynamic-global-data-table">
+<div id="dynamic-global-data-table" class="position-relative">
+  <div *ngIf="isLoading" class="overlay position-absolute d-flex justify-content-center align-items-center">
+    <span class="loader"></span>
+  </div>
   <div class="table-content">
     <p-table #dt1 [value]="tableData" (onFilter)="customFilter($event,dt1)" [(selection)]="selectedItems"
       [paginator]="false" [rows]="paginatorRows" [columns]="selectedColumns" responsiveLayout="scroll"

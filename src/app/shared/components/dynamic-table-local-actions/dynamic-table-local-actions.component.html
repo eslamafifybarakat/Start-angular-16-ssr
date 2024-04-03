@@ -1,4 +1,7 @@
-<div id="dynamic-global-data-table">
+<div id="dynamic-global-data-table" class="position-relative">
+  <div *ngIf="isLoading" class="overlay position-absolute d-flex justify-content-center align-items-center">
+    <span class="loader"></span>
+  </div>
   <div class="table-content">
     <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="showPaginator"
       [rowsPerPageOptions]="rowsPerPageOptions" [rows]="paginatorRows" [columns]="selectedColumns"
