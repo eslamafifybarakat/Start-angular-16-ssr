@@ -1,7 +1,7 @@
 import { authCarouselAr, authCarouselEn } from './auth-carousel';
-import { keys } from './../../shared/configs/localstorage-key';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { sliderItems } from './../../interfaces/auth';
+import { sliderItems } from './../../../interfaces/auth';
+import { keys } from '../../configs/localstorage-key';
 import { isPlatformBrowser } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 

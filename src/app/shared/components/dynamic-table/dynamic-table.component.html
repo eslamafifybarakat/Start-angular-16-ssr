@@ -51,7 +51,7 @@
         </div>
       </ng-template>
       <ng-template pTemplate="header" let-columns>
-        <tr>
+        <tr [class.disabled]="isLoading">
           <ng-container *ngIf="showSelection">
             <th>
               <!-- <p-checkbox [(ngModel)]="selectAll" [binary]="true" (onChange)="changeSelectedAll($event)"></p-checkbox>

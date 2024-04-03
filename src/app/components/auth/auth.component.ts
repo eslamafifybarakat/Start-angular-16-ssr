@@ -1,4 +1,4 @@
-import { AuthCarouselComponent } from './../../carousels/auth-carousel/auth-carousel.component';
+import { AuthCarouselComponent } from './../../shared/carousels/auth-carousel/auth-carousel.component';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
