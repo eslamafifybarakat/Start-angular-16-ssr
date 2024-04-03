@@ -70,6 +70,22 @@
     "less": "Less",
     "office": "Office"
   },
+  "userInfo": {
+    "my_profile": "My Profile",
+    "my_performance": "My Performance",
+    "my_notes": "My Notes",
+    "rest_schedule": "Rest Schedule",
+    "daily_tasks": {
+      "name": "Daily Tasks",
+      "daily_tasks_submenu": {
+        "submenu": "submenu"
+      }
+    },
+    "sharing_samples": "Sharing Samples",
+    "control_board": "Dashboard",
+    "change_bank": "Change Bank",
+    "logout": "Log Out"
+  },
   "dashboard":{
 "sideMenu":{
   "statistics":"Statistics",
@@ -295,7 +311,9 @@
     "specialChar": "It must contain symbols (such as @,!,&,%,$,.....)",
     "containChar": "It must contain at least one capital letter",
     "notContainInfo": "It does not contain information such as name",
-    "phoneLength":"Phone Length must be 9"
+    "phoneLength":"Phone Length must be 9",
+    "phoneNotCorrect": "Phone number not correct",
+    "idLength":"National identity must be 10 digits"
   },
   "footer": {
     "allRight": "All Rights Reserved © 2022.",

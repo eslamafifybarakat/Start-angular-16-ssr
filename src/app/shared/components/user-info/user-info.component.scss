@@ -1,32 +1,19 @@
-.user-info {
-  .user-img-parent {
-    width: 2.5rem;
-    height: 2.5rem;
-    .user-img {
-      border: 2px solid var(--text-white-color);
-    }
-  }
-  .user-content {
-    margin-top: -5px;
-  }
+.user-info-dropdown {
   .user-info-menu {
     width: 16rem;
     border-radius: 12px;
     top: 3.6rem !important;
   }
-  .submenu {
-    top: 40px !important;
-  }
-  .fa-circle {
-    font-size: 10px;
-  }
   .nav-item {
-    border-radius: 9px;
     .nav-link {
       padding: 10px 15px !important;
       font-size: 15px;
       line-height: 2;
       color: #000;
+      border-radius: 10px;
+      &:hover {
+        background-color: #fafafa;
+      }
     }
     &:hover {
       .logout-text {
@@ -34,10 +21,10 @@
       }
     }
   }
-}
-.logout-text {
-  color: #ff5879 !important;
-}
-.user-name {
-  max-width: 11rem;
+  .logout-text {
+    color: #ff5879 !important;
+  }
+  .user-name {
+    max-width: 11rem;
+  }
 }

@@ -1,8 +1,10 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { keys } from '../../configs/localstorage-key';
 import { TranslateModule } from '@ngx-translate/core';
+import { userInfoMenu } from './user-info-menu-list';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -14,11 +16,12 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class UserInfoComponent {
   currentLanguage: string;
-  userInfoList: any = [];
+  userInfoList: any = userInfoMenu;
 
   constructor(
     private confirmationService: ConfirmationService,
     @Inject(PLATFORM_ID) private platformId: Object,
+    public sanitizer: DomSanitizer,
     private router: Router
   ) { }
   ngOnInit(): void {

@@ -70,6 +70,22 @@
     "less": "أٌقل",
     "office": "مكتب"
   },
+  "userInfo": {
+    "my_profile": "الملف الشخصي",
+    "my_performance": "أدائي",
+    "my_notes": "ملاحظاتي",
+    "rest_schedule": "جدول الراحات",
+    "daily_tasks": {
+      "name": "المهام اليومية",
+      "daily_tasks_submenu": {
+        "submenu": "قائمه جانبيه"
+      }
+    },
+    "sharing_samples": "مشاركة العينات",
+    "control_board": "لوحة التحكم",
+    "change_bank": "تغيير البنك",
+    "logout": "تسجيل خروج"
+  },
   "dashboard":{
     "sideMenu":{
       "statistics":"الإحصائيات",
@@ -295,7 +311,9 @@
         "specialChar": "أن يحتوى على رموز (مثل @,!,&,%,$,.....)",
         "containChar": "أن يحتوى على حرف كبير على الأقل",
         "notContainInfo": "لا يحتوى على معلومات مثل الإسم",
-    "phoneLength":"يجب ان يحتوي علي 9 ارقام"
+    "phoneLength":"يجب ان يحتوي علي 9 ارقام",
+    "phoneNotCorrect": "رقم الهاتف غير صحيح",
+    "idLength": " الهوية الوطنية يجب ان تكون 10 ارقام"
       },
   "footer": {
     "allRight": "جميع الحقوق محفوظة © 2022.",

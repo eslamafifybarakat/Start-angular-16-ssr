@@ -30,7 +30,7 @@
         <div class="mb-3">
           <label for="id" class="mb-2 required">{{'labels.id'|translate}}</label>
           <span class="p-input-icon-right w-100">
-            <input type="number" class="form-control" formControlName="id"
+            <input type="number" class="form-control" formControlName="id" MaxDigits [maxNumber]="10"
               (input)="publicService?.clearValidationErrors(formControls?.id)"
               [class.border-red]="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)"
               [class.is-valid]="!isLoadingCheckId &&!idNotAvailable && formControls?.id?.valid && (formControls?.id?.dirty || formControls?.id?.touched)"
@@ -45,6 +45,11 @@
               <ng-container *ngIf="formControls?.id?.errors?.['required']">
                 <span class="text-danger fs-8">
                   {{'validations.requiredField'|translate}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="formControls?.id?.errors?.['pattern']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.idLength'|translate}}
                 </span>
               </ng-container>
             </ng-container>
@@ -67,7 +72,7 @@
               +966
             </span>
             <input type="number" class="form-control border-0" formControlName="phoneNumber" autocomplete="cc-name"
-              [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
+              MaxDigits [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
               placeholder="{{'placeholders.phoneNumber'|translate}}">
           </div>
           <div class="mt-2">
@@ -78,10 +83,9 @@
                   {{'validations.requiredField'|translate}}
                 </span>
               </ng-container>
-
               <ng-container *ngIf="formControls?.phoneNumber?.errors?.['pattern']">
                 <span class="text-danger fs-8 d-block">
-                  {{'validations.phoneLength'|translate}}
+                  {{'validations.phoneNotCorrect'|translate}}
                 </span>
               </ng-container>
             </ng-container>

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
+import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { ClientsService } from './../../services/clients.service';
 import { patterns } from './../../../../shared/configs/patterns';
 import { ChangeDetectorRef, Component } from '@angular/core';
@@ -26,6 +27,9 @@ import { Subscription } from 'rxjs';
     DropdownModule,
     CommonModule,
     FormsModule,
+
+    // Directive
+    MaxDigitsDirective
   ],
   selector: 'app-add-edit-client',
   templateUrl: './add-edit-client.component.html',
@@ -60,7 +64,7 @@ export class AddEditClientComponent {
       }],
       id: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns?.id)], updateOn: "blur"
       }],
       phoneNumber: ['', {
         validators: [

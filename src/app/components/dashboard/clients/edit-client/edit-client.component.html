@@ -67,7 +67,7 @@
                 <span class="input-group-text border-0 text-muted-color fs-6-1 " id="basic-addon1">
                   +966
                 </span>
-                <input type="text" class="form-control border-0" [class.prevent-click]="isPhoneNumberReadOnly"
+                <input MaxDigits type="text" class="form-control border-0" [class.prevent-click]="isPhoneNumberReadOnly"
                   formControlName="phoneNumber" autocomplete="cc-name" [min]="0"
                   (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
                   placeholder="{{'placeholders.phoneNumber'|translate}}">
@@ -92,7 +92,7 @@
                   </ng-container>
                   <ng-container *ngIf="formControls?.phoneNumber?.errors?.['pattern']">
                     <span class="text-danger fs-8 d-block">
-                      {{'validations.phoneLength'|translate}}
+                      {{'validations.phoneNotCorrect'|translate}}
                     </span>
                   </ng-container>
                 </ng-container>
@@ -140,7 +140,8 @@
               <div class="input-group bg-white-color d-flex flex-nowrap"
                 [class.border-red]="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)">
                 <span class="p-input-icon-right w-100">
-                  <input type="number" class="form-control" [class.prevent-click]="isIdReadOnly" formControlName="id"
+                  <input MaxDigits [maxNumber]="10" type="number" class="form-control"
+                    [class.prevent-click]="isIdReadOnly" formControlName="id"
                     (input)="publicService?.clearValidationErrors(formControls?.id)"
                     [class.border-red]="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)"
                     [class.is-valid]="!isLoadingCheckId &&!idNotAvailable && formControls?.id?.valid && (formControls?.id?.dirty || formControls?.id?.touched)"
@@ -167,6 +168,11 @@
                   <ng-container *ngIf="formControls?.id?.errors?.['required']">
                     <span class="text-danger fs-8">
                       {{'validations.requiredField'|translate}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="formControls?.id?.errors?.['pattern']">
+                    <span class="text-danger fs-8 d-block">
+                      {{'validations.idLength'|translate}}
                     </span>
                   </ng-container>
                 </ng-container>

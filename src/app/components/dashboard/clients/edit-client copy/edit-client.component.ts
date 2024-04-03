@@ -6,10 +6,15 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
+import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, FileUploadComponent, UploadMultiFilesComponent, CalendarModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, TranslateModule, FileUploadComponent, UploadMultiFilesComponent, CalendarModule, FormsModule, ReactiveFormsModule,
+    // Directive
+    MaxDigitsDirective
+  ],
   selector: 'app-edit-client',
   templateUrl: './edit-client.component.html',
   styleUrls: ['./edit-client.component.scss']

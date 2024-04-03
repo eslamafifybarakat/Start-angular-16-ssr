@@ -14,6 +14,7 @@ import { patterns } from './../../../../shared/configs/patterns';
 import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 
 @Component({
   standalone: true,
@@ -27,6 +28,9 @@ import { Subscription } from 'rxjs';
 
     // Components
     UploadMultiFilesComponent,
+
+    // Directive
+    MaxDigitsDirective
   ],
   selector: 'app-edit-client',
   templateUrl: './edit-client.component.html',
@@ -62,7 +66,7 @@ export class EditClientComponent {
       }],
       id: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns?.id)], updateOn: "blur"
       }],
       phoneNumber: ['', {
         validators: [
