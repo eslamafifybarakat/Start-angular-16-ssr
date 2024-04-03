@@ -146,6 +146,17 @@
   "userType": "User type"
 },
 "hello":"Hello",
+"statistics": {
+  "hi": "Hi",
+  "welcomeBack": "Welcome Back!",
+  "pageIsDesigned": "This page is designed to give some important information about the website. Let's make someting together!",
+  "congratulations": "Congratulations",
+  "youHavePermission": "You have permission to do more operation",
+  "viewProfile": "View profile",
+  "totalRevenue":"Total Revenue",
+  "GoalVReality":"Goal versus reality",
+  "customerSatisfactio":"Customer Satisfactio"
+},
 "customers": {
   "customers": "Customers",
   "addCustomer": "Add Customer",

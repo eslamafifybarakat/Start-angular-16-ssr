@@ -6,7 +6,12 @@ import { keys } from '../../configs/localstorage-key';
 import { TranslateModule } from '@ngx-translate/core';
 import { userInfoMenu } from './user-info-menu-list';
 import { ConfirmationService } from 'primeng/api';
-
+interface MenuItem {
+  id?: string;
+  text: string;
+  icon: string;
+  routerLink?: string;
+}
 @Component({
   standalone: true,
   imports: [TranslateModule, CommonModule, RouterModule],
@@ -16,7 +21,7 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class UserInfoComponent {
   currentLanguage: string;
-  userInfoList: any = userInfoMenu;
+  userInfoList: MenuItem[] = userInfoMenu;
 
   constructor(
     private confirmationService: ConfirmationService,
