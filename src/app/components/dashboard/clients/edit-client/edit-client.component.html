@@ -106,10 +106,10 @@
                 [class.border-red]="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)"
                 class="birthDate">
                 <div class="input-group bg-white-color d-flex flex-nowrap">
-                  <p-calendar [class.prevent-click]="isBirthDateReadOnly" class="w-100" formControlName="birthDate"
-                    appendTo="body" [showIcon]="true" inputId="icon" [readonlyInput]="true" [styleClass]="'date-picker'"
-                    placeholder="yyyy/mm/dd" [showButtonBar]="true" [todayButtonStyleClass]="'d-none'"
-                    dateFormat="yy/mm/dd" hourFormat="12"></p-calendar>
+                  <p-calendar [maxDate]="maxDate" [class.prevent-click]="isBirthDateReadOnly" class="w-100"
+                    formControlName="birthDate" appendTo="body" [showIcon]="true" inputId="icon" [readonlyInput]="true"
+                    [styleClass]="'date-picker'" placeholder="yyyy/mm/dd" [showButtonBar]="true"
+                    [todayButtonStyleClass]="'d-none'" dateFormat="yy/mm/dd" hourFormat="12"></p-calendar>
                   <span class="input-group-text bg-white-color p-1" id="basic-addon1">
                     <a *ngIf="isBirthDateReadOnly" class="edit-input d-flex justify-content-center align-items-center"
                       (click)="editInput('birthDate')">

@@ -57,6 +57,10 @@ export class EditClientComponent {
   ];
   imgIndex: any = 0;
 
+  // BirthDate
+  readonly minAge = 18;
+  maxDate: any = new Date(new Date()?.getFullYear() - this.minAge, new Date()?.getMonth(), new Date()?.getDate());
+
   modalForm = this.fb?.group(
     {
       fullName: ['', {

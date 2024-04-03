@@ -137,7 +137,7 @@
           <div
             [class.border-red]="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)"
             class="birthDate">
-            <p-calendar formControlName="birthDate" appendTo="body" [showIcon]="true" inputId="icon"
+            <p-calendar formControlName="birthDate" appendTo="body" [showIcon]="true" inputId="icon" [maxDate]="maxDate"
               [readonlyInput]="true" [styleClass]="'date-picker'" placeholder="{{'labels.birthDate'| translate}}"
               [showButtonBar]="true" [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy"
               hourFormat="12"></p-calendar>

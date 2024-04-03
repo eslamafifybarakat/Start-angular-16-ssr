@@ -340,6 +340,29 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+.p-datepicker {
+  table td > span.p-highlight,
+  .p-yearpicker .p-yearpicker-year.p-highlight {
+    color: var(--text-main-color);
+    background-color: #359a9c1f;
+  }
+}
+.p-datepicker-prev,
+.p-datepicker-next {
+  border-radius: 50%;
+}
+.p-datepicker-buttonbar {
+  button {
+    border-color: var(--bg-main-color);
+    color: var(--text-main-color);
+    border-radius: 8px;
+    background-color: transparent;
+  }
+}
+.p-datepicker-month:hover,
+.p-datepicker-year:hover {
+  color: inherit;
+}
 .p-column-filter-buttonbar {
   .p-button-sm {
     background-color: var(--bg-main-color);

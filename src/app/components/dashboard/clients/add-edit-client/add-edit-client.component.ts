@@ -44,6 +44,10 @@ export class AddEditClientComponent {
   isLoadingCheckEmail: Boolean = false;
   emailNotAvailable: Boolean = false;
 
+  // BirthDate
+  readonly minAge = 18;
+  maxDate: any = new Date(new Date()?.getFullYear() - this.minAge, new Date()?.getMonth(), new Date()?.getDate());
+
   constructor(
     private clientsService: ClientsService,
     private alertsService: AlertsService,
@@ -53,7 +57,8 @@ export class AddEditClientComponent {
     private fb: FormBuilder,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   modalForm = this.fb?.group(
     {
