@@ -84,7 +84,7 @@ export class AddRecordComponent {
     return this.modalForm?.controls;
   }
 
-  //=======Start Check If National Identity is valid or not========
+  //=======Start Check If Record Number is valid or not========
   checkRecordNumAvailable(): void {
     if (!this.formControls.recordNumber.valid) {
       return; // Exit early if ID is not valid
@@ -95,17 +95,17 @@ export class AddRecordComponent {
 
     this.isLoadingCheckRecordNum = true;
 
-    let checkIdSubscription = this.recordsService?.IsRecordNumberAvailable(data)?.subscribe(
+    let checkRecordNumberSubscription = this.recordsService?.IsRecordNumberAvailable(data)?.subscribe(
       (res: any) => {
-        this.handleIdResponse(res);
+        this.handleRecordNumberResponse(res);
       },
       (err: any) => {
-        this.handleIdError(err);
+        this.handleRecordNumberError(err);
       }
     );
-    this.subscriptions.push(checkIdSubscription);
+    this.subscriptions.push(checkRecordNumberSubscription);
   }
-  private handleIdResponse(res: any): void {
+  private handleRecordNumberResponse(res: any): void {
     if (res?.success && res?.result != null) {
       this.recordNumNotAvailable = !res.result;
     } else {
@@ -117,19 +117,17 @@ export class AddRecordComponent {
     this.isLoadingCheckRecordNum = false;
     this.cdr.detectChanges();
   }
-  private handleIdError(err: any): void {
-    // this.recordNumNotAvailable = false;
-    this.recordNumNotAvailable = true;
+  private handleRecordNumberError(err: any): void {
+    this.recordNumNotAvailable = false;
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService?.openToast('error', 'error', errorMessage);
     this.isLoadingCheckRecordNum = false;
 
   }
-  //=======End Check If National Identity is valid or not========
-
   onKeyUpEvent(): void {
     this.isLoadingCheckRecordNum = false;
   }
+  //=======End Check If Record Number is valid or not========
 
   submit(): void {
     if (this.modalForm?.valid) {

@@ -27,6 +27,7 @@ export const roots = {
     records: {
       getRecords: '/getRecords',
       addRecords: '/addRecords',
+      editRecords: '/editRecords',
       IsRecordNumberAvailable: "/RecordNumber",
     }
   }

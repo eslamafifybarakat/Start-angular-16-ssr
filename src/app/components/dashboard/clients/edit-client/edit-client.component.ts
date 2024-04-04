@@ -308,7 +308,7 @@ export class EditClientComponent {
   }
   private editClient(formData: any): void {
     this.publicService?.show_loader?.next(true);
-    let subscribeAddClient = this.clientsService?.editClient(formData)?.subscribe(
+    let subscribeEditClient = this.clientsService?.editClient(formData)?.subscribe(
       (res: any) => {
         this.handleEditClientSuccess(res);
       },
@@ -316,7 +316,7 @@ export class EditClientComponent {
         this.handleEditClientError(err);
       }
     );
-    this.subscriptions.push(subscribeAddClient);
+    this.subscriptions.push(subscribeEditClient);
   }
   private handleEditClientSuccess(response: any): void {
     this.publicService?.show_loader?.next(false);

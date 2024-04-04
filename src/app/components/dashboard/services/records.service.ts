@@ -36,6 +36,9 @@ export class RecordsService {
   addRecord(data: any): Observable<any> {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.addRecords}`, data)
   }
+  editRecord(data: any): Observable<any> {
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.editRecords}`, data)
+  }
   IsRecordNumberAvailable(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + roots.dashboard.records.IsRecordNumberAvailable, data);
   }

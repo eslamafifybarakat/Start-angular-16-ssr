@@ -1,17 +1,37 @@
-import { PublicService } from '../../../../services/generic/public.service';
+import { AlertsService } from './../../../../services/generic/alerts.service';
+
+// Modules
+import { TranslateModule } from '@ngx-translate/core';
+import { CalendarModule } from 'primeng/calendar';
+import { CommonModule } from '@angular/common';
+
+// Components
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 import { FileUploadComponent } from '../../../../shared/components/upload-files/file-upload/file-upload.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+//Services
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { PublicService } from '../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
+import { RecordsService } from '../../services/records.service';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
   imports: [
-    CommonModule, TranslateModule, FileUploadComponent, UploadMultiFilesComponent, CalendarModule, FormsModule, ReactiveFormsModule,
+    // Modules
+    ReactiveFormsModule,
+    TranslateModule,
+    CalendarModule,
+    CommonModule,
+    FormsModule,
+
+    // Components
+    UploadMultiFilesComponent,
+    FileUploadComponent,
+
     // Directive
     MaxDigitsDirective
   ],
@@ -20,6 +40,9 @@ import { MaxDigitsDirective } from '../../directives/max-digits.directive';
   styleUrls: ['./record-details.component.scss']
 })
 export class RecordDetailsComponent {
+  private subscriptions: Subscription[] = [];
+
+  isRecordNameReadOnly: boolean = true;
   isRegistrationNumberReadOnly: boolean = true;
   isRecordDateReadOnly: boolean = true;
   isLicenseNumberReadOnly: boolean = true;
@@ -32,6 +55,7 @@ export class RecordDetailsComponent {
   isBusinessLicenseNumberReadOnly: boolean = true;
 
   details: any = {
+    recordName: 'recordName 1',
     registrationNumber: '2135836527289',
     recordDate: new Date(),
     registrationFile: 'assets/images/home/sidebar-bg.webp',
@@ -62,6 +86,10 @@ export class RecordDetailsComponent {
 
   modalForm = this.fb?.group(
     {
+      recordName: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       registrationNumber: ['', {
         validators: [
           Validators.required], updateOn: "blur"
@@ -104,14 +132,23 @@ export class RecordDetailsComponent {
       }],
     }
   );
-
   get formControls(): any {
     return this.modalForm?.controls;
   }
+
+  // check record number variable
+  isLoadingCheckRecordNum: Boolean = false;
+  recordNumNotAvailable: Boolean = false;
+
   constructor(
+    private recordsService: RecordsService,
+    private alertsService: AlertsService,
     public publicService: PublicService,
+    private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
+    private router: Router
   ) { }
+
   ngOnInit(): void {
     this.patchValue();
   }
@@ -120,6 +157,7 @@ export class RecordDetailsComponent {
   }
   patchValue(): void {
     this.modalForm?.patchValue({
+      recordName: this.details?.recordName,
       registrationNumber: this.details?.registrationNumber,
       recordDate: this.details?.recordDate,
       licenseNumber: this.details?.registrationNumber,
@@ -139,6 +177,9 @@ export class RecordDetailsComponent {
     this.certificateFile = this.details?.licenseFile;
   }
   editInput(name: string): void {
+    if (name == 'recordName') {
+      this.isRecordNameReadOnly = false;
+    }
     if (name == 'registrationNumber') {
       this.isRegistrationNumberReadOnly = false;
     }
@@ -171,4 +212,110 @@ export class RecordDetailsComponent {
     }
   }
 
+  //=======Start Check If Record Number is valid or not========
+  checkRecordNumAvailable(): void {
+    if (!this.formControls.registrationNumber.valid) {
+      return; // Exit early if ID is not valid
+    }
+
+    const registrationNumber = this.modalForm.value.registrationNumber;
+    const data = { registrationNumber };
+
+    this.isLoadingCheckRecordNum = true;
+
+    let checkRegistrationNumberSubscription = this.recordsService?.IsRecordNumberAvailable(data)?.subscribe(
+      (res: any) => {
+        this.handleRecordNumberResponse(res);
+      },
+      (err: any) => {
+        this.handleRecordNumberError(err);
+      }
+    );
+    this.subscriptions.push(checkRegistrationNumberSubscription);
+  }
+  private handleRecordNumberResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.recordNumNotAvailable = !res.result;
+    } else {
+      this.recordNumNotAvailable = false;
+      if (res?.message) {
+        this.alertsService?.openToast('error', 'error', res.message);
+      }
+    }
+    this.isLoadingCheckRecordNum = false;
+    this.cdr.detectChanges();
+  }
+  private handleRecordNumberError(err: any): void {
+    this.recordNumNotAvailable = false;
+    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
+    this.alertsService?.openToast('error', 'error', errorMessage);
+    this.isLoadingCheckRecordNum = false;
+
+  }
+  onKeyUpEvent(): void {
+    this.isLoadingCheckRecordNum = false;
+  }
+  //=======End Check If Record Number is valid or not========
+
+  // =========Start submit edit client==========
+  submit(): void {
+    if (this.modalForm?.valid) {
+      const formData = this.extractFormData();
+      this.editRecord(formData);
+    } else {
+      this.publicService?.validateAllFormFields(this.modalForm);
+    }
+  }
+  private extractFormData(): any {
+    return {
+      recordName: this.modalForm.value?.recordName,
+      registrationNumber: this.modalForm.value?.registrationNumber,
+      recordDate: this.modalForm.value?.recordDate,
+      licenseNumber: this.modalForm.value?.registrationNumber,
+      licenseDate: this.modalForm.value?.recordDate,
+      certificateNumber: this.modalForm.value?.certificateNumber,
+      certificateDate: this.modalForm.value?.certificateDate,
+      medicalInsuranceNumber: this.modalForm.value?.medicalInsuranceNumber,
+      medicalInsuranceDate: this.modalForm.value?.medicalInsuranceDate,
+      businessLicenseNumber: this.modalForm.value?.businessLicenseNumber,
+      businessLicense: this.modalForm.value?.businessLicense,
+      registrationFile: this.registrationFile,
+      licenseFile: this.licenseFile,
+      certificateFile: this.licenseFile,
+    };
+  }
+  private editRecord(formData: any): void {
+    this.publicService?.show_loader?.next(true);
+    let subscribeEditRecord = this.recordsService?.editRecord(formData)?.subscribe(
+      (res: any) => {
+        this.handleEditClientSuccess(res);
+      },
+      (err: any) => {
+        this.handleEditClientError(err);
+      }
+    );
+    this.subscriptions.push(subscribeEditRecord);
+  }
+  private handleEditClientSuccess(response: any): void {
+    this.publicService?.show_loader?.next(false);
+    if (response?.isSuccess && response?.statusCode === 200) {
+      this.router.navigate(['/Dashboard/Clients']);
+      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
+    } else {
+      response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+    }
+  }
+  private handleEditClientError(error: any): void {
+    this.publicService?.show_loader?.next(false);
+    error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+  }
+  // =========End submit edit client==========
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      if (subscription && subscription.closed) {
+        subscription.unsubscribe();
+      }
+    });
+  }
 }
