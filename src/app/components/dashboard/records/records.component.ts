@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
+import { FilterRecordComponent } from './filter-record/filter-record.component';
 import { RecordCardComponent } from './record-card/record-card.component';
 import { AddRecordComponent } from './add-record/add-record.component';
 
@@ -44,7 +45,6 @@ export class RecordsComponent {
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
-  isLoadingFileDownload: boolean = false;
 
   isLoadingRecordsList: boolean = false;
   recordsList: any[] = [];
@@ -67,9 +67,9 @@ export class RecordsComponent {
   showActionFiles: boolean = false;
 
   private searchSubject = new Subject<any>();
-  openFilter: boolean = false;
 
   filterCards: any = [];
+
   constructor(
     private recordsService: RecordsService,
     private publicService: PublicService,
@@ -98,7 +98,7 @@ export class RecordsComponent {
     this.clearTable();
     this.dataStyleType = type;
   }
-  // ======Start get all clients=========
+  // ======Start get all records=========
   getAllRecords(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingRecordsList = true;
     this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
@@ -150,8 +150,9 @@ export class RecordsComponent {
     this.alertsService?.openToast('error', 'error', err || this.publicService.translateTextFromJson('general.errorOccur'));
     this.finalizeRecordsListLoading();
   }
-  // ======End get all clients=========
+  // ======End get all records=========
 
+  // ======Start search==========
   handleSearch(event: any): void {
     this.searchSubject.next(event);
   }
@@ -170,6 +171,7 @@ export class RecordsComponent {
     search.value = null;
     this.getAllRecords(true);
   }
+  // ======End search==========
 
   // ======Start pagination==========
   onPageChange(e: any): void {
@@ -206,31 +208,31 @@ export class RecordsComponent {
       }
     });
   }
-  // Filter clients
+  // Filter record
   filterItem(): void {
-    // const ref = this.dialogService?.open(FilterClientsComponent, {
-    //   header: this.publicService?.translateTextFromJson('general.filter'),
-    //   dismissableMask: false,
-    //   width: '45%',
-    //   data: this.filterCards,
-    //   styleClass: 'custom-modal',
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res) {
-    //     this.page = 1;
-    //     this.filtersArray = res.conditions;
-    //     this.filterCards = res.conditions;
-    //     // this.publicService?.changePageSub?.next({ page: this.page });
-    //     this.getAllRecords(true);
-    //   }
-    // });
+    const ref = this.dialogService?.open(FilterRecordComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '45%',
+      data: this.filterCards,
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res) {
+        this.page = 1;
+        this.filtersArray = res.conditions;
+        this.filterCards = res.conditions;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllRecords(true);
+      }
+    });
   }
 
-  // Edit client
+  // Edit record
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/Record-Details']);
   }
-  //========Start Delete client==========
+  //========Start Delete record==========
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -240,18 +242,18 @@ export class RecordsComponent {
       name: item?.item?.title
     };
 
-    // this.publicService.show_loader.next(true);
-    // this.recordsService?.deleteClientById(item?.item?.id, data)?.subscribe(
-    //   (res: any) => {
-    //     this.processDeleteResponse(res);
-    //   },
-    //   (err) => {
-    //     this.handleErrorDelete(err);
-    //   }
-    // ).add(() => {
-    //   this.publicService.show_loader.next(false);
-    //   this.cdr.detectChanges();
-    // });
+    this.publicService.show_loader.next(true);
+    this.recordsService?.deleteRecordById(item?.item?.id, data)?.subscribe(
+      (res: any) => {
+        this.processDeleteResponse(res);
+      },
+      (err) => {
+        this.handleErrorDelete(err);
+      }
+    ).add(() => {
+      this.publicService.show_loader.next(false);
+      this.cdr.detectChanges();
+    });
   }
   private processDeleteResponse(res: any): void {
     const messageType = res?.code === 200 ? 'success' : 'error';
@@ -266,7 +268,7 @@ export class RecordsComponent {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //========End Delete client==========
+  //========End Delete record==========
 
   // Clear table
   clearTable(): void {

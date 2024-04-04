@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -16,8 +15,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./filter-clients.component.scss']
 })
 export class FilterClientsComponent {
-  private subscriptions: Subscription[] = [];
-
   modalForm = this.fb?.group(
     {
       fullName: ['', {
@@ -91,17 +88,9 @@ export class FilterClientsComponent {
       }
     }
     this.ref.close({ conditions: conditions });
-    // conditions: [{ "column": "fullName", "type": "text", "data": "lll", "operator": "startsWith" }, { "column": "id", "type": "text", "data": "oo", "operator": "startsWith" }, { "column": "birthDate", "type": "date", "data": "2024-04-22T22:00:00.000Z", "operator": "dateIs" }, { "column": "mobileNumber", "type": "text", "data": "555", "operator": "startsWith" }]
   }
 
   close(): void {
     this.ref.close();
-  }
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      if (subscription && subscription.closed) {
-        subscription.unsubscribe();
-      }
-    });
   }
 }

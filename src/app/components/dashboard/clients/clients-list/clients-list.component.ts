@@ -119,12 +119,6 @@ export class ClientsListComponent {
       this.clientsCount = response.total;
       this.pagesCount = Math.ceil(this.clientsCount / this.perPage);
       this.clientsList = response.data;
-      // return response.data.map((item: any) => ({
-      //   id: item.id ?? null,
-      //   fullName: item.fullName ?? '',
-      //   birthDate: item.birthDate ?? '',
-      //   mobileNumber: item.mobileNumber ?? '',
-      // }))
     } else {
       this.handleError(response.error);
       return;
@@ -158,6 +152,7 @@ export class ClientsListComponent {
   }
   // ======End get all clients=========
 
+  // ======Start search==========
   handleSearch(event: any): void {
     this.searchSubject.next(event);
   }
@@ -176,6 +171,7 @@ export class ClientsListComponent {
     search.value = null;
     this.getAllClients(true);
   }
+  // ======End search==========
 
   // ======Start pagination==========
   onPageChange(e: any): void {
@@ -241,13 +237,10 @@ export class ClientsListComponent {
     if (!item?.confirmed) {
       return;
     }
-
     const data = {
       name: item?.item?.title
     };
-
     this.publicService.show_loader.next(true);
-
     this.clientsService?.deleteClientById(item?.item?.id, data)?.subscribe(
       (res: any) => {
         this.processDeleteResponse(res);

@@ -39,6 +39,13 @@ export class RecordsService {
   editRecord(data: any): Observable<any> {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.editRecords}`, data)
   }
+  deleteRecordById(id: number, data: any): Observable<any> {
+    let params = new HttpParams();
+    if (data?.name) {
+      params = params.append("name", data?.name);
+    }
+    return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.records}/delete/` + id, { params: params });
+  }
   IsRecordNumberAvailable(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + roots.dashboard.records.IsRecordNumberAvailable, data);
   }

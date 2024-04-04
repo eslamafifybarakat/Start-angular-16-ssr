@@ -36,4 +36,11 @@ export class VehiclesService {
   addVehicle(data: any): Observable<any> {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.vehicles.addVehicle}`, data)
   }
+  deleteVehicleById(id: number, data: any): Observable<any> {
+    let params = new HttpParams();
+    if (data?.name) {
+      params = params.append("name", data?.name);
+    }
+    return this.http.delete<any>(`${this.baseUrl}${roots?.dashboard.vehicles}/delete/` + id, { params: params });
+  }
 }
