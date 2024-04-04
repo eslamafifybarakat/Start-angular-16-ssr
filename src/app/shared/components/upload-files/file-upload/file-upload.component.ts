@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
+import { CommonModule } from '@angular/common';
 import { ImageModule } from 'primeng/image';
 
 @Component({

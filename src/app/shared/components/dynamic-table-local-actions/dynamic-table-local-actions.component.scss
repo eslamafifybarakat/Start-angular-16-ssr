@@ -386,10 +386,28 @@
   border: 1px solid var(--bg-main-color);
   color: var(--text-white-color);
 }
-.image {
-  width: 4rem;
-  height: 4rem;
-  img {
-    border-radius: 10px;
+:host::ng-deep {
+  p-image {
+    width: 70px;
+    min-width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .p-image-preview-indicator {
+    height: 70px;
+    border-radius: 8px;
+  }
+  .p-image {
+    width: 70px;
+    min-width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    & > img {
+      width: 70px;
+      min-width: 70px;
+      height: 70px;
+      border-radius: 8px;
+    }
   }
 }

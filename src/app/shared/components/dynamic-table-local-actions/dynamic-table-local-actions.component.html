@@ -402,7 +402,8 @@
     <ng-container *ngIf="col?.type=='img'">
       <td>
         <div class="image">
-          <img class="w-100 h-100" [src]="item[col.field]" alt="img">
+          <p-image class="shadow" [src]="item[col.field]" [previewImageSrc]="item[col.field]" alt="Image" width="70"
+            [preview]="item[col.showPreview]?item[col.showPreview]:true"></p-image>
         </div>
       </td>
     </ng-container>

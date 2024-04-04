@@ -13,6 +13,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { ImageModule } from 'primeng/image';
 
 //Services
 import { Component, EventEmitter, Output, ViewChild, Input, Inject, PLATFORM_ID } from '@angular/core';
@@ -41,6 +42,7 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
     CheckboxModule,
     TooltipModule,
     CommonModule,
+    ImageModule,
     FormsModule,
     TableModule,
   ],
