@@ -71,23 +71,23 @@
               </div>
             </div>
           </div>
-          <div class="col-xl-6">
-            <div class="mb-3">
-              <label for="formPhoto" class="mb-2 required">{{'labels.formPhoto'|translate}}</label>
-              <div class="global-card p-3">
-                <p>{{'placeholders.formPhoto'|translate}}</p>
-                <app-file-upload (uploadHandler)="uploadFormPhoto($event)"></app-file-upload>
-              </div>
-              <div class="mt-2">
-                <ng-container
-                  *ngIf="formControls?.formPhoto?.invalid && (formControls?.formPhoto?.dirty || formControls?.formPhoto?.touched)">
-                  <ng-container *ngIf="formControls?.formPhoto?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{'validations.requiredField'|translate}}
-                    </span>
-                  </ng-container>
+        </div>
+        <div class="col-xl-6">
+          <div class="mb-3">
+            <label for="formPhoto" class="mb-2 required">{{'labels.formPhoto'|translate}}</label>
+            <div class="global-card p-3">
+              <p>{{'placeholders.formPhoto'|translate}}</p>
+              <app-file-upload (uploadHandler)="uploadFormPhoto($event)"></app-file-upload>
+            </div>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.formPhoto?.invalid && (formControls?.formPhoto?.dirty || formControls?.formPhoto?.touched)">
+                <ng-container *ngIf="formControls?.formPhoto?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
                 </ng-container>
-              </div>
+              </ng-container>
             </div>
           </div>
         </div>

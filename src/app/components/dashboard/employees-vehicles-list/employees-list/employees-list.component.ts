@@ -67,6 +67,7 @@ export class EmployeesListComponent {
   private searchSubject = new Subject<any>();
 
   filterCards: any = [];
+
   constructor(
     private employeesService: EmployeesService,
     private publicService: PublicService,
@@ -91,23 +92,23 @@ export class EmployeesListComponent {
       .subscribe(event => {
         this.searchHandler(event);
       });
-    this.publicService.toggleDataType.subscribe((res: any) => {
+    this.publicService.toggleFilterEmployeeDataType.subscribe((res: any) => {
       if (res) {
         console.log(res);
         this.changeDateStyle(res);
       }
     })
-    this.publicService.addItem.subscribe((res: any) => {
+    this.publicService.addEmployeeItem.subscribe((res: any) => {
       if (res) {
         this.addEmployeeItem();
       }
     })
-    this.publicService.resetData.subscribe((res: any) => {
+    this.publicService.resetEmployeesData.subscribe((res: any) => {
       if (res) {
         this.clearTable();
       }
     })
-    this.publicService.searchData.subscribe((res: any) => {
+    this.publicService.searchEmployeesData.subscribe((res: any) => {
       if (res) {
         this.searchHandler(res);
       }
@@ -228,7 +229,7 @@ export class EmployeesListComponent {
       }
     });
   }
-  // Filter clients
+  // Filter employee
   filterItem(): void {
     // const ref = this.dialogService?.open(FilterClientsComponent, {
     //   header: this.publicService?.translateTextFromJson('general.filter'),
@@ -248,11 +249,11 @@ export class EmployeesListComponent {
     // });
   }
 
-  // Edit client
+  // Edit employee
   editItem(item: any): void {
-    this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
+    // this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
-  //========Start Delete client==========
+  //========Start Delete employee==========
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -289,7 +290,7 @@ export class EmployeesListComponent {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //========End Delete client==========
+  //========End Delete employee==========
 
   // Clear table
   clearTable(): void {

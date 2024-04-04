@@ -1,15 +1,20 @@
-import { DialogService } from 'primeng/dynamicdialog';
-import { PublicService } from './../../../services/generic/public.service';
-import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
+// Modules
+import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+
+// Components
 import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
 import { ClientCardComponent } from '../clients/client-card/client-card.component';
-import { Subject, Subscription, debounceTime } from 'rxjs';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
+import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
+
+//Services
+import { PublicService } from './../../../services/generic/public.service';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { Subject, Subscription, debounceTime } from 'rxjs';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   standalone: true,
@@ -21,6 +26,7 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
     // Components
     DynamicTableLocalActionsComponent,
     EmployeesListComponent,
+    VehiclesListComponent,
     DynamicTableComponent,
     ClientCardComponent,
     SkeletonComponent,
@@ -82,18 +88,32 @@ export class EmployeesVehiclesListComponent {
         this.isLoadingSearch = res;
       }
     })
+
+    this.publicService.isLoadingVehicles.subscribe((res) => {
+      this.isLoadingList = res;
+    })
+    this.publicService.VehicleLength.subscribe((res: any) => {
+      if (res) {
+        this.list = res;
+      }
+    })
+    this.publicService.isLoadingSearchVehicles.subscribe((res: any) => {
+      if (res) {
+        this.isLoadingSearch = res;
+      }
+    })
   }
 
   // Toggle data type employees or vehicles
   showTabItems(type: string): void {
+    this.list = 0;
     this.tabType = type;
   }
 
   // Toggle data style table or card
   changeDateStyle(type: string): void {
-    this.publicService.toggleDataType.next(type)
-    // this.clearTable();
     this.dataStyleType = type;
+    this.tabType == 'employee' ? this.publicService.toggleFilterEmployeeDataType.next(type) : this.publicService.toggleFilterVehicleDataType.next(type);
   }
 
 
@@ -102,18 +122,16 @@ export class EmployeesVehiclesListComponent {
     this.searchSubject.next(event);
   }
   searchHandler(keyWord: any): void {
-    this.publicService.searchData.next(keyWord);
+    this.tabType == 'employee' ? this.publicService.searchEmployeesData.next(keyWord) : this.publicService.searchVehiclesData.next(keyWord);
   }
   clearSearch(search: any): void {
     search.value = null;
-    // this.getAllEmployees(true);
+    this.tabType == 'employee' ? this.publicService.searchEmployeesData.next(null) : this.publicService.searchVehiclesData.next(null);
   }
   // ======End search==========
 
-
-
-  addEmployeeItem(item?: any, type?: any): void {
-    this.publicService.addItem.next(true);
+  addItem(): void {
+    this.tabType == 'employee' ? this.publicService.addEmployeeItem.next(true) : this.publicService.addVehicleItem.next(true);
   }
   // Filter clients
   filterItem(): void {
@@ -122,7 +140,7 @@ export class EmployeesVehiclesListComponent {
 
   // Clear table
   clearTable(): void {
-    this.publicService.resetData.next(true);
+    this.tabType == 'employee' ? this.publicService.resetEmployeesData.next(true) : this.publicService.resetVehiclesData.next(true);
   }
 
 

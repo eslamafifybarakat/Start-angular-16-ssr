@@ -560,7 +560,6 @@
         <ng-container *ngIf="showCopy">
           <th>ID</th>
         </ng-container>
-
       </tr>
       </ng-container>
 
@@ -782,7 +781,7 @@
   </p-table>
 </div>
 <ng-container *ngIf="tableData?.length>0">
-  <div class="d-flex justify-content-center my-3">
+  <div class="d-flex justify-content-center my-3" [class.disabled]="isLoading">
     <ng-container *ngIf="showPaginationText">
       <p>Showing {{pageNumber}} to {{pages}} of {{results}} results</p>
     </ng-container>

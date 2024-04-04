@@ -16,12 +16,20 @@ export class PublicService {
   isLoadingEmployees = new BehaviorSubject<boolean>(false);
   isLoadingSearchEmployees = new BehaviorSubject<boolean>(false);
   employeesLength = new BehaviorSubject<{}>(null);
+  addEmployeeItem = new BehaviorSubject<boolean>(false);
+  resetEmployeesData = new BehaviorSubject<boolean>(false);
+  filterEmployeesData = new BehaviorSubject<boolean>(false);
+  searchEmployeesData = new BehaviorSubject<{}>(null);
+  toggleFilterEmployeeDataType = new BehaviorSubject<{}>(null);
+
   isLoadingVehicles = new BehaviorSubject<boolean>(false);
-  addItem = new BehaviorSubject<boolean>(false);
-  resetData = new BehaviorSubject<boolean>(false);
-  filterData = new BehaviorSubject<boolean>(false);
-  searchData = new BehaviorSubject<{}>(null);
-  toggleDataType = new BehaviorSubject<{}>(null);
+  isLoadingSearchVehicles = new BehaviorSubject<boolean>(false);
+  VehicleLength = new BehaviorSubject<{}>(null);
+  addVehicleItem = new BehaviorSubject<boolean>(false);
+  resetVehiclesData = new BehaviorSubject<boolean>(false);
+  filterVehiclesData = new BehaviorSubject<boolean>(false);
+  searchVehiclesData = new BehaviorSubject<{}>(null);
+  toggleFilterVehicleDataType = new BehaviorSubject<{}>(null);
   // ====End Employees and Vehicles actions=========
 
   constructor(
