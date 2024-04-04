@@ -144,7 +144,7 @@ export class AddRecordComponent {
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
-      this.addClient(formData);
+      this.addRecord(formData);
     } else {
       this.publicService?.validateAllFormFields(this.modalForm);
     }
@@ -156,7 +156,7 @@ export class AddRecordComponent {
       endDate: this.modalForm?.value?.endDate
     };
   }
-  private addClient(formData: any): void {
+  private addRecord(formData: any): void {
     this.publicService?.show_loader?.next(true);
     let subscribeAddClient = this.recordsService?.addRecord(formData)?.subscribe(
       (res: any) => {

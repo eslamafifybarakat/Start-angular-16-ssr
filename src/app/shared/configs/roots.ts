@@ -29,6 +29,14 @@ export const roots = {
       addRecords: '/addRecords',
       editRecords: '/editRecords',
       IsRecordNumberAvailable: "/RecordNumber",
+    },
+    employees: {
+      getEmployees: '/getEmployees',
+      addEmployee: '/addEmployee'
+    },
+    vehicles: {
+      getVehicles: '/getVehicles',
+      addVehicle: '/addVehicle'
     }
   }
 }

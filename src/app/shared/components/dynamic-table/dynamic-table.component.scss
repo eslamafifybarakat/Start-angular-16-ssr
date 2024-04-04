@@ -343,3 +343,10 @@
   border: 1px solid var(--bg-main-color);
   color: var(--text-white-color);
 }
+.image {
+  width: 4rem;
+  height: 4rem;
+  img {
+    border-radius: 10px;
+  }
+}

@@ -111,7 +111,14 @@
   "date": "التاريخ",
   "recordName":"اسم السجل",
   "recordNumber":"رقم السجل",
-  "endDate":"تاريخ الانتهاء"
+  "endDate":"تاريخ الانتهاء",
+  "fullName":"الاسم كامل",
+  "residencyNumber":"رقم الإقامة",
+  "healthCertificate":"الشهادة الصحية",
+  "residencePhoto":"صورة الإقامة",
+  "operatingCard":"كارت التشغيل",
+  "insuranceExpiryDate":"تاريخ إنتهاء التأمين",
+  "formPhoto":"صورة الإستمارة"
 },
 "statistics": {
   "hi": "أهلاً",
@@ -140,6 +147,14 @@
 "records":{
   "records":"السجلات",
   "addRecord":"اضافة سجل"
+  },
+  "employees":{
+    "employees":"الموظفين",
+    "addEmployee":"اضافة موظف"
+  },
+  "vehicles":{
+    "vehicles":"المركبات",
+    "addVehicle":"اضافة مركبة"
   }
       },
       "auth": {
@@ -231,7 +246,13 @@
         "businessLicenseNumber":"رقم ملف مكتب العمل",
         "recordName":"اسم السجل",
         "recordNumber":"رقم السجل",
-        "endDate":"تاريخ الانتهاء"
+        "endDate":"تاريخ الانتهاء",
+        "residencyNumber":"رقم الإقامة",
+        "healthCertificate":"الشهادة الصحية",
+        "residencePhoto":"صورة الإقامة",
+        "operatingCard":"كارت التشغيل",
+        "insuranceExpiryDate":"تاريخ إنتهاء التأمين",
+        "formPhoto":"صورة الإستمارة"
       },
       "placeholders": {
         "searchEstkdam": "ابحث عن الإستقدام الذى تريده",
@@ -267,7 +288,14 @@
     "businessLicenseNumber":"أدخل رقم ملف مكتب العمل",
     "recordName":"أدخل اسم السجل",
     "recordNumber":"أدخل رقم السجل",
-    "endDate":"تاريخ الانتهاء"
+    "endDate":"تاريخ الانتهاء",
+    "residencyNumber":"أدخل رقم الإقامة",
+    "healthCertificate":"أدخل الشهادة الصحية",
+    "residencePhoto":"اضافة صورة الإقامة",
+    "operatingCard":"أدخل كارت التشغيل",
+    "insuranceExpiryDate":"أدخل تاريخ إنتهاء التأمين",
+    "formPhoto":"أدخل صورة الإستمارة",
+    "dateFormat": "شهر / يوم / سنه"
       },
       "validations": {
         "username": "اسم المستخدم مطلوب",

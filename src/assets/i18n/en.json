@@ -112,7 +112,14 @@
   "date": "Date",
   "recordName":"Record Name",
   "recordNumber":"Record Number",
-  "endDate":"End Date"
+  "endDate":"End Date",
+  "fullName":"Full Name",
+  "residencyNumber":"Residency number",
+  "healthCertificate":"health certificate",
+  "residencePhoto":"residence photo",
+  "operatingCard":"Operating card",
+  "insuranceExpiryDate":"Insurance expiry date",
+  "formPhoto":"form photo"
 },
 "hello":"Hello",
 "statistics": {
@@ -142,6 +149,14 @@
 "records":{
 "records":"Records",
 "addRecord":"Add Record"
+},
+"employees":{
+  "employees":"Employees",
+  "addEmployee":"Add Employee"
+},
+"vehicles":{
+  "vehicles":"Vehicles",
+  "addVehicle":"Add vehicle"
 }
   },
   "auth": {
@@ -231,7 +246,13 @@
     "businessLicenseNumber":"Business License Number",
     "recordName":"Record Name",
     "recordNumber":"Record Number",
-    "endDate":"End Date"
+    "endDate":"End Date",
+    "residencyNumber":"Residency number",
+    "healthCertificate":"health certificate",
+    "residencePhoto":"residence photo",
+    "operatingCard":"Operating card",
+    "insuranceExpiryDate":"Insurance expiry date",
+    "formPhoto":"form photo"
   },
   "placeholders": {
     "searchEstkdam": "Find the employment you want",
@@ -267,7 +288,15 @@
     "businessLicenseNumber":"Enter business license number",
     "recordName":"Enter record name",
     "recordNumber":"Enter record number",
-    "endDate":"End Date"
+    "endDate":"End Date",
+    "residencyNumber":"Enter residency number",
+    "healthCertificate":"Enter health certificate",
+    "residencePhoto":"Enter residence photo",
+    "operatingCard":"Enter operating card",
+    "insuranceExpiryDate":"Enter insurance expiry date",
+    "formPhoto":"Enter form photo",
+    "dateFormat": "mm/dd/yy"
+
     },
   "validations": {
     "username": "Username is required",

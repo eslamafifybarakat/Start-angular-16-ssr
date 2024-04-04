@@ -371,6 +371,13 @@
         {{item[col?.field]}}
       </td>
     </ng-container>
+    <ng-container *ngIf="col?.type=='img'">
+      <td>
+        <div class="image">
+          <img class="w-100 h-100" [src]="item[col.field]" alt="img">
+        </div>
+      </td>
+    </ng-container>
     </ng-template>
     </ng-container>
     <ng-container *ngIf="showActions">

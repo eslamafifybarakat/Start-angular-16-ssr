@@ -42,7 +42,7 @@
           </span>
           <div class="mt-2">
             <ng-container
-              *ngIf="formControls?.recordNumber?.invalrecordNumber && (formControls?.recordNumber?.dirty || formControls?.id?.touched)">
+              *ngIf="formControls?.recordNumber?.invalid && (formControls?.recordNumber?.dirty || formControls?.recordNumber?.touched)">
               <ng-container *ngIf="formControls?.recordNumber?.errors?.['required']">
                 <span class="text-danger fs-8">
                   {{'validations.requiredField'|translate}}
@@ -66,8 +66,9 @@
             [class.border-red]="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)"
             class="endDate">
             <p-calendar formControlName="endDate" appendTo="body" [showIcon]="true" inputId="icon"
-              [readonlyInput]="true" [styleClass]="'date-picker'" placeholder="dd/mm/yyyy" [showButtonBar]="true"
-              [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+              [readonlyInput]="true" [styleClass]="'date-picker'" placeholder="{{'placeholders.dateFormat'|translate}}"
+              [showButtonBar]="true" [todayButtonStyleClass]="'d-none'" dateFormat="dd/mm/yy"
+              hourFormat="12"></p-calendar>
           </div>
           <div class="mt-2">
             <ng-container
