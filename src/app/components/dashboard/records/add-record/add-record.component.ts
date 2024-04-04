@@ -1,19 +1,31 @@
+// Modules
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TranslateModule } from '@ngx-translate/core';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { CommonModule } from '@angular/common';
+
+//Services
 import { PublicService } from './../../../../services/generic/public.service';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { RecordsService } from './../../services/records.service';
-import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [TranslateModule, CommonModule, FormsModule, ReactiveFormsModule, CalendarModule, DropdownModule, MultiSelectModule],
+  imports: [
+    // Modules
+    ReactiveFormsModule,
+    MultiSelectModule,
+    TranslateModule,
+    CalendarModule,
+    DropdownModule,
+    CommonModule,
+    FormsModule,
+  ],
   selector: 'app-add-record',
   templateUrl: './add-record.component.html',
   styleUrls: ['./add-record.component.scss']

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 // Components
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 import { FileUploadComponent } from '../../../../shared/components/upload-files/file-upload/file-upload.component';
+import { EmployeesVehiclesListComponent } from '../../employees-vehicles-list/employees-vehicles-list.component';
 
 //Services
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -29,6 +30,7 @@ import { Subscription } from 'rxjs';
     FormsModule,
 
     // Components
+    EmployeesVehiclesListComponent,
     UploadMultiFilesComponent,
     FileUploadComponent,
 
