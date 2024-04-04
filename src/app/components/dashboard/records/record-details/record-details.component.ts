@@ -75,12 +75,15 @@ export class RecordDetailsComponent {
     businessLicenseNumber: "135836527289"
   };
 
+  // Registration File variable
   isEditRegistrationFile: boolean = false;
   registrationFile: string = '';
 
+  // License File variable
   isEditLicenseFile: boolean = false;
   licenseFile: string = '';
 
+  // Certificate File variable
   isEditCertificateFile: boolean = false;
   certificateFile: string = '';
 
@@ -152,9 +155,19 @@ export class RecordDetailsComponent {
   ngOnInit(): void {
     this.patchValue();
   }
-  uploadFile(event: any): void {
+
+  // =====Start Upload Files=========
+  uploadRecordFile(event: any): void {
     console.log(event);
   }
+  uploadLicenseFile(event: any): void {
+    console.log(event);
+  }
+  uploadCertificateFile(event: any): void {
+    console.log(event);
+  }
+  // =====End Upload Files=========
+
   patchValue(): void {
     this.modalForm?.patchValue({
       recordName: this.details?.recordName,
@@ -176,6 +189,7 @@ export class RecordDetailsComponent {
     this.isEditCertificateFile = true;
     this.certificateFile = this.details?.licenseFile;
   }
+
   editInput(name: string): void {
     if (name == 'recordName') {
       this.isRecordNameReadOnly = false;
@@ -288,15 +302,15 @@ export class RecordDetailsComponent {
     this.publicService?.show_loader?.next(true);
     let subscribeEditRecord = this.recordsService?.editRecord(formData)?.subscribe(
       (res: any) => {
-        this.handleEditClientSuccess(res);
+        this.handleEditRecordSuccess(res);
       },
       (err: any) => {
-        this.handleEditClientError(err);
+        this.handleEditRecordError(err);
       }
     );
     this.subscriptions.push(subscribeEditRecord);
   }
-  private handleEditClientSuccess(response: any): void {
+  private handleEditRecordSuccess(response: any): void {
     this.publicService?.show_loader?.next(false);
     if (response?.isSuccess && response?.statusCode === 200) {
       this.router.navigate(['/Dashboard/Clients']);
@@ -305,7 +319,7 @@ export class RecordDetailsComponent {
       response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
     }
   }
-  private handleEditClientError(error: any): void {
+  private handleEditRecordError(error: any): void {
     this.publicService?.show_loader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
