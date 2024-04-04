@@ -12,6 +12,18 @@ export class PublicService {
   resetTable = new BehaviorSubject<boolean>(false);
   changePageSub = new BehaviorSubject<{}>({});
 
+  // ====Start Employees and Vehicles actions=========
+  isLoadingEmployees = new BehaviorSubject<boolean>(false);
+  isLoadingSearchEmployees = new BehaviorSubject<boolean>(false);
+  employeesLength = new BehaviorSubject<{}>(null);
+  isLoadingVehicles = new BehaviorSubject<boolean>(false);
+  addItem = new BehaviorSubject<boolean>(false);
+  resetData = new BehaviorSubject<boolean>(false);
+  filterData = new BehaviorSubject<boolean>(false);
+  searchData = new BehaviorSubject<{}>(null);
+  toggleDataType = new BehaviorSubject<{}>(null);
+  // ====End Employees and Vehicles actions=========
+
   constructor(
     private translate: TranslateService,
   ) { }
