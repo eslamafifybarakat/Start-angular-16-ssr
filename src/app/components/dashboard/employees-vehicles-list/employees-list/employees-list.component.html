@@ -125,7 +125,7 @@
         (customSortHandler)="enableSortFilter?sortItems($event):''"
         (filterHandler)="enableSortFilter?filterItems($event):''" [results]="employeesCount" [paginatorRows]="perPage"
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-        [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+        [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
         [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addCustomer'"
         (addHandler)="addEmployeeItem()"></dynamic-table>

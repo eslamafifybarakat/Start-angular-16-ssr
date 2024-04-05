@@ -121,7 +121,7 @@
         (customSortHandler)="enableSortFilter?sortItems($event):''"
         (filterHandler)="enableSortFilter?filterItems($event):''" [results]="recordsCount" [paginatorRows]="perPage"
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-        [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+        [enableConfirmDeleteDialog]="true" [keyDelete]="'recordName'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
         [addBtnText]="'dashboard.records.addRecord'" (addHandler)="addItem()"></dynamic-table>
     </ng-container>

@@ -218,8 +218,8 @@ export class AsideMenuComponent {
   // Logout user
   logout(): void {
     this.confirmationService?.confirm({
-      message: this.currentLanguage == 'ar' ? 'هل أنت متأكد أنك تريد تسجيل الخروج؟' : 'Are you sure you want to logout?',
-      header: this.currentLanguage == 'ar' ? 'تسجيل خروج' : 'Logout',
+      message: this.publicService.translateTextFromJson('general.areYouSureToLogout'),
+      header: this.publicService.translateTextFromJson('general.logout'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.router?.navigate(['/Auth']);

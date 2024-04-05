@@ -1,5 +1,5 @@
 export interface VehiclesList {
-  id: string;
+  id?: string;
   operatingCard: string | null;
   endDate: Date | null;
   insuranceExpiryDate: Date | null;

@@ -126,9 +126,9 @@
         (filterHandler)="enableSortFilter?filterItems($event):''" [results]="vehiclesCount" [paginatorRows]="perPage"
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
         [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
-        (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-        [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.employees.addCustomer'"
-        (addHandler)="addItem()"></dynamic-table>
+        (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch"
+        [arrayChildKey]="'operatingCard'" [enableFilterDriverStatus]="true"
+        [addBtnText]="'dashboard.employees.addCustomer'" (addHandler)="addItem()"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
