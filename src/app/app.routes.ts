@@ -11,7 +11,7 @@ import { authChildrenRoutes } from './components/auth/auth-children-routes';
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: 'en/places/list', pathMatch: 'full' },
+  { path: '', redirectTo: 'en/Auth', pathMatch: 'full' },
 
   {
     path: 'places',

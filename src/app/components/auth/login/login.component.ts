@@ -5,7 +5,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
 import { keys } from './../../../shared/configs/localstorage-key';
-import { AuthService } from './../../../services/auth.service';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { patterns } from './../../../shared/configs/patterns';
 import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';

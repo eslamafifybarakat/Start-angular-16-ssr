@@ -2,7 +2,7 @@ import { LanguageSelectorComponent } from './../../../shared/components/language
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
-import { AuthService } from './../../../services/auth.service';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { patterns } from './../../../shared/configs/patterns';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';

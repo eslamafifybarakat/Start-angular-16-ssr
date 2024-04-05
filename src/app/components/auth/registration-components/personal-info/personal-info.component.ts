@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
-import { AuthService } from './../../../../services/auth.service';
+import { AuthService } from '../../../../services/authentication/auth.service';
 import { patterns } from './../../../../shared/configs/patterns';
 import { PasswordPatterns } from './../../../../interfaces/auth';
 import { TranslateModule } from '@ngx-translate/core';
@@ -54,10 +54,10 @@ export class PersonalInfoComponent {
     private fb: FormBuilder,
   ) { }
 
-  isEmailFounded(email: string): void {
+  isEmailAvailable(email: string): void {
     this.isCheckEmail = true;
     if (this.authService) {
-      let emailSubscription = this.authService.IsEmailFound(email).subscribe(
+      let emailSubscription: Subscription = this.authService.isEmailAvailable(email).subscribe(
         (res: any) => {
           this.handleSuccess(res);
         },

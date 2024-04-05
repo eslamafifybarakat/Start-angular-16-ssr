@@ -3,7 +3,7 @@ import { PublicService } from './../../../services/generic/public.service';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CountdownComponent } from '../countdown/countdown.component';
-import { AuthService } from './../../../services/auth.service';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { CodeInputModule } from 'angular-code-input';
@@ -104,7 +104,7 @@ export class VerificationCodeComponent {
       emailAddress: this.email,
       code: this.codeLength
     };
-    this.authUserService?.validateResetCode(data)?.subscribe(
+    this.authUserService?.validateCode(data)?.subscribe(
       (res: any) => {
         this.handleResetCodeValidationResponse(res);
       },

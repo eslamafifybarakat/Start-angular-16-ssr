@@ -2,7 +2,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
-import { AuthService } from './../../../../services/auth.service';
+import { AuthService } from '../../../../services/authentication/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
@@ -49,7 +49,7 @@ export class BasicInfoComponent {
   getCities(): void {
     if (event) {
       this.isLoadingCities = true;
-      let citiesSubscription = this.authService.getCities().subscribe(
+      let citiesSubscription = this.publicService.getCities().subscribe(
         (res: any) => {
           this.handleCitiesSuccess(res);
         },

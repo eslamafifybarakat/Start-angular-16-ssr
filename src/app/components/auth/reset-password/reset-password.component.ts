@@ -4,7 +4,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AuthService } from './../../../services/auth.service';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { patterns } from './../../../shared/configs/patterns';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
@@ -85,7 +85,7 @@ export class ResetPasswordComponent {
       emailAddress: this.data?.email,
       newPassword: this.resetPasswordForm?.value?.password
     };
-    let resetPasswordSubscription: any = this.authService?.resetNewPassword(data)?.subscribe(
+    let resetPasswordSubscription: any = this.authService?.resetPassword(data)?.subscribe(
       (res: any) => {
         this.publicService.show_loader.next(false);
         if (res?.success === true) {

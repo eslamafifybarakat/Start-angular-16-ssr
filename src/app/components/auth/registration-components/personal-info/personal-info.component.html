@@ -28,7 +28,7 @@
             placeholder="{{'labels.email'|translate}}"
             [class.border-red]="(formControls?.email?.touched||formControls?.email?.dirty)&&formControls?.email?.invalid || isEmailFound"
             (input)="publicService?.clearValidationErrors(formControls?.email)"
-            (blur)="formControls?.email?.valid?isEmailFounded(this.personalInfoForm?.value?.email):''"
+            (blur)="formControls?.email?.valid?isEmailAvailable(this.personalInfoForm?.value?.email):''"
             (keyup)="onKeyUpEvent('email')">
           <ng-container *ngIf="isCheckEmail">
             <i class="pi pi-spin pi-spinner"></i>

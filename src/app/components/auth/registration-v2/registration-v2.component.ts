@@ -3,7 +3,7 @@ import { PersonalInfoComponent } from '../registration-components/personal-info/
 import { BasicInfoComponent } from '../registration-components/basic-info/basic-info.component';
 import { PublicService } from '../../../services/generic/public.service';
 import { AlertsService } from '../../../services/generic/alerts.service';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { CommonModule, Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterModule } from '@angular/router';
