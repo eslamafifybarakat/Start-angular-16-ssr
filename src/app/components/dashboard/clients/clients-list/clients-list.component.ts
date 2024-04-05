@@ -12,6 +12,8 @@ import { FilterClientsComponent } from '../filter-clients/filter-clients.compone
 import { ClientCardComponent } from './../client-card/client-card.component';
 
 //Services
+import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { ClientsList } from './../../../../interfaces/dashboard/clients';
@@ -74,13 +76,18 @@ export class ClientsListComponent {
 
   filterCards: any = [];
   constructor(
+    private localizationLanguageService: LocalizationLanguageService,
+    private metadataService: MetadataService,
     private clientsService: ClientsService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) { }
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
+  }
+
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'fullName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
@@ -90,7 +97,7 @@ export class ClientsListComponent {
       // { field: 'status', header: 'dashboard.tableHeader.status', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: false, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
       // { field: 'propertyType', header: 'dashboard.tableHeader.propertyType', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
     ];
-    this.getAllClients();
+    this.loadData();
     this.searchSubject
       .pipe(
         debounceTime(500) // Throttle time in milliseconds (1 seconds)
@@ -99,6 +106,20 @@ export class ClientsListComponent {
         this.searchHandler(event);
       });
   }
+
+  private loadData(): void {
+    this.updateMetaTagsForSEO();
+    this.getAllClients();
+  }
+  private updateMetaTagsForSEO(): void {
+    let metaData: MetaDetails = {
+      title: 'العملاء',
+      description: 'الوصف',
+      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+    }
+    this.metadataService.updateMetaTagsForSEO(metaData);
+  }
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.clearTable();

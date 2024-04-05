@@ -1,5 +1,3 @@
-import { AlertsService } from './../../../../services/generic/alerts.service';
-
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
@@ -11,7 +9,10 @@ import { FileUploadComponent } from '../../../../shared/components/upload-files/
 import { EmployeesVehiclesListComponent } from '../../employees-vehicles-list/employees-vehicles-list.component';
 
 //Services
+import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from '../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { RecordsService } from '../../services/records.service';
@@ -146,18 +147,31 @@ export class RecordDetailsComponent {
   recordNumNotAvailable: Boolean = false;
 
   constructor(
+    private localizationLanguageService: LocalizationLanguageService,
+    private metadataService: MetadataService,
     private recordsService: RecordsService,
     private alertsService: AlertsService,
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
     private router: Router
-  ) { }
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
+  }
 
   ngOnInit(): void {
     this.patchValue();
+    this.updateMetaTagsForSEO();
   }
 
+  private updateMetaTagsForSEO(): void {
+    let metaData: MetaDetails = {
+      title: 'تفاصيل السجل',
+      description: 'الوصف',
+      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+    }
+    this.metadataService.updateMetaTagsForSEO(metaData);
+  }
   // =====Start Upload Files=========
   uploadRecordFile(event: any): void {
     console.log(event);

@@ -11,10 +11,18 @@ import { authChildrenRoutes } from './components/auth/auth-children-routes';
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/places/list', pathMatch: 'full' },
+  { path: '', redirectTo: 'en/places/list', pathMatch: 'full' },
 
   {
     path: 'places',
+    loadComponent: () =>
+      import('./components/places/places.component').then(
+        (c) => c.PlacesComponent
+      ),
+    children: placesChildrenRoutes
+  },
+  {
+    path: ':lang/places',
     loadComponent: () =>
       import('./components/places/places.component').then(
         (c) => c.PlacesComponent
@@ -30,7 +38,23 @@ export const appRoutes: Routes = [
     children: authChildrenRoutes
   },
   {
+    path: ':lang/Auth',
+    loadComponent: () =>
+      import('./components/auth/auth.component').then(
+        (c) => c.AuthComponent
+      ),
+    children: authChildrenRoutes
+  },
+  {
     path: 'Dashboard',
+    loadComponent: () =>
+      import('./components/dashboard/dashboard.component').then(
+        (c) => c.DashboardComponent
+      ),
+    children: dashBoardChildrenRoutes
+  },
+  {
+    path: ':lang/Dashboard',
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
@@ -46,11 +70,19 @@ export const appRoutes: Routes = [
     children: dashBoardChildrenRoutes
   },
   {
-    path: ':lang/places',
-    loadComponent: () => import('./components/places/places.component').then((c) => c.PlacesComponent),
-    children: placesChildrenRoutes
-    // canActivate: [LanguageGuard] // Optional: Use a guard to validate the language parameter
+    path: ':lang/Dashboard-V2',
+    loadComponent: () =>
+      import('./components/dashboard-v2/dashboard-v2.component').then(
+        (c) => c.DashboardV2Component
+      ),
+    children: dashBoardChildrenRoutes
   },
+  // {
+  //   path: ':lang/places',
+  //   loadComponent: () => import('./components/places/places.component').then((c) => c.PlacesComponent),
+  //   children: placesChildrenRoutes
+  //   // canActivate: [LanguageGuard] // Optional: Use a guard to validate the language parameter
+  // },
   {
     path: '**', loadComponent: () =>
       import('./components/errors/errors.component').then(

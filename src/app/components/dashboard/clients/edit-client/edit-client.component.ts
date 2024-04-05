@@ -1,4 +1,3 @@
-import { AlertsService } from './../../../../services/generic/alerts.service';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
@@ -9,7 +8,10 @@ import { UploadMultiFilesComponent } from '../../../../shared/components/upload-
 import { RecordsComponent } from '../../records/records.component';
 
 //Services
+import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
+import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { patterns } from './../../../../shared/configs/patterns';
@@ -108,15 +110,29 @@ export class EditClientComponent {
   phoneNotAvailable: Boolean = false;
 
   constructor(
+    private localizationLanguageService: LocalizationLanguageService,
+    private metadataService: MetadataService,
     private clientsService: ClientsService,
     private alertsService: AlertsService,
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
     private router: Router,
-  ) { }
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
+  }
+
   ngOnInit(): void {
     this.patchValue();
+    this.updateMetaTagsForSEO();
+  }
+  private updateMetaTagsForSEO(): void {
+    let metaData: MetaDetails = {
+      title: 'تفاصيل العملاء',
+      description: 'الوصف',
+      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+    }
+    this.metadataService.updateMetaTagsForSEO(metaData);
   }
   // Upload Gallery imgs
   // uploadFiles(e: any): void {
