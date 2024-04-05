@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
-import { ClientCardComponent } from '../../clients/client-card/client-card.component';
-import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+import { EmployeeCardComponent } from './employee-card/employee-card.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 //Services
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
     // Components
     DynamicTableLocalActionsComponent,
     DynamicTableComponent,
-    ClientCardComponent,
+    EmployeeCardComponent,
     SkeletonComponent,
   ],
   selector: 'employees-list',
@@ -119,6 +119,7 @@ export class EmployeesListComponent {
     this.clearTable();
     this.dataStyleType = type;
   }
+
   // ======Start get all Employees=========
   getAllEmployees(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingEmployeesList = true;

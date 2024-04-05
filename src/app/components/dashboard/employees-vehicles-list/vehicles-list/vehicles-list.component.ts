@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
-import { ClientCardComponent } from '../../clients/client-card/client-card.component';
-import { AddVehicleComponent } from '../add-vehicle/add-vehicle.component';
+import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
+import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 
 //Services
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
     // Components
     DynamicTableLocalActionsComponent,
     DynamicTableComponent,
-    ClientCardComponent,
+    VehicleCardComponent,
     SkeletonComponent,
   ],
   selector: 'vehicles-list',

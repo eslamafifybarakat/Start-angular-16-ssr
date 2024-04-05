@@ -5,12 +5,12 @@ import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 
 // Components
-import { FileUploadComponent } from './../../../../shared/components/upload-files/file-upload/file-upload.component';
+import { FileUploadComponent } from '../../../../../shared/components/upload-files/file-upload/file-upload.component';
 
 //Services
-import { PublicService } from './../../../../services/generic/public.service';
-import { AlertsService } from './../../../../services/generic/alerts.service';
-import { EmployeesService } from './../../services/employees.service';
+import { PublicService } from '../../../../../services/generic/public.service';
+import { AlertsService } from '../../../../../services/generic/alerts.service';
+import { EmployeesService } from '../../../services/employees.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';

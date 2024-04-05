@@ -1,4 +1,4 @@
-<div id="clients">
+<div id="employees">
   <div class="d-md-flex d-none justify-content-between align-items-center flex-wrap gap-3">
     <div class="d-flex align-items-center gap-3 p-0">
       <h5 class="mb-0">
@@ -143,7 +143,7 @@
           <ng-container *ngIf="employeesList.length>0; else noClients">
             <ng-container *ngFor="let card of employeesList; let i=index">
               <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <client-card [item]="card" (editItemHandler)="editItem($event)"></client-card>
+                <employee-card [item]="card" (editItemHandler)="editItem($event)"></employee-card>
               </div>
             </ng-container>
           </ng-container>
@@ -190,7 +190,7 @@
         <ng-container *ngIf="employeesList.length>0; else noClients2">
           <ng-container *ngFor="let card of employeesList; let i=index">
             <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-              <client-card (editItemHandler)="editItem($event)" [item]="card"></client-card>
+              <employee-card (editItemHandler)="editItem($event)" [item]="card"></employee-card>
             </div>
           </ng-container>
         </ng-container>

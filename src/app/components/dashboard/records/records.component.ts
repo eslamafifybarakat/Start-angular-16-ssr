@@ -1,5 +1,3 @@
-import { AlertsService } from './../../../services/generic/alerts.service';
-import { PublicService } from './../../../services/generic/public.service';
 // Modules
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarModule } from 'primeng/sidebar';
@@ -15,6 +13,9 @@ import { AddRecordComponent } from './add-record/add-record.component';
 
 //Services
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
+import { AlertsService } from './../../../services/generic/alerts.service';
+import { PublicService } from './../../../services/generic/public.service';
+import { RecordsList } from './../../../interfaces/dashboard/records';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { RecordsService } from '../services/records.service';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -47,7 +48,7 @@ export class RecordsComponent {
   isSearch: boolean = false;
 
   isLoadingRecordsList: boolean = false;
-  recordsList: any[] = [];
+  recordsList: RecordsList[] = [];
   recordsCount: number = 0;
   tableHeaders: any = [];
 

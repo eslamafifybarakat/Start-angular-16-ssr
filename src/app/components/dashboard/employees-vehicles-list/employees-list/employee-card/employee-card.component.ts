@@ -1,21 +1,18 @@
-import { Component, EventEmitter, Inject, Input, Output, PLATFORM_ID } from '@angular/core';
-import { RecordsList } from './../../../../interfaces/dashboard/records';
-import { keys } from './../../../../shared/configs/localstorage-key';
+import { Component, EventEmitter, Inject, Output, PLATFORM_ID, Input } from '@angular/core';
+import { EmployeesList } from './../../../../../interfaces/dashboard/employees';
+import { keys } from './../../../../../shared/configs/localstorage-key';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
-  imports: [
-    TranslateModule,
-    CommonModule
-  ],
-  selector: 'record-card',
-  templateUrl: './record-card.component.html',
-  styleUrls: ['./record-card.component.scss']
+  imports: [TranslateModule, CommonModule],
+  selector: 'employee-card',
+  templateUrl: './employee-card.component.html',
+  styleUrls: ['./employee-card.component.scss']
 })
-export class RecordCardComponent {
-  @Input() item: RecordsList;
+export class EmployeeCardComponent {
+  @Input() item: EmployeesList;
   currentLanguage: string;
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
 
