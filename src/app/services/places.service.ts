@@ -1,9 +1,9 @@
 import { environment } from '../../environments/environment';
-import { roots } from '../shared/configs/endPoints';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
+import { roots } from '../shared/configs/roots';
 
 @Injectable({
   providedIn: 'root'
@@ -47,11 +47,11 @@ export class PlacesService {
     if (top_featured) {
       params = params.append('top_featured', top_featured);
     }
-    return this.http.get(`${this.apiUrl}/${roots.places}`, { params: params });
+    return this.http.get(`${this.apiUrl}/${roots.supplier.getCountries}`, { params: params });
   }
 
   
   getPLaceItemData(queryKey: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${roots?.places}/${queryKey}`);
+    return this.http.get(`${this.apiUrl}/${roots?.supplier.getCountries}/${queryKey}`);
   }
 }

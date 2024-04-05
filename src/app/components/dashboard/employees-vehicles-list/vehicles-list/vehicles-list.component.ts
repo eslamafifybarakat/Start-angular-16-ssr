@@ -264,7 +264,7 @@ export class VehiclesListComponent {
       name: item?.item?.title
     };
 
-    // this.publicService.show_loader.next(true);
+    // this.publicService.showGlobalLoader.next(true);
 
     // this.clientsService?.deleteClientById(item?.item?.id, data)?.subscribe(
     //   (res: any) => {
@@ -274,7 +274,7 @@ export class VehiclesListComponent {
     //     this.handleErrorDelete(err);
     //   }
     // ).add(() => {
-    //   this.publicService.show_loader.next(false);
+    //   this.publicService.showGlobalLoader.next(false);
     //   this.cdr.detectChanges();
     // });
   }

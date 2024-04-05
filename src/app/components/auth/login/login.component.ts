@@ -1,11 +1,13 @@
 // Components
 import { LanguageSelectorComponent } from './../../../shared/components/language-selector/language-selector.component';
 
+// Services
+import { LocalizationLanguageService } from 'src/app/services/generic/localization-language.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MetaDetails, MetadataService } from 'src/app/services/generic/metadata.service';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
-import { keys } from './../../../shared/configs/localstorage-key';
-import { AuthService } from '../../../services/authentication/auth.service';
 import { patterns } from './../../../shared/configs/patterns';
 import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -16,7 +18,19 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { Component } from '@angular/core';
 @Component({
   standalone: true,
-  imports: [LanguageSelectorComponent, RouterModule, TranslateModule, FormsModule, ReactiveFormsModule, CommonModule, PasswordModule, CheckboxModule],
+  imports: [
+    // Components
+    LanguageSelectorComponent,
+
+    // Modules
+    ReactiveFormsModule,
+    TranslateModule,
+    CheckboxModule,
+    PasswordModule,
+    CommonModule,
+    RouterModule,
+    FormsModule
+  ],
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -32,22 +46,36 @@ export class LoginComponent {
   get formControls(): any {
     return this.loginForm?.controls;
   }
+
   constructor(
+    private localizationLanguageService: LocalizationLanguageService,
+    private metadataService: MetadataService,
     private alertsService: AlertsService,
     public publicService: PublicService,
     private authService: AuthService,
     private location: Location,
     private fb: FormBuilder,
     private router: Router
-  ) { }
-
-  back(): void {
-    this.location.back();
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
   }
 
-  submit(): void {
+  ngOnInit(): void {
+    this.updateMetaTagsForSEO();
+  }
+  private updateMetaTagsForSEO(): void {
+    let metaData: MetaDetails = {
+      title: 'تسجيل الدخول',
+      description: 'تسجيل الدخول',
+      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+    }
+    this.metadataService.updateMetaTagsForSEO(metaData);
+  }
+
+   // Start Login Functions
+  loginNow(): void {
     if (this.loginForm?.valid) {
-      this.publicService.show_loader.next(true);
+      this.publicService.showGlobalLoader.next(true);
       let data = {
         email: this.loginForm?.value?.email,
         password: this.loginForm?.value?.password,
@@ -64,18 +92,45 @@ export class LoginComponent {
   }
   private handleSuccessLoggedIn(res: any): void {
     if (res?.success == true) {
-      window.localStorage.setItem(keys.userData, JSON.stringify(res?.data));
+      this.authService.saveUserLoginData(res?.data);
+      this.authService.saveToken(res?.token);
+      this.getCurrentUserInformation();
     } else {
       this.handleError(res?.error?.message || this.publicService.translateTextFromJson('general.errorOccur'));
     }
   }
+   // End Login Functions
+
+  // Start Current User Information Functions
+  private getCurrentUserInformation(loginResponse?:any): void {
+    let loginSubscription: any = this.authService?.getCurrentUserInformation()?.pipe(
+      tap(res => this.handleSuccessCuurentUserInformation(res,loginResponse)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
+    this.subscriptions.push(loginSubscription);
+  }
+  private handleSuccessCuurentUserInformation(res: any,loginResponse?:any): void {
+    if (res?.success == true) {
+      this.authService.saveCurrentUserInformation(res?.user);
+      this.publicService.showGlobalLoader.next(false);
+      this.router.navigate(['/Dashboard']);
+    } else {
+      this.handleError(res?.error?.message || this.publicService.translateTextFromJson('general.errorOccur'));
+    }
+  }
+  // End Current User Information Functions
+
+  back(): void {
+    this.location.back();
+  }
+
+  //Handle Errors Functions
   private handleError(err: any): any {
     this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
   }
   private setErrorMessage(message: string): void {
-    // this.alertsService.openToast('error', 'error', message);
-    this.publicService.show_loader.next(false);
-    this.router.navigate(['/']);
+    this.alertsService.openToast('error', 'error', message);
+    this.publicService.showGlobalLoader.next(false);
 
   }
 

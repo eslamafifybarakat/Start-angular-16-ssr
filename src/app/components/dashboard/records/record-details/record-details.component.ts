@@ -315,7 +315,7 @@ export class RecordDetailsComponent {
     };
   }
   private editRecord(formData: any): void {
-    this.publicService?.show_loader?.next(true);
+    this.publicService?.showGlobalLoader?.next(true);
     let subscribeEditRecord = this.recordsService?.editRecord(formData)?.subscribe(
       (res: any) => {
         this.handleEditRecordSuccess(res);
@@ -327,7 +327,7 @@ export class RecordDetailsComponent {
     this.subscriptions.push(subscribeEditRecord);
   }
   private handleEditRecordSuccess(response: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     if (response?.isSuccess && response?.statusCode === 200) {
       this.router.navigate(['/Dashboard/Clients']);
       response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
@@ -336,7 +336,7 @@ export class RecordDetailsComponent {
     }
   }
   private handleEditRecordError(error: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
   // =========End submit edit client==========

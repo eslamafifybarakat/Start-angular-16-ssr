@@ -95,7 +95,7 @@ export class AddVehicleComponent {
     return formData;
   }
   private addVehicle(formData: any): void {
-    this.publicService?.show_loader?.next(true);
+    this.publicService?.showGlobalLoader?.next(true);
     let subscribeAddVehicle = this.vehiclesService?.addVehicle(formData)?.subscribe(
       (res: any) => {
         this.handleAddVehicleSuccess(res);
@@ -107,7 +107,7 @@ export class AddVehicleComponent {
     this.subscriptions.push(subscribeAddVehicle);
   }
   private handleAddVehicleSuccess(response: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     if (response?.isSuccess && response?.statusCode === 200) {
       this.ref.close({ listChanged: true, item: response?.data });
       response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
@@ -116,7 +116,7 @@ export class AddVehicleComponent {
     }
   }
   private handleAddVehicleError(error: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
 

@@ -1,13 +1,15 @@
-import { AuthComponent } from './components/auth/auth.component';
 import { Routes } from '@angular/router';
 
 // Components
 
 // TS Files for child routes
-import { placesChildrenRoutes } from './components/places/places-children-routes';
-import { errorsChildrenRoutes } from './components/errors/errors-routes';
 import { dashBoardChildrenRoutes } from './components/dashboard/dashboard-children-routes';
+import { placesChildrenRoutes } from './components/places/places-children-routes';
 import { authChildrenRoutes } from './components/auth/auth-children-routes';
+import { errorsChildrenRoutes } from './components/errors/errors-routes';
+
+//Services
+import { AuthGuard } from './services/authentication/guards/auth.guard';
 
 
 export const appRoutes: Routes = [
@@ -31,6 +33,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'Auth',
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/auth/auth.component').then(
         (c) => c.AuthComponent
@@ -39,6 +42,7 @@ export const appRoutes: Routes = [
   },
   {
     path: ':lang/Auth',
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/auth/auth.component').then(
         (c) => c.AuthComponent
@@ -47,6 +51,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'Dashboard',
+    canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
@@ -55,6 +60,7 @@ export const appRoutes: Routes = [
   },
   {
     path: ':lang/Dashboard',
+    canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent

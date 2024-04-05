@@ -51,7 +51,7 @@ export class RegistrationV2Component {
     console.log(formData);
 
     if (!formData) return;
-    this.publicService?.show_loader?.next(true);
+    this.publicService?.showGlobalLoader?.next(true);
     let registerSubscription = this.authService?.register(formData)?.subscribe(
       (res: any) => {
         if (res) {
@@ -80,12 +80,12 @@ export class RegistrationV2Component {
   }
 
   handleRegistrationSuccess(): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     this.router?.navigate(['/Auth/Successful-registration', { name: this.personalInfo.fullName }]);
   }
 
   handleRegistrationError(error: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     const errorMessage = error?.error?.message || error?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }

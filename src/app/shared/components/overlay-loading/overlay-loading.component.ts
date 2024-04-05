@@ -14,7 +14,7 @@ export class OverlayLoadingComponent implements OnInit {
   constructor(private publicService: PublicService) { }
 
   ngOnInit(): void {
-    this.publicService.show_loader.subscribe((res: any) => {
+    this.publicService.showGlobalLoader.subscribe((res: any) => {
       if (res == true) {
         this.show_overlay = true;
       } else {

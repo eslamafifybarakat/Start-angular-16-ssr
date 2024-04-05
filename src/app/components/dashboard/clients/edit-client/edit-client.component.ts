@@ -323,7 +323,7 @@ export class EditClientComponent {
     };
   }
   private editClient(formData: any): void {
-    this.publicService?.show_loader?.next(true);
+    this.publicService?.showGlobalLoader?.next(true);
     let subscribeEditClient = this.clientsService?.editClient(formData)?.subscribe(
       (res: any) => {
         this.handleEditClientSuccess(res);
@@ -335,7 +335,7 @@ export class EditClientComponent {
     this.subscriptions.push(subscribeEditClient);
   }
   private handleEditClientSuccess(response: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     if (response?.isSuccess && response?.statusCode === 200) {
       this.router.navigate(['/Dashboard/Clients']);
       response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
@@ -344,7 +344,7 @@ export class EditClientComponent {
     }
   }
   private handleEditClientError(error: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
   // =========End submit edit client==========

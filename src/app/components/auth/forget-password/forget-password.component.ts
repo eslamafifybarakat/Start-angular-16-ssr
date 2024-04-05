@@ -46,14 +46,14 @@ export class ForgetPasswordComponent {
       return;
     }
 
-    this.publicService.show_loader.next(true);
+    this.publicService.showGlobalLoader.next(true);
     const data = {
       emailAddress: this.forgetPasswordForm?.value?.email
     };
 
     let forgetPasswordSubscription = this.authService?.forgetPassword(data)?.subscribe(
       (res: any) => {
-        this.publicService.show_loader.next(false);
+        this.publicService.showGlobalLoader.next(false);
         if (res?.success === true) {
           this.handleSuccess(res);
         } else {
@@ -71,11 +71,11 @@ export class ForgetPasswordComponent {
   private handleSuccess(res: any): void {
     this.router.navigate(['/Auth/Verification-code', { email: this.forgetPasswordForm?.value?.email }]);
     this.forgetPasswordForm?.reset();
-    this.publicService.show_loader.next(false);
+    this.publicService.showGlobalLoader.next(false);
   }
 
   private handleError(error: any): void {
-    this.publicService.show_loader.next(false);
+    this.publicService.showGlobalLoader.next(false);
     if (error) {
       this.alertsService?.openToast('error', 'error', error || this.publicService.translateTextFromJson('general.errorOccur'));
     }

@@ -1,7 +1,7 @@
 export const roots = {
   auth: {
-    login: '/Account/login',
-    currentUserInformation: '/Account/currentUserInformations',
+    login: 'User/Login',
+    currentUserInformation: '/User/GetCurrentLoginInformations',
     
     forgetPassword: '/Account/ForgetPassword',
     validateCode: '/Account/ValidateCode',

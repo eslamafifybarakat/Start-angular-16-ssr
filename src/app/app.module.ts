@@ -25,6 +25,7 @@ import { ScrollTopComponent } from './shared/components/scroll-top/scroll-top.co
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { AuthGuard } from './services/authentication/guards/auth.guard';
 
 registerLocaleData(localeAr);
 
@@ -57,7 +58,15 @@ registerLocaleData(localeAr);
       },
     }),
   ],
-  providers: [DatePipe, AsyncPipe, DialogService, MessageService, ConfirmationService, interceptorProviders],
+  providers: [
+    DatePipe,
+     AsyncPipe,
+      DialogService,
+       MessageService,
+        ConfirmationService, 
+        AuthGuard,
+        interceptorProviders
+      ],
   // providers: [DatePipe, AsyncPipe, DialogService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

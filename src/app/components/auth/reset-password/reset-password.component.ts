@@ -79,7 +79,7 @@ export class ResetPasswordComponent {
       this.publicService?.validateAllFormFields(this.resetPasswordForm);
       return;
     }
-    this.publicService.show_loader.next(true);
+    this.publicService.showGlobalLoader.next(true);
     const data = {
       code: this.data?.code,
       emailAddress: this.data?.email,
@@ -87,7 +87,7 @@ export class ResetPasswordComponent {
     };
     let resetPasswordSubscription: any = this.authService?.resetPassword(data)?.subscribe(
       (res: any) => {
-        this.publicService.show_loader.next(false);
+        this.publicService.showGlobalLoader.next(false);
         if (res?.success === true) {
           this.handleSuccess();
         } else {
@@ -105,10 +105,10 @@ export class ResetPasswordComponent {
   private handleSuccess(): void {
     this.router.navigate(['/Auth/Login']);
     this.resetPasswordForm?.reset();
-    this.publicService.show_loader.next(false);
+    this.publicService.showGlobalLoader.next(false);
   }
   private handleError(error: any): void {
-    this.publicService.show_loader.next(false);
+    this.publicService.showGlobalLoader.next(false);
     if (error) {
       this.alertsService?.openToast('error', 'error', error || this.publicService.translateTextFromJson('general.errorOccur'));
     }

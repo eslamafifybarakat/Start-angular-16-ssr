@@ -250,7 +250,7 @@ export class AddEditClientComponent {
     };
   }
   private addClient(formData: any): void {
-    this.publicService?.show_loader?.next(true);
+    this.publicService?.showGlobalLoader?.next(true);
     let subscribeAddClient = this.clientsService?.addClient(formData)?.subscribe(
       (res: any) => {
         this.handleAddClientSuccess(res);
@@ -262,7 +262,7 @@ export class AddEditClientComponent {
     this.subscriptions.push(subscribeAddClient);
   }
   private handleAddClientSuccess(response: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     if (response?.isSuccess && response?.statusCode === 200) {
       this.ref.close({ listChanged: true, item: response?.data });
       response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
@@ -271,7 +271,7 @@ export class AddEditClientComponent {
     }
   }
   private handleAddClientError(error: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
 

@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  apiUrl: "https://structure.net/api",
-  publicUrl: "http://structure.net",
-  imageBaseUrl: "https://structure.net",
+  apiUrl: "https://breakable-mite-pantsuit.cyclic.app/api/v1",
+  publicUrl: "https://breakable-mite-pantsuit.cyclic.app",
+  imageBaseUrl: "https://breakable-mite-pantsuit.cyclic.app",
   chatGptApi: "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",
 
   firebaseConfig: {

@@ -102,7 +102,7 @@ export class AddEmployeeComponent {
     return formData;
   }
   private addEmployee(formData: any): void {
-    this.publicService?.show_loader?.next(true);
+    this.publicService?.showGlobalLoader?.next(true);
     let subscribeAddEmployee = this.employeesService?.addEmployee(formData)?.subscribe(
       (res: any) => {
         this.handleAddEmployeeSuccess(res);
@@ -114,7 +114,7 @@ export class AddEmployeeComponent {
     this.subscriptions.push(subscribeAddEmployee);
   }
   private handleAddEmployeeSuccess(response: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     if (response?.isSuccess && response?.statusCode === 200) {
       this.ref.close({ listChanged: true, item: response?.data });
       response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
@@ -123,7 +123,7 @@ export class AddEmployeeComponent {
     }
   }
   private handleAddEmployeeError(error: any): void {
-    this.publicService?.show_loader?.next(false);
+    this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
 

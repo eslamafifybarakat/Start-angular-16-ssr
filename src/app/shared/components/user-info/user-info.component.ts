@@ -6,6 +6,7 @@ import { keys } from '../../configs/localstorage-key';
 import { TranslateModule } from '@ngx-translate/core';
 import { userInfoMenu } from './user-info-menu-list';
 import { ConfirmationService } from 'primeng/api';
+import { AuthService } from '../../../services/authentication/auth.service';
 interface MenuItem {
   id?: string;
   text: string;
@@ -26,6 +27,7 @@ export class UserInfoComponent {
   constructor(
     private confirmationService: ConfirmationService,
     @Inject(PLATFORM_ID) private platformId: Object,
+    private authService:AuthService,
     public sanitizer: DomSanitizer,
     private router: Router
   ) { }
@@ -40,9 +42,8 @@ export class UserInfoComponent {
       header: this.currentLanguage == 'ar' ? 'تسجيل خروج' : 'Logout',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.router?.navigate(['/Auth']);
-        localStorage?.clear();
-      },
+        this.authService.signOut();
+      }
     });
 
   }

@@ -14,7 +14,7 @@ import { Injectable } from '@angular/core'
 export class PublicService {
   private readonly baseUrl = environment?.apiUrl
 
-  show_loader = new Subject<boolean>()
+  showGlobalLoader = new Subject<boolean>()
   showSearchLoader = new Subject<boolean>()
   resetTable = new BehaviorSubject<boolean>(false)
   changePageSub = new BehaviorSubject<{}>({})

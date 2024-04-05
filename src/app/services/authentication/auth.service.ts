@@ -52,7 +52,7 @@ export class AuthService {
     }
     return {};
   }
-  setToken(jwt: string): void {
+  saveToken(jwt: string): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem(keys.accessToken, jwt);
     }
@@ -63,7 +63,7 @@ export class AuthService {
     }
     return '';
   }
-  setEncToken(enc_token: string): void {
+  saveEncToken(enc_token: string): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem(keys.enc_AccessToken, enc_token);
     }
@@ -86,7 +86,7 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/${roots.auth.login}`, data);
   }
   getCurrentUserInformation(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${roots.auth.currentUserInformation}`);
+    return this.http.get<any>(`${this.baseUrl}/${roots.auth.currentUserInformation}/1`);
   }
   forgetPassword(email: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${roots.auth.forgetPassword}`, email);
@@ -113,6 +113,6 @@ export class AuthService {
       localStorage.removeItem(keys.accessToken);
       localStorage.removeItem(keys.enc_AccessToken);
     }
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/Auth/Login']);
   }
 }

@@ -84,7 +84,7 @@ export class VerificationCodeComponent {
   }
   private handleResendCodeResponse(res: any): void {
     this.isLoadingBtn = false;
-    this.publicService.show_loader.next(false);
+    this.publicService.showGlobalLoader.next(false);
     this.isLoadingAction = false;
 
     if (res?.success === true) {
@@ -99,7 +99,7 @@ export class VerificationCodeComponent {
 
   submit(): void {
     this.isLoadingBtn = true;
-    this.publicService.show_loader.next(true);
+    this.publicService.showGlobalLoader.next(true);
     const data: any = {
       emailAddress: this.email,
       code: this.codeLength
@@ -111,14 +111,14 @@ export class VerificationCodeComponent {
       (err: any) => {
         this.router.navigate(['/Auth/Reset-password', { email: this.email, code: this.codeLength }]);
         // this.handleError(err);
-        this.publicService.show_loader.next(false);
+        this.publicService.showGlobalLoader.next(false);
       }
     );
     this.cdr.detectChanges();
   }
   private handleResetCodeValidationResponse(res: any): void {
     this.isLoadingBtn = false;
-    this.publicService.show_loader.next(false);
+    this.publicService.showGlobalLoader.next(false);
     if (res?.success === true && res?.result === true) {
       this.router.navigate(['/Auth/Reset-password', { email: this.email, code: this.codeLength }]);
     } else {
@@ -132,7 +132,7 @@ export class VerificationCodeComponent {
     error ? this.alertsService?.openToast('error', 'error', error || this.publicService.translateTextFromJson('general.errorOccur')) : '';
     this.isLoadingBtn = false;
     this.isLoadingAction = false;
-    this.publicService.show_loader.next(false);
+    this.publicService.showGlobalLoader.next(false);
   }
 
   ngOnDestroy(): void {

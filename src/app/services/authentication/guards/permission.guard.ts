@@ -1,8 +1,8 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CheckPermissionService } from '../check-permission.service';
+import { AuthService } from '../auth.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { CheckPermissionService } from '../check-permission.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class PermissionGuard implements CanActivate {
       return true;
     } else {
       this.authService?.signOut();
-      this.router?.navigate(['/auth/login']);
+      this.router?.navigate(['/Auth/Login']);
       return false;
     }
   }

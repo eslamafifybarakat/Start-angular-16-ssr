@@ -15,7 +15,7 @@
       {{'auth.joinMasdar' | translate}}
     </p>
   </div>
-  <form [formGroup]="loginForm" (ngSubmit)="submit()" class="pt-sm-4 pt-2">
+  <form [formGroup]="loginForm" (ngSubmit)="loginNow()" class="pt-sm-4 pt-2">
     <div class="mb-3">
       <input id="email" class="form-control" type="text" placeholder="{{'labels.email' | translate}}"
         formControlName="email" (input)="publicService?.clearValidationErrors(formControls.email)"

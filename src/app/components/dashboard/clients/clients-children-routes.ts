@@ -1,4 +1,5 @@
 
+import { PermissionGuard } from './../../../services/authentication/guards/permission.guard';
 import { RecordDetailsComponent } from "../records/record-details/record-details.component";
 import { ClientsListComponent } from "./clients-list/clients-list.component";
 import { EditClientComponent } from "./edit-client/edit-client.component";
@@ -10,6 +11,11 @@ export const clientsChildrenRoutes: any[] = [
   {
     path: 'List',
     component: ClientsListComponent,
+    canActivate: [PermissionGuard],
+    data: {
+      permission: 'Pages.Client.List',
+      title: 'Appointments'
+    },
     pathMatch: 'full'
   },
   {
