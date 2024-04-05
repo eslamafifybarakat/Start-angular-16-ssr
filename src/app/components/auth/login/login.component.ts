@@ -124,7 +124,7 @@ export class LoginComponent {
     this.location.back();
   }
 
-  //Handle Errors Functions
+  /* --- Handle api requests error messages --- */
   private handleError(err: any): any {
     this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
   }

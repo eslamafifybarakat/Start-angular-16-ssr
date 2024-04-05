@@ -25,7 +25,6 @@ export class HttpInterceptorService implements HttpInterceptor {
         headers['locale'] = storedLang;
 
         // Set the 'Authorization' header if the user is logged in
-        console.log(this.authService.getToken());
         if (this.authService.getToken() && this.authService.getToken() !== '') {
           headers['Authorization'] = `Bearer ${this.authService.getToken()}`;
         }

@@ -1,26 +1,50 @@
-import { PublicService } from './../../../services/generic/public.service';
-export const menuItems = [
-  {
-    id: 'statistics',
-    text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.statistics'),
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+import { CheckPermissionService } from '../../../services/authentication/check-permission.service';
+import { PublicService } from 'src/app/services/generic/public.service'
+import { Injectable } from '@angular/core'
+
+interface MenuItem {
+  id?: string;
+  text: string;
+  icon: string;
+  routerLink?: string;
+  state: boolean;
+  permission?: boolean;
+  children?: MenuItem[];
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AsideMenuService {
+
+  constructor(
+    private checkPermissionService: CheckPermissionService,
+    private publicService: PublicService
+  ) { }
+
+  getAsideMenuItem(): any {
+    let menuListItems: MenuItem[] = [
+      {
+        id: 'statistics',
+        text: this.publicService.translateTextFromJson('dashboard.sideMenu.statistics'),
+        icon: `<svg width="29" height="29" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="mask0_192_85" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
 <rect width="32" height="32" fill="currentColor"/>
 </mask>
 <g mask="url(#mask0_192_85)">
 <path d="M13.6712 7.8457L14.0424 13.3656L14.2266 16.14C14.2286 16.4254 14.2733 16.7088 14.3596 16.9812C14.5821 17.51 15.1176 17.846 15.7001 17.8226L24.5764 17.2419C24.9608 17.2356 25.332 17.3794 25.6082 17.6416C25.8385 17.8602 25.9872 18.146 26.0341 18.4535L26.0498 18.6402C25.6825 23.7264 21.9469 27.9688 16.8712 29.0639C11.7954 30.159 6.59045 27.8456 4.08225 23.3798C3.35915 22.0823 2.9075 20.6563 2.75381 19.1852C2.68961 18.7498 2.66134 18.3099 2.66927 17.8699C2.66134 12.4169 6.54459 7.70253 11.9804 6.56601C12.6346 6.46413 13.276 6.81048 13.5384 7.40729C13.6062 7.5455 13.651 7.69353 13.6712 7.8457Z" fill="currentColor"/>
 <path opacity="0.4" d="M29.3327 13.0829L29.3234 13.1263L29.2965 13.1895L29.3002 13.363C29.2863 13.5928 29.1975 13.8138 29.0447 13.9925C28.8854 14.1785 28.6678 14.3052 28.4282 14.3544L28.2821 14.3744L18.041 15.038C17.7003 15.0716 17.3611 14.9617 17.1079 14.7358C16.8967 14.5474 16.7618 14.2933 16.7237 14.0194L16.0363 3.79325C16.0243 3.75868 16.0243 3.7212 16.0363 3.68661C16.0457 3.40473 16.1698 3.13829 16.3809 2.94681C16.5918 2.75533 16.8723 2.65477 17.1594 2.6676C23.2393 2.82228 28.3491 7.19422 29.3327 13.0829Z" fill="currentColor"/>
-</g>
-</svg>
-    `,
-    routerLink: '/statistics',
-    state: false
-  },
-  {
-    id: 'clients',
-    text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.clients'),
-    icon: `
-    <svg width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+</g></svg>`,
+        routerLink: '/Dashboard/Statistics',
+        state: false, //Opened Or Closed
+        // permission: this.checkPermissionService.hasPermission('Pages.Statistics'),
+        permission: true,
+      },
+      {
+        id: 'clients',
+        text: this.publicService.translateTextFromJson('dashboard.sideMenu.clients'),
+        icon: `
+    <svg width="31" height="32" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <mask id="mask0_199_290" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="35">
 <rect y="0.5" width="34" height="34" fill="url(#pattern0)"/>
 </mask>
@@ -35,90 +59,61 @@ export const menuItems = [
 </defs>
 </svg>
     `,
-    routerLink: '/clients',
-    state: false,
-  },
-  {
-    id: 'sales',
-    text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.sales'),
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M28 26.6667H4V6.66675" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M28 9.33325L17.3333 18.6666L12 13.3333L4 19.9999" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        routerLink: '/Dashboard/Clients',
+        state: false, //Opened Or Closed
+        permission: this.checkPermissionService.hasPermission('Pages.Client.List'),
+      },
+      {
+        id: 'sales',
+        text: this.publicService.translateTextFromJson('dashboard.sideMenu.sales'),
+        icon: `<svg width="29" height="29" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 26.6667H4V6.66675" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M28 9.33325L17.3333 18.6666L12 13.3333L4 19.9999" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     `,
-    routerLink: '/sales',
-    state: false
-  },
-  {
-    id: 'products',
-    text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.products'),
-    icon: `<svg width="24" height="29" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        routerLink: '/sales',
+        state: false, //Opened Or Closed
+        permission: true,
+        // permission: this.checkPermissionService.hasPermission('Pages.Sales.List'),
+      },
+      {
+        id: 'products',
+        text: this.publicService.translateTextFromJson('dashboard.sideMenu.products'),
+        icon: `<svg width="21" height="26" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M21.3333 6.99992H18.6667C18.6667 3.26659 15.7333 0.333252 12 0.333252C8.26667 0.333252 5.33333 3.26659 5.33333 6.99992H2.66667C1.2 6.99992 0 8.19992 0 9.66659V25.6666C0 27.1333 1.2 28.3333 2.66667 28.3333H21.3333C22.8 28.3333 24 27.1333 24 25.6666V9.66659C24 8.19992 22.8 6.99992 21.3333 6.99992ZM12 2.99992C14.2667 2.99992 16 4.73325 16 6.99992H8C8 4.73325 9.73333 2.99992 12 2.99992ZM21.3333 25.6666H2.66667V9.66659H21.3333V25.6666ZM12 14.9999C9.73333 14.9999 8 13.2666 8 10.9999H5.33333C5.33333 14.7333 8.26667 17.6666 12 17.6666C15.7333 17.6666 18.6667 14.7333 18.6667 10.9999H16C16 13.2666 14.2667 14.9999 12 14.9999Z" fill="currentColor"/>
     </svg>
     `,
-    routerLink: '/products',
-    state: false
-  },
-  {
-    id: 'messages',
-    text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.messages'),
-    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        routerLink: '/products',
+        state: false, //Opened Or Closed
+        permission: true,
+        // permission: this.checkPermissionService.hasPermission('Pages.Products.List'),
+      },
+      {
+        id: 'messages',
+        text: this.publicService.translateTextFromJson('dashboard.sideMenu.messages'),
+        icon: `<svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M24.666 0.666504H3.33268C1.86602 0.666504 0.666016 1.8665 0.666016 3.33317V27.3332L5.99935 21.9998H24.666C26.1327 21.9998 27.3327 20.7998 27.3327 19.3332V3.33317C27.3327 1.8665 26.1327 0.666504 24.666 0.666504ZM24.666 19.3332H4.93268L3.33268 20.9332V3.33317H24.666V19.3332ZM20.666 12.6665H17.9993V9.99984H20.666V12.6665ZM15.3327 12.6665H12.666V9.99984H15.3327V12.6665ZM9.99935 12.6665H7.33268V9.99984H9.99935" fill="currentColor"/>
     </svg>
     `,
-    routerLink: '/messages',
-    state: false
-  },
-  {
-    id: 'settings',
-    text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.settings'),
-    icon: `<svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        routerLink: '/messages',
+        state: false, //Opened Or Closed
+        permission: true,
+        // permission: this.checkPermissionService.hasPermission('Pages.Messages.List'),
+      },
+      {
+        id: 'settings',
+        text: this.publicService.translateTextFromJson('dashboard.sideMenu.settings'),
+        icon: `<svg width="23" height="25" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12.9995 8.6665C14.414 8.6665 15.7706 9.22841 16.7708 10.2286C17.771 11.2288 18.3329 12.5854 18.3329 13.9998C18.3329 15.4143 17.771 16.7709 16.7708 17.7711C15.7706 18.7713 14.414 19.3332 12.9995 19.3332C11.585 19.3332 10.2285 18.7713 9.22829 17.7711C8.2281 16.7709 7.6662 15.4143 7.6662 13.9998C7.6662 12.5854 8.2281 11.2288 9.22829 10.2286C10.2285 9.22841 11.585 8.6665 12.9995 8.6665ZM12.9995 11.3332C12.2923 11.3332 11.614 11.6141 11.1139 12.1142C10.6138 12.6143 10.3329 13.2926 10.3329 13.9998C10.3329 14.7071 10.6138 15.3854 11.1139 15.8855C11.614 16.3856 12.2923 16.6665 12.9995 16.6665C13.7068 16.6665 14.3851 16.3856 14.8851 15.8855C15.3852 15.3854 15.6662 14.7071 15.6662 13.9998C15.6662 13.2926 15.3852 12.6143 14.8851 12.1142C14.3851 11.6141 13.7068 11.3332 12.9995 11.3332ZM10.3329 27.3332C9.99953 27.3332 9.71953 27.0932 9.6662 26.7732L9.17286 23.2398C8.33286 22.9065 7.61286 22.4532 6.91953 21.9198L3.59953 23.2665C3.3062 23.3732 2.9462 23.2665 2.7862 22.9732L0.119531 18.3598C0.0379253 18.2225 0.00915624 18.0601 0.038604 17.903C0.0680518 17.7459 0.1537 17.605 0.279531 17.5065L3.09286 15.2932L2.99953 13.9998L3.09286 12.6665L0.279531 10.4932C0.1537 10.3947 0.0680518 10.2537 0.038604 10.0967C0.00915624 9.93962 0.0379253 9.77722 0.119531 9.63984L2.7862 5.0265C2.9462 4.73317 3.3062 4.61317 3.59953 4.73317L6.91953 6.0665C7.61286 5.5465 8.33286 5.09317 9.17286 4.75984L9.6662 1.2265C9.71953 0.906504 9.99953 0.666504 10.3329 0.666504H15.6662C15.9995 0.666504 16.2795 0.906504 16.3329 1.2265L16.8262 4.75984C17.6662 5.09317 18.3862 5.5465 19.0795 6.0665L22.3995 4.73317C22.6929 4.61317 23.0529 4.73317 23.2129 5.0265L25.8795 9.63984C26.0529 9.93317 25.9729 10.2932 25.7195 10.4932L22.9062 12.6665L22.9995 13.9998L22.9062 15.3332L25.7195 17.5065C25.9729 17.7065 26.0529 18.0665 25.8795 18.3598L23.2129 22.9732C23.0529 23.2665 22.6929 23.3865 22.3995 23.2665L19.0795 21.9332C18.3862 22.4532 17.6662 22.9065 16.8262 23.2398L16.3329 26.7732C16.2795 27.0932 15.9995 27.3332 15.6662 27.3332H10.3329ZM11.9995 3.33317L11.5062 6.81317C9.9062 7.1465 8.49286 7.99984 7.4662 9.1865L4.25286 7.79984L3.25286 9.53317L6.0662 11.5998C5.53286 13.1554 5.53286 14.8443 6.0662 16.3998L3.23953 18.4798L4.23953 20.2132L7.47953 18.8265C8.5062 19.9998 9.9062 20.8532 11.4929 21.1732L11.9862 24.6665H14.0129L14.5062 21.1865C16.0929 20.8532 17.4929 19.9998 18.5195 18.8265L21.7595 20.2132L22.7595 18.4798L19.9329 16.4132C20.4662 14.8532 20.4662 13.1598 19.9329 11.5998L22.7462 9.53317L21.7462 7.79984L18.5329 9.1865C17.4852 7.9736 16.064 7.1434 14.4929 6.8265L13.9995 3.33317H11.9995Z" fill="currentColor"/>
     </svg>
     `,
-    routerLink: '/settings',
-    state: false
-  },
-  {
-    id: 'logout',
-    text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.logout'),
-    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.22587 7.79889L3.66349 13.1223C3.44562 13.3708 3.33415 13.6846 3.33398 14C3.33387 14.2158 3.38587 14.4324 3.49155 14.6294C3.53852 14.7172 3.59588 14.8006 3.66349 14.8777L8.22587 20.2011C8.70507 20.7602 9.54679 20.825 10.1059 20.3458C10.6651 19.8666 10.7298 19.0249 10.2506 18.4657L7.5661 15.3334L17.8923 15.3334C18.6287 15.3334 19.2256 14.7364 19.2256 14.0001C19.2256 13.2637 18.6287 12.6667 17.8923 12.6667L7.56595 12.6667L10.2506 9.53423C10.7298 8.9751 10.6651 8.13337 10.1059 7.65417C9.54679 7.17497 8.70507 7.23977 8.22587 7.79889ZM16.6673 22.0001C15.9309 22.0001 15.334 21.4031 15.334 20.6667V18.6667C15.334 17.9304 14.737 17.3334 14.0007 17.3334C13.2643 17.3334 12.6673 17.9304 12.6673 18.6667V20.6667C12.6673 22.8759 14.4582 24.6667 16.6673 24.6667L20.6673 24.6667C22.8765 24.6667 24.6673 22.8759 24.6673 20.6667L24.6673 7.33341C24.6673 5.12428 22.8765 3.33341 20.6673 3.33341L16.6673 3.33341C14.4582 3.33341 12.6673 5.12428 12.6673 7.33341V9.33341C12.6673 10.0698 13.2643 10.6667 14.0007 10.6667C14.737 10.6667 15.334 10.0698 15.334 9.33341V7.33341C15.334 6.59703 15.9309 6.00008 16.6673 6.00008L20.6673 6.00008C21.4037 6.00008 22.0007 6.59703 22.0007 7.33341L22.0007 20.6667C22.0007 21.4031 21.4037 22.0001 20.6673 22.0001L16.6673 22.0001Z" fill="currentColor"/>
-    </svg>
-    `,
-    routerLink: '/logout',
-    state: false
+        routerLink: '/settings',
+        state: false, //Opened Or Closed
+        permission: true,
+        // permission: this.checkPermissionService.hasPermission('Pages.Settings.List'),
+      }
+    ];
+
+    return menuListItems;
   }
-  // {
-  //   id: 'settings',
-  //   text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.settings'),
-  //   icon: 'pi pi-cog',
-  //   state: false,
-  //   children: [
-  //     {
-  //       text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.settingsChild.branches'),
-  //       icon: 'pi pi-users',
-  //       routerLink: '/dashboard/settings/branches',
-  //       state: false
-  //     },
-  //     {
-  //       text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.settingsChild.departments'),
-  //       icon: 'layers',
-  //       routerLink: '/dashboard/settings/departments',
-  //       state: false
-  //     },
-  //     {
-  //       text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.settingsChild.jobTitles'),
-  //       icon: 'layers',
-  //       routerLink: '/dashboard/settings/job-titles',
-  //       state: false
-  //     },
-  //     {
-  //       text: PublicService?.prototype.translateTextFromJson('dashboard.sideMenu.settingsChild.workPositions'),
-  //       icon: 'layers',
-  //       routerLink: '/dashboard/settings/work-positions',
-  //       state: false
-  //     }
-  //   ],
-  // },
-]
+}

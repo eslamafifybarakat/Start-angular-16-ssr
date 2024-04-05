@@ -16,10 +16,9 @@ export class CheckPermissionService {
       // Handle server-side logic or default values here
       this.currentUserInformation = {};
     }
-    console.log(this.currentUserInformation);
   }
 
   public hasPermission(permissionKey: string): boolean {
-    return this.currentUserInformation?.result?.user?.permissions?.includes(permissionKey);
+    return this.currentUserInformation?.permissions?.includes(permissionKey);
   }
 }

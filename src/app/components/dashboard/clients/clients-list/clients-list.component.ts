@@ -51,30 +51,38 @@ export class ClientsListComponent {
   isSearch: boolean = false;
   isLoadingFileDownload: boolean = false;
 
+  // Start Clients List Variables
   isLoadingClientsList: boolean = false;
   clientsList: ClientsList[] = [];
   clientsCount: number = 0;
   tableHeaders: any = [];
+  // End Clients List Variables
 
+  // Start Pagination Variables
   page: number = 1;
   perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
+  // End Pagination Variables
+
+  // Start Filtration Variables
+  private searchSubject = new Subject<any>();
+  openFilter: boolean = false;
+  filterCards: any = [];
 
   enableSortFilter: boolean = true;
   searchKeyword: any = null;
   filtersArray: any = [];
   sortObj: any = {};
+  // End Filtration Variables
 
+  // Start Permissions Variables
   showActionTableColumn: boolean = false;
   showEditAction: boolean = false;
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
+  // End Permissions Variables
 
-  private searchSubject = new Subject<any>();
-  openFilter: boolean = false;
-
-  filterCards: any = [];
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
@@ -89,6 +97,12 @@ export class ClientsListComponent {
   }
 
   ngOnInit(): void {
+    this.loadData();
+    this.searchSubject.pipe(
+      debounceTime(500) // Throttle time in milliseconds (1 seconds)
+    ).subscribe(event => { this.searchHandler(event) });
+  }
+  private loadData(): void {
     this.tableHeaders = [
       { field: 'fullName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'id', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
@@ -97,17 +111,6 @@ export class ClientsListComponent {
       // { field: 'status', header: 'dashboard.tableHeader.status', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: false, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
       // { field: 'propertyType', header: 'dashboard.tableHeader.propertyType', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
     ];
-    this.loadData();
-    this.searchSubject
-      .pipe(
-        debounceTime(500) // Throttle time in milliseconds (1 seconds)
-      )
-      .subscribe(event => {
-        this.searchHandler(event);
-      });
-  }
-
-  private loadData(): void {
     this.updateMetaTagsForSEO();
     this.getAllClients();
   }
@@ -119,13 +122,14 @@ export class ClientsListComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
-
+  
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.clearTable();
     this.dataStyleType = type;
   }
-  // ======Start get all clients=========
+
+  // Start Clients List Functions
   getAllClients(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingClientsList = true;
     this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
@@ -166,50 +170,11 @@ export class ClientsListComponent {
     ];
     this.clientsCount = 3225;
   }
-  /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.alertsService?.openToast('error', 'error', err || this.publicService.translateTextFromJson('general.errorOccur'));
-    this.finalizeClientListLoading();
-  }
-  // ======End get all clients=========
-
-  // ======Start search==========
-  handleSearch(event: any): void {
-    this.searchSubject.next(event);
-  }
-  searchHandler(keyWord: any): void {
-    this.page = 1;
-    this.perPage = 20;
-    this.searchKeyword = keyWord;
-    this.isLoadingClientsList = true;
-    this.getAllClients(true);
-    if (keyWord?.length > 0) {
-      this.isLoadingSearch = true;
-    }
-    this.cdr.detectChanges();
-  }
-  clearSearch(search: any): void {
-    search.value = null;
-    this.getAllClients(true);
-  }
-  // ======End search==========
-
-  // ======Start pagination==========
-  onPageChange(e: any): void {
-    this.page = e?.page + 1;
-    this.getAllClients();
-  }
-  onPaginatorOptionsChange(e: any): void {
-    this.perPage = e?.value;
-    this.pagesCount = Math?.ceil(this.clientsCount / this.perPage);
-    this.page = 1;
-    this.publicService?.changePageSub?.next({ page: this.page });
-  }
-  // ======End pagination==========
+  // End Start Clients List Functions
 
   itemDetails(item?: any): void {
   }
-
+  // Add Client
   addItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditClientComponent, {
       data: {
@@ -229,31 +194,11 @@ export class ClientsListComponent {
       }
     });
   }
-  // Filter clients
-  filterItem(): void {
-    const ref = this.dialogService?.open(FilterClientsComponent, {
-      header: this.publicService?.translateTextFromJson('general.filter'),
-      dismissableMask: false,
-      width: '45%',
-      data: this.filterCards,
-      styleClass: 'custom-modal',
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res) {
-        this.page = 1;
-        this.filtersArray = res.conditions;
-        this.filterCards = res.conditions;
-        // this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllClients(true);
-      }
-    });
-  }
-
-  // Edit client
+  // Edit Client
   editItem(item: any): void {
     this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
-  //========Start Delete client==========
+  //Delete Client
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -287,8 +232,47 @@ export class ClientsListComponent {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //========End Delete client==========
 
+
+  // Start Search
+  handleSearch(event: any): void {
+    this.searchSubject.next(event);
+  }
+  searchHandler(keyWord: any): void {
+    this.page = 1;
+    this.perPage = 20;
+    this.searchKeyword = keyWord;
+    this.isLoadingClientsList = true;
+    this.getAllClients(true);
+    if (keyWord?.length > 0) {
+      this.isLoadingSearch = true;
+    }
+    this.cdr.detectChanges();
+  }
+  clearSearch(search: any): void {
+    search.value = null;
+    this.getAllClients(true);
+  }
+  // End search
+  // Filter Clients
+  filterItem(): void {
+    const ref = this.dialogService?.open(FilterClientsComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '45%',
+      data: this.filterCards,
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res) {
+        this.page = 1;
+        this.filtersArray = res.conditions;
+        this.filterCards = res.conditions;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllClients(true);
+      }
+    });
+  }
   // Clear table
   clearTable(): void {
     this.searchKeyword = '';
@@ -377,6 +361,30 @@ export class ClientsListComponent {
     this.page = 1;
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllClients();
+  }
+
+  // Start Pagination
+  onPageChange(e: any): void {
+    this.page = e?.page + 1;
+    this.getAllClients();
+  }
+  onPaginatorOptionsChange(e: any): void {
+    this.perPage = e?.value;
+    this.pagesCount = Math?.ceil(this.clientsCount / this.perPage);
+    this.page = 1;
+    this.publicService?.changePageSub?.next({ page: this.page });
+  }
+  // End Pagination
+
+  /* --- Handle api requests error messages --- */
+  private handleError(err: any): any {
+    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
+  }
+  private setErrorMessage(message: string): void {
+    this.alertsService.openToast('error', 'error', message);
+    this.publicService.showGlobalLoader.next(false);
+    this.finalizeClientListLoading();
+
   }
 
   ngOnDestroy(): void {

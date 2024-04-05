@@ -86,7 +86,7 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/${roots.auth.login}`, data);
   }
   getCurrentUserInformation(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${roots.auth.currentUserInformation}/1`);
+    return this.http.get<any>(`${this.baseUrl}/${roots.auth.currentUserInformation}`);
   }
   forgetPassword(email: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${roots.auth.forgetPassword}`, email);

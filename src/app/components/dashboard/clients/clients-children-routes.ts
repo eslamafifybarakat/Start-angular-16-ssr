@@ -14,12 +14,16 @@ export const clientsChildrenRoutes: any[] = [
     canActivate: [PermissionGuard],
     data: {
       permission: 'Pages.Client.List',
-      title: 'Appointments'
+      title: 'Clients'
     },
     pathMatch: 'full'
   },
   {
     path: 'Details/:id',
+    data: {
+      permission: 'Pages.Client.Edit',
+      title: 'Clients'
+    },
     component: EditClientComponent,
     pathMatch: 'full'
   },

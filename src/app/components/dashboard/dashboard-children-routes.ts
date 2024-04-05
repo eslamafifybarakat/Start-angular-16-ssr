@@ -12,7 +12,7 @@ export const dashBoardChildrenRoutes: any[] = [
     canActivate: [PermissionGuard],
     data: {
       permission: 'Pages.Client.List',
-      title: 'Appointments'
+      title: 'Clients'
     },
     loadComponent: () =>
       import('./clients/clients.component').then(

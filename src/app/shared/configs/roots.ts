@@ -21,7 +21,7 @@ export const roots = {
   },
   dashboard: {
     clients: {
-      getClients: '/getClients',
+      getClients: 'Client/AllClients',
       addClient: '/addClient',
       editClient: '/editClient',
       deleteClients: '/deleteClients',
