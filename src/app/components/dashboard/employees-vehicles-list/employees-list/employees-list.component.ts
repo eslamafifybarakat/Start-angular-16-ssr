@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
+import { FilterEmployeesComponent } from './filter-employees/filter-employees.component';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
@@ -111,6 +112,11 @@ export class EmployeesListComponent {
     this.publicService.searchEmployeesData.subscribe((res: any) => {
       if (res) {
         this.searchHandler(res);
+      }
+    })
+    this.publicService.filterEmployeesData.subscribe((res: any) => {
+      if (res) {
+        this.filterItem();
       }
     })
   }
@@ -232,22 +238,22 @@ export class EmployeesListComponent {
   }
   // Filter employee
   filterItem(): void {
-    // const ref = this.dialogService?.open(FilterClientsComponent, {
-    //   header: this.publicService?.translateTextFromJson('general.filter'),
-    //   dismissableMask: false,
-    //   width: '45%',
-    //   data: this.filterCards,
-    //   styleClass: 'custom-modal',
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res) {
-    //     this.page = 1;
-    //     this.filtersArray = res.conditions;
-    //     this.filterCards = res.conditions;
-    //     // this.publicService?.changePageSub?.next({ page: this.page });
-    //     this.getAllEmployees(true);
-    //   }
-    // });
+    const ref = this.dialogService?.open(FilterEmployeesComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '45%',
+      data: this.filterCards,
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res) {
+        this.page = 1;
+        this.filtersArray = res.conditions;
+        this.filterCards = res.conditions;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllEmployees(true);
+      }
+    });
   }
 
   // Edit employee

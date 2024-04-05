@@ -133,9 +133,9 @@ export class EmployeesVehiclesListComponent {
   addItem(): void {
     this.tabType == 'employee' ? this.publicService.addEmployeeItem.next(true) : this.publicService.addVehicleItem.next(true);
   }
-  // Filter clients
+  // Filter
   filterItem(): void {
-
+    this.tabType == 'employee' ? this.publicService.filterEmployeesData.next(true) : this.publicService.filterVehiclesData.next(true);
   }
 
   // Clear table

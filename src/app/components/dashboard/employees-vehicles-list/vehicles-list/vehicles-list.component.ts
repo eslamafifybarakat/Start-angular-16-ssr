@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
+import { FilterVehiclesComponent } from './filter-vehicles/filter-vehicles.component';
 import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 
@@ -107,6 +108,11 @@ export class VehiclesListComponent {
     this.publicService.searchVehiclesData.subscribe((res: any) => {
       if (res) {
         this.searchHandler(res);
+      }
+    })
+    this.publicService.filterVehiclesData.subscribe((res: any) => {
+      if (res) {
+        this.filterItem();
       }
     })
   }
@@ -226,22 +232,22 @@ export class VehiclesListComponent {
   }
   // Filter Vehicle
   filterItem(): void {
-    // const ref = this.dialogService?.open(FilterClientsComponent, {
-    //   header: this.publicService?.translateTextFromJson('general.filter'),
-    //   dismissableMask: false,
-    //   width: '45%',
-    //   data: this.filterCards,
-    //   styleClass: 'custom-modal',
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res) {
-    //     this.page = 1;
-    //     this.filtersArray = res.conditions;
-    //     this.filterCards = res.conditions;
-    //     // this.publicService?.changePageSub?.next({ page: this.page });
-    //     this.getAllVehicles(true);
-    //   }
-    // });
+    const ref = this.dialogService?.open(FilterVehiclesComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '45%',
+      data: this.filterCards,
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res) {
+        this.page = 1;
+        this.filtersArray = res.conditions;
+        this.filterCards = res.conditions;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllVehicles(true);
+      }
+    });
   }
 
   // Edit Vehicle
