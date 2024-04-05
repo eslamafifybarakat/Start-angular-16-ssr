@@ -123,7 +123,7 @@
           (customSortHandler)="enableSortFilter?sortItems($event):''"
           (filterHandler)="enableSortFilter?filterItems($event):''" [results]="clientsCount" [paginatorRows]="perPage"
           [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-          [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+          [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
           [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.customers.addCustomer'"
           (addHandler)="addItem()"></dynamic-table>

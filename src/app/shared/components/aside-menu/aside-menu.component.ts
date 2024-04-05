@@ -11,6 +11,7 @@ import { AsideMenuService } from '../../../components/dashboard/services/aside-m
 import { AuthService } from './../../../services/authentication/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmationService } from 'primeng/api';
+import { PublicService } from 'src/app/services/generic/public.service';
 
 // Menu Interface
 interface MenuItem {
@@ -49,6 +50,7 @@ export class AsideMenuComponent {
   constructor(
     private confirmationService: ConfirmationService,
     private asideMenuService: AsideMenuService,
+    private publicService: PublicService,
     private authService: AuthService,
     public sanitizer: DomSanitizer,
     private router: Router
@@ -89,9 +91,9 @@ export class AsideMenuComponent {
 
   // Logout User
   logout(): void {
-    this.confirmationService.confirm({
-      message: this.currentLanguage == 'ar' ? 'هل أنت متأكد أنك تريد تسجيل الخروج؟' : 'Are you sure you want to logout?',
-      header: this.currentLanguage == 'ar' ? 'تسجيل خروج' : 'Logout',
+    this.confirmationService?.confirm({
+      message: this.publicService.translateTextFromJson('general.areYouSureToLogout'),
+      header: this.publicService.translateTextFromJson('general.logout'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.authService.signOut();

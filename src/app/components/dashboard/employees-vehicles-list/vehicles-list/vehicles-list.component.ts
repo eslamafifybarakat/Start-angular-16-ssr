@@ -14,6 +14,7 @@ import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
+import { VehiclesList } from './../../../../interfaces/dashboard/vehicles';
 import { VehiclesService } from './../../services/vehicles.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -44,7 +45,7 @@ export class VehiclesListComponent {
   isSearch: boolean = false;
 
   isLoadingVehiclesList: boolean = false;
-  vehiclesList: any[] = [];
+  vehiclesList: VehiclesList[] = [];
   vehiclesCount: number = 0;
   tableHeaders: any = [];
 

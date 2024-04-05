@@ -159,3 +159,6 @@ small {
   pointer-events: none;
   opacity: 0.5;
 }
+.scaleX-rtl:dir(rtl) {
+  transform: scaleX(-1);
+}
