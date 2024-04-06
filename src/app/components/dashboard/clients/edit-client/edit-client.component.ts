@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // Components
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
+import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { RecordsComponent } from '../../records/records.component';
 
 //Services
@@ -17,8 +18,8 @@ import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { patterns } from './../../../../shared/configs/patterns';
 import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { Subscription, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -32,6 +33,7 @@ import { Subscription } from 'rxjs';
 
     // Components
     UploadMultiFilesComponent,
+    SkeletonComponent,
     RecordsComponent,
 
     // Directive
@@ -45,6 +47,8 @@ export class EditClientComponent {
   private subscriptions: Subscription[] = [];
 
   clientId: number;
+  isLoading: boolean = false;
+  details: any;
 
   isFullNameReadOnly: boolean = true;
   isIdReadOnly: boolean = true;
@@ -52,13 +56,6 @@ export class EditClientComponent {
   isEmailReadOnly: boolean = true;
   isBirthDateReadOnly: boolean = true;
 
-  details: any = {
-    fullName: 'Ahmed Ibrahim',
-    id: '3448484844',
-    phoneNumber: '432222222',
-    email: 'ahmedIbrahim@amil.com',
-    birthDate: new Date(),
-  };
   // filesNames: any = [
   //   { name: 'name1', image: 'assets/images/navbar/sidebar-bg.svg' }
   // ];
@@ -97,15 +94,15 @@ export class EditClientComponent {
     return this.modalForm?.controls;
   }
 
-  // check id variable
+  // Check Nationality Id Variables
   isLoadingCheckId: Boolean = false;
   idNotAvailable: Boolean = false;
 
-  // check email variable
+  // Check Email Variables
   isLoadingCheckEmail: Boolean = false;
   emailNotAvailable: Boolean = false;
 
-  // check phone variable
+  // Check Phone Variables
   isLoadingCheckPhone: Boolean = false;
   phoneNotAvailable: Boolean = false;
 
@@ -123,7 +120,7 @@ export class EditClientComponent {
   }
 
   ngOnInit(): void {
-    this.patchValue();
+    this.getClientById();
     this.updateMetaTagsForSEO();
   }
   private updateMetaTagsForSEO(): void {
@@ -167,7 +164,45 @@ export class EditClientComponent {
     }
   }
 
-  //=======Start Check If National Identity is valid or not========
+  // Start Get Client By Id
+  getClientById(): void {
+    this.isLoading = true;
+    let subscribeGetClient: Subscription = this.clientsService?.getClientById(this.clientId).pipe(
+      tap(res => this.handleAddClientSuccess(res)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
+    this.subscriptions.push(subscribeGetClient);
+  }
+  private handleAddClientSuccess(response: any): void {
+    if (response?.success || true) {
+      this.details = response.result;
+      this.patchValue();
+      this.isLoading = false;
+    } else {
+      this.handleError(response?.message);
+    }
+  }
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+    setTimeout(() => {
+      this.details = {
+        fullName: 'Ahmed Ibrahim',
+        id: '3448484844',
+        phoneNumber: '432222222',
+        email: 'ahmedIbrahim@amil.com',
+        birthDate: new Date(),
+      };
+      this.patchValue();
+      this.isLoading = false;
+    }, 1000);
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
+    this.isLoading = false;
+  }
+  // End Get Client By Id
+
+  // Start Check If National Identity Unique
   checkNationalIdentityAvailable(): void {
     if (!this.formControls.id.valid) {
       return; // Exit early if ID is not valid
@@ -208,9 +243,9 @@ export class EditClientComponent {
     this.isLoadingCheckId = false;
 
   }
-  //=======End Check If National Identity is valid or not========
+  // End Check If National Identity Unique
 
-  //======= Start Check If Email is valid or not============
+  // Start Check If Email Unique
   checkEmailAvailable(): void {
     if (!this.formControls.email.valid) {
       return; // Exit early if email is not valid
@@ -249,9 +284,9 @@ export class EditClientComponent {
     this.alertsService?.openToast('error', 'error', errorMessage);
     this.isLoadingCheckEmail = false;
   }
-  //======= End Check If Email is valid or not============
+  // Start Check If Email Unique
 
-  //======= Start Check If Phone is valid or not============
+  // Start Check If Phone Unique
   checkPhoneAvailable(): void {
     if (!this.formControls.phoneNumber.valid) {
       return; // Exit early if email is not valid
@@ -290,7 +325,8 @@ export class EditClientComponent {
     this.alertsService?.openToast('error', 'error', errorMessage);
     this.isLoadingCheckPhone = false;
   }
-  //======= End Check If Phone is valid or not============
+  // Start Check If Phone Unique
+
   onKeyUpEvent(type: string): void {
     if (type == 'id') {
       this.isLoadingCheckId = false;
@@ -303,7 +339,7 @@ export class EditClientComponent {
     }
   }
 
-  // =========Start submit edit client==========
+  // Start Edit Client
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
@@ -347,7 +383,7 @@ export class EditClientComponent {
     this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
-  // =========End submit edit client==========
+  // End Edit Client
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

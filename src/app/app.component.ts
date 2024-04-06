@@ -89,9 +89,6 @@ export class AppComponent {
     this.currentLanguage = window.localStorage.getItem(keys.language);
     if (this.currentLanguage !== null && this.currentLanguage !== undefined && this.currentLanguage !== '') {
       this.translateService.use(this.currentLanguage);
-      this.translateService.stream('primeng').subscribe((data: any) => {
-        this.primengConfig?.setTranslation(data);
-      });
       const direction = this.currentLanguage === 'ar' ? 'rtl' : 'ltr';
       this.setLanguage(direction);
     } else {

@@ -33,7 +33,7 @@ import { Subscription } from 'rxjs';
 export class AddRecordComponent {
   private subscriptions: Subscription[] = [];
 
-  // check record number variable
+  // Check Record Number Variables
   isLoadingCheckRecordNum: Boolean = false;
   recordNumNotAvailable: Boolean = false;
 
@@ -96,7 +96,7 @@ export class AddRecordComponent {
     return this.modalForm?.controls;
   }
 
-  //=======Start Check If Record Number is valid or not========
+  // Start Check If Record Number Unique
   checkRecordNumAvailable(): void {
     if (!this.formControls.recordNumber.valid) {
       return; // Exit early if ID is not valid
@@ -139,8 +139,9 @@ export class AddRecordComponent {
   onKeyUpEvent(): void {
     this.isLoadingCheckRecordNum = false;
   }
-  //=======End Check If Record Number is valid or not========
+  // End Check If Record Number Unique
 
+  // Start Add New Record
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
@@ -181,6 +182,7 @@ export class AddRecordComponent {
     this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
+  // End Add New Record
 
   cancel(): void {
     this.ref?.close({ listChanged: false });
