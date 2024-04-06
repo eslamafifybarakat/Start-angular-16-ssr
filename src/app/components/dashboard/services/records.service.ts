@@ -33,6 +33,9 @@ export class RecordsService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}`, { params: params })
   }
+  getRecordByClientId(id: any): Observable<any> {
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.records.getRecords}/${id}`)
+  }
   addRecord(data: any): Observable<any> {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.records.addRecords}`, data)
   }

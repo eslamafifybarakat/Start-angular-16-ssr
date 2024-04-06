@@ -168,12 +168,12 @@ export class EditClientComponent {
   getClientById(): void {
     this.isLoading = true;
     let subscribeGetClient: Subscription = this.clientsService?.getClientById(this.clientId).pipe(
-      tap(res => this.handleAddClientSuccess(res)),
+      tap(res => this.handleGetClientSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
     this.subscriptions.push(subscribeGetClient);
   }
-  private handleAddClientSuccess(response: any): void {
+  private handleGetClientSuccess(response: any): void {
     if (response?.success || true) {
       this.details = response.result;
       this.patchValue();

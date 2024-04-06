@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { UploadMultiFilesComponent } from '../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 import { FileUploadComponent } from '../../../../shared/components/upload-files/file-upload/file-upload.component';
 import { EmployeesVehiclesListComponent } from '../../employees-vehicles-list/employees-vehicles-list.component';
+import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
@@ -17,8 +18,8 @@ import { PublicService } from '../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { RecordsService } from '../../services/records.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { Subscription, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -34,6 +35,7 @@ import { Subscription } from 'rxjs';
     EmployeesVehiclesListComponent,
     UploadMultiFilesComponent,
     FileUploadComponent,
+    SkeletonComponent,
 
     // Directive
     MaxDigitsDirective
@@ -57,26 +59,9 @@ export class RecordDetailsComponent {
   isBusinessLicenseReadOnly: boolean = true;
   isBusinessLicenseNumberReadOnly: boolean = true;
 
-  details: any = {
-    recordName: 'recordName 1',
-    registrationNumber: '2135836527289',
-    recordDate: new Date(),
-    registrationFile: 'assets/images/home/sidebar-bg.webp',
-
-    licenseDate: new Date(),
-    licenseNumber: '135836527289',
-    licenseFile: 'assets/images/home/sidebar-bg.webp',
-
-    certificateDate: new Date(),
-    certificateNumber: '135836527289',
-    certificateFile: 'assets/images/home/sidebar-bg.webp',
-
-    medicalInsuranceDate: new Date(),
-    medicalInsuranceNumber: '135836527289',
-
-    businessLicense: "business License 1",
-    businessLicenseNumber: "135836527289"
-  };
+  clientId: any;
+  isLoading: boolean = false;
+  details: any;
 
   // Registration File variable
   isEditRegistrationFile: boolean = false;
@@ -160,7 +145,7 @@ export class RecordDetailsComponent {
   }
 
   ngOnInit(): void {
-    this.patchValue();
+    this.getRecordByClientId();
     this.updateMetaTagsForSEO();
   }
 
@@ -172,6 +157,56 @@ export class RecordDetailsComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
+
+  // Start Get Record By Client Id
+  getRecordByClientId(): void {
+    this.isLoading = true;
+    let subscribeGetRecord: Subscription = this.recordsService?.getRecordByClientId(this.clientId).pipe(
+      tap(res => this.handleGetRecordSuccess(res)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
+    this.subscriptions.push(subscribeGetRecord);
+  }
+  private handleGetRecordSuccess(response: any): void {
+    if (response?.success || true) {
+      this.details = response.result;
+      this.patchValue();
+      this.isLoading = false;
+    } else {
+      this.handleError(response?.message);
+    }
+  }
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+    this.details = {
+      recordName: 'recordName 1',
+      registrationNumber: '2135836527289',
+      recordDate: new Date(),
+      registrationFile: 'assets/images/home/sidebar-bg.webp',
+
+      licenseDate: new Date(),
+      licenseNumber: '135836527289',
+      licenseFile: 'assets/images/home/sidebar-bg.webp',
+
+      certificateDate: new Date(),
+      certificateNumber: '135836527289',
+      certificateFile: 'assets/images/home/sidebar-bg.webp',
+
+      medicalInsuranceDate: new Date(),
+      medicalInsuranceNumber: '135836527289',
+
+      businessLicense: "business License 1",
+      businessLicenseNumber: "135836527289"
+    };
+    this.patchValue();
+    this.isLoading = false;
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
+    this.isLoading = false;
+  }
+  // End Get Record By Client Id
+
   // =====Start Upload Files=========
   uploadRecordFile(event: any): void {
     console.log(event);
