@@ -1,41 +1,5 @@
 :host::ng-deep {
   #dynamic-global-data-table {
-    .overlay {
-      inset: 0;
-      background-color: #359a9c0c;
-      z-index: 1;
-      border-radius: 10px;
-      .loader {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        display: inline-block;
-        border-top: 4px solid #fff;
-        border-right: 4px solid transparent;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-      }
-      .loader::after {
-        content: "";
-        box-sizing: border-box;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        border-bottom: 4px solid var(--bg-main-color);
-        border-left: 4px solid transparent;
-      }
-      @keyframes rotation {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    }
     &:dir(rtl) {
       .pi {
         transform: scaleX(-1);
@@ -126,6 +90,7 @@
       .p-sortable-column .p-sortable-column-icon {
         margin: 0rem;
         width: auto;
+        color: var(--text-muted-color);
       }
 
       .edit:hover {
@@ -273,12 +238,12 @@
   .pi-filter {
     color: var(--text-muted-color);
   }
+
   .p-column-filter-menu-button:hover,
   .p-column-filter-menu-button.p-column-filter-menu-button-open,
   .p-column-filter-menu-button.p-column-filter-menu-button-open:hover,
   .p-column-filter-menu-button.p-column-filter-menu-button-active {
     color: var(--text-main-color) !important;
-
     background-color: transparent;
   }
   .details:hover {

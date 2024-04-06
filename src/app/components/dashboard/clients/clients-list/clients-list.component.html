@@ -114,8 +114,8 @@
       <ng-container *ngIf="dataStyleType=='list'">
 
         <!-- Table List -->
-        <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false" [showSearch]="false"
-          [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
+        <dynamic-table-local-actions [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false"
+          [showSearch]="false" [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
           (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
           [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
           [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
@@ -126,7 +126,7 @@
           [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
           [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.customers.addCustomer'"
-          (addHandler)="addItem()"></dynamic-table>
+          (addHandler)="addItem()"></dynamic-table-local-actions>
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">
