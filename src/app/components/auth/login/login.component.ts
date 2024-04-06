@@ -81,7 +81,7 @@ export class LoginComponent {
         password: this.loginForm?.value?.password,
       };
       //Send Request to login
-      let loginSubscription: any = this.authService?.login(data)?.pipe(
+      let loginSubscription: Subscription = this.authService?.login(data)?.pipe(
         tap(res => this.handleSuccessLoggedIn(res)),
         catchError(err => this.handleError(err))
       ).subscribe();
@@ -102,14 +102,14 @@ export class LoginComponent {
    // End Login Functions
 
   // Start Current User Information Functions
-  private getCurrentUserInformation(loginResponse?:any): void {
-    let loginSubscription: any = this.authService?.getCurrentUserInformation()?.pipe(
-      tap(res => this.handleSuccessCuurentUserInformation(res,loginResponse)),
+  private getCurrentUserInformation(): void {
+    let loginSubscription: Subscription = this.authService?.getCurrentUserInformation()?.pipe(
+      tap(res => this.handleSuccessCuurentUserInformation(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
     this.subscriptions.push(loginSubscription);
   }
-  private handleSuccessCuurentUserInformation(res: any,loginResponse?:any): void {
+  private handleSuccessCuurentUserInformation(res: any): void {
     if (res?.success == true) {
       this.authService.saveCurrentUserInformation(res?.user);
       this.publicService.showGlobalLoader.next(false);

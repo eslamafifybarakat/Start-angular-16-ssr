@@ -1,9 +1,11 @@
 <div id="modal-form">
-  <form [formGroup]="modalForm" (ngSubmit)="submit()" aria-label="add-client-form">
+  <form [formGroup]="addClientForm" (ngSubmit)="submit()" aria-label="add-client-form">
     <div class="row">
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="fullName" class="mb-2 required">{{'labels.fullName'|translate}}</label>
+          <label for="fullName" class="mb-2 required">
+            {{'labels.fullName'|translate}}
+          </label>
           <input type="text" class="form-control" formControlName="fullName"
             (input)="publicService?.clearValidationErrors(formControls?.fullName)"
             [class.border-red]="formControls?.fullName?.invalid && (formControls?.fullName?.dirty || formControls?.fullName?.touched)"
@@ -28,35 +30,38 @@
       </div>
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="id" class="mb-2 required">{{'labels.id'|translate}}</label>
+          <label for="nationalIdentity" class="mb-2 required">
+            {{'labels.id'|translate}}
+          </label>
           <span class="p-input-icon-right w-100">
-            <input type="number" class="form-control" formControlName="id" MaxDigits [maxNumber]="10"
-              (input)="publicService?.clearValidationErrors(formControls?.id)"
-              [class.border-red]="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)"
-              [class.is-valid]="!isLoadingCheckId &&!idNotAvailable && formControls?.id?.valid && (formControls?.id?.dirty || formControls?.id?.touched)"
-              [class.disabled]="isLoadingCheckId" placeholder="{{'placeholders.id'|translate}}"
-              (blur)="checkNationalIdentityAvailable()" (keyup)="onKeyUpEvent('id')">
-            <ng-container *ngIf="isLoadingCheckId">
+            <input type="number" class="form-control" formControlName="nationalIdentity" MaxDigits [maxNumber]="10"
+              (input)="publicService?.clearValidationErrors(formControls?.nationalIdentity)"
+              [class.border-red]="formControls?.nationalIdentity?.invalid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
+              [class.is-valid]="!isLoadingCheckEmail &&!emailNotAvailable && formControls?.nationalIdentity?.valid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
+              [class.disabled]="isLoadingCheckEmail" placeholder="{{'placeholders.id'|translate}}"
+              (blur)="checkNationalIdentityAvailable()" (keyup)="onKeyUpEvent('nationalIdentity')">
+            <ng-container *ngIf="isLoadingCheckEmail">
               <i class="pi pi-spin pi-spinner"></i>
             </ng-container>
           </span>
           <div class="mt-2">
-            <ng-container *ngIf="formControls?.id?.invalid && (formControls?.id?.dirty || formControls?.id?.touched)">
-              <ng-container *ngIf="formControls?.id?.errors?.['required']">
+            <ng-container
+              *ngIf="formControls?.nationalIdentity?.invalid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)">
+              <ng-container *ngIf="formControls?.nationalIdentity?.errors?.['required']">
                 <span class="text-danger fs-8">
                   {{'validations.requiredField'|translate}}
                 </span>
               </ng-container>
-              <ng-container *ngIf="formControls?.id?.errors?.['pattern']">
+              <ng-container *ngIf="formControls?.nationalIdentity?.errors?.['pattern']">
                 <span class="text-danger fs-8 d-block">
                   {{'validations.idLength'|translate}}
                 </span>
               </ng-container>
             </ng-container>
-            <ng-container *ngIf="idNotAvailable">
+            <ng-container *ngIf="nationalIdentityNotAvailable">
               <span class="text-danger fs-8 d-block">
                 {{'labels.id'|translate}}<span class="text-main-color fw-bold px-1">
-                  {{modalForm.value.id}}</span>
+                  {{addClientForm?.value?.nationalIdentity}}</span>
                 {{'auth.isUsedBefore'|translate}}
               </span>
             </ng-container>
@@ -65,7 +70,9 @@
       </div>
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="phoneNumber" class="mb-2 required">{{'labels.phoneNumber'|translate}}</label>
+          <label for="phoneNumber" class="mb-2 required">
+            {{'labels.phoneNumber'|translate}}
+          </label>
           <div class="input-number input-group bg-white-color d-flex flex-nowrap w-100"
             [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
             <span class="input-group-text border-0 text-muted-color fs-6-1 " id="basic-addon1">
@@ -99,7 +106,7 @@
             <ng-container *ngIf="phoneNotAvailable">
               <span class="text-danger fs-8 d-block">
                 {{'labels.phoneNumber'|translate}}<span class="text-main-color fw-bold px-1">
-                  {{modalForm.value.phoneNumber}}</span>
+                  {{addClientForm.value.phoneNumber}}</span>
                 {{'auth.isUsedBefore'|translate}}
               </span>
             </ng-container>
@@ -108,7 +115,9 @@
       </div>
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="email" class="mb-2 required">{{'labels.email'|translate}}</label>
+          <label for="email" class="mb-2 required">
+            {{'labels.email'|translate}}
+          </label>
           <span class="p-input-icon-right w-100">
             <input type="email" class="form-control" formControlName="email" autocomplete="cc-name"
               (input)="publicService?.clearValidationErrors(formControls?.email)"
@@ -138,7 +147,7 @@
             <ng-container *ngIf="emailNotAvailable">
               <span class="text-danger fs-8 d-block">
                 {{'labels.email'|translate}}<span class="text-main-color fw-bold px-1">
-                  {{modalForm.value.id}}</span>
+                  {{addClientForm.value.email}}</span>
                 {{'auth.isUsedBefore'|translate}}
               </span>
             </ng-container>
@@ -147,7 +156,9 @@
       </div>
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="birthDate" class="mb-2 required">{{'labels.birthDate'|translate}}</label>
+          <label for="birthDate" class="mb-2 required">
+            {{'labels.birthDate'|translate}}
+          </label>
           <div
             [class.border-red]="formControls?.birthDate?.invalid && (formControls?.birthDate?.dirty || formControls?.birthDate?.touched)"
             class="birthDate">
@@ -168,9 +179,12 @@
           </div>
         </div>
       </div>
+
       <!-- <div class="col-md-6">
         <div class="mb-3">
-          <label class="mb-2 required">{{'labels.country'|translate}}</label>
+          <label class="mb-2 required">
+            {{'labels.country'|translate}}
+          </label>
           <span class="p-input-icon-right select-loading d-block"
             [class.border-red]="formControls?.country?.invalid && (formControls?.country?.dirty || formControls?.country?.touched)">
             <p-dropdown [options]="countries" formControlName="country" optionLabel="name" [filter]="true"
@@ -194,10 +208,13 @@
             </ng-container>
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
+      </div> -->
+
+      <!-- <div class="col-md-6">
         <div class="mb-3">
-          <label for="district" class="mb-2 required">{{'labels.district'|translate}}</label>
+          <label for="district" class="mb-2 required">
+            {{'labels.district'|translate}}
+          </label>
           <span class="p-input-icon-right select-loading d-block">
             <p-multiSelect appendTo="body" [options]="districtsList" formControlName="district" display="chip"
               [readonly]="isLoadingDistricts" [virtualScroll]="true" [showClear]="true" [virtualScrollItemSize]="38"
@@ -220,7 +237,9 @@
           </div>
         </div>
       </div> -->
+
     </div>
+    
     <div class="d-flex justify-content-end gap-3 flex-wrap mt-4">
       <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
         <span>

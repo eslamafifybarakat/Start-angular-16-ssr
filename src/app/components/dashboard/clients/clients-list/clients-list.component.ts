@@ -190,7 +190,6 @@ export class ClientsListComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllClients();
       }
     });
   }

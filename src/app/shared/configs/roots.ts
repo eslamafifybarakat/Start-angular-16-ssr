@@ -2,14 +2,14 @@ export const roots = {
   auth: {
     login: 'User/Login',
     currentUserInformation: '/User/GetCurrentLoginInformations',
-    
+
     forgetPassword: '/Account/ForgetPassword',
     validateCode: '/Account/ValidateCode',
     resetPassword: '/Account/ResetPassword',
     updateProfile: '/Account/UpdateProfile',
 
     isEmailAvailable: "/Account/IsEmailAvailable",
-    
+
     isUserNameFound: "/Account/IsUserNameFound",
     isVatIdAvailableRegister: '/Application/IsVatNumberAvailable',
     checkCompanyNameAvailability: 'Supplier/checkCompanyNameAvailability',
@@ -20,14 +20,16 @@ export const roots = {
     getCitiesByCountryId: "/City/GetCitysByCountryId",
   },
   dashboard: {
+    availability: {
+      IsNationalIdentityAvailable: "Client/IsIdentityAvailable",
+      IsEmailAvailable: "Client/IsEmailAvailable",
+      IsPhoneAvailable: "Client/IsPhoneNumberAvailable"
+    },
     clients: {
       getClients: 'Client/AllClients',
-      addClient: '/addClient',
+      addClient: 'Client/AddClient',
       editClient: '/editClient',
       deleteClients: '/deleteClients',
-      IsNationalIdentityAvailable: "/nationalIdentity",
-      IsEmailAvailable: "/check_email",
-      IsPhoneAvailable: "/check_phone"
     },
     records: {
       getRecords: '/getRecords',

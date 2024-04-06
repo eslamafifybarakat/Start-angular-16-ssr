@@ -63,6 +63,16 @@ export class PublicService {
     })
   }
 
+  IsNationalIdentityAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsNationalIdentityAvailable, data);
+  }
+  IsEmailAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsEmailAvailable, data);
+  }
+  IsPhoneAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsPhoneAvailable, data);
+  }
+
   getCities(): Observable<any> {
     return this.http.get<any>(
       `${this.baseUrl}/${roots?.auth.isEmailAvailable}`);

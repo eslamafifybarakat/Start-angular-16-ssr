@@ -77,7 +77,7 @@ export class EditClientComponent {
       }],
       id: ['', {
         validators: [
-          Validators.required, Validators.pattern(patterns?.id)], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns?.nationalIdentity)], updateOn: "blur"
       }],
       phoneNumber: ['', {
         validators: [
@@ -178,7 +178,7 @@ export class EditClientComponent {
 
     this.isLoadingCheckId = true;
 
-    let checkIdSubscription = this.clientsService?.IsNationalIdentityAvailable(data)?.subscribe(
+    let checkIdSubscription = this.publicService?.IsNationalIdentityAvailable(data)?.subscribe(
       (res: any) => {
         this.handleIdResponse(res);
       },
@@ -221,7 +221,7 @@ export class EditClientComponent {
 
     this.isLoadingCheckEmail = true;
 
-    let checkEmailSubscription = this.clientsService?.IsEmailAvailable(data)?.subscribe(
+    let checkEmailSubscription = this.publicService?.IsEmailAvailable(data)?.subscribe(
       (res: any) => {
         this.handleEmailResponse(res);
       },
@@ -262,7 +262,7 @@ export class EditClientComponent {
 
     this.isLoadingCheckPhone = true;
 
-    let checkPhoneSubscription = this.clientsService?.IsPhoneAvailable(data)?.subscribe(
+    let checkPhoneSubscription = this.publicService?.IsPhoneAvailable(data)?.subscribe(
       (res: any) => {
         this.handlePhoneResponse(res);
       },
