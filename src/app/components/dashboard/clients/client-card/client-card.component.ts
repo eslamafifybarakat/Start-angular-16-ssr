@@ -1,5 +1,5 @@
 import { Component, Inject, Input, Output, PLATFORM_ID, EventEmitter } from '@angular/core';
-import { ClientsList } from './../../../../interfaces/dashboard/clients';
+import { ClientListingItem } from './../../../../interfaces/dashboard/clients';
 import { keys } from './../../../../shared/configs/localstorage-key';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./client-card.component.scss']
 })
 export class ClientCardComponent {
-  @Input() item: ClientsList;
+  @Input() item: ClientListingItem;
   currentLanguage: string;
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
 

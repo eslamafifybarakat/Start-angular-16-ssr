@@ -127,16 +127,16 @@ export class AddEditClientComponent {
   // Start Check If National Identity Unique
   checkNationalIdentityAvailable(): void {
     if (!this.formControls?.nationalIdentity?.valid) {
-      return; // Exit early if ID is not valid
+      return; // Exit early if National Identity is not valid
     }
     const identity: number | string = this.addClientForm?.value?.nationalIdentity;
     const data: any = { identity };
     this.isLoadingCheckNationalIdentity = true;
-    let checkIdSubscription: Subscription = this.publicService?.IsNationalIdentityAvailable(data).pipe(
+    let checkNationalIdentitySubscription: Subscription = this.publicService?.IsNationalIdentityAvailable(data).pipe(
       tap(res => this.handleNationalIdentityResponse(res)),
       catchError(err => this.handleNationalIdentityError(err))
     ).subscribe();
-    this.subscriptions.push(checkIdSubscription);
+    this.subscriptions.push(checkNationalIdentitySubscription);
   }
   private handleNationalIdentityResponse(res: any): void {
     if (res?.success && res?.result != null || true) {
@@ -238,7 +238,6 @@ export class AddEditClientComponent {
     return {
       name: this.addClientForm?.value?.fullName,
       email: this.addClientForm?.value?.email,
-      admin_id: 1,
       identity: this.addClientForm?.value?.nationalIdentity?.toString(),
       birthDate: this.addClientForm?.value?.birthDate,
       phoneNumber: {

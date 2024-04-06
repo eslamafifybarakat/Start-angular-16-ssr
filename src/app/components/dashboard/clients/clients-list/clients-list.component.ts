@@ -12,11 +12,11 @@ import { FilterClientsComponent } from '../filter-clients/filter-clients.compone
 import { ClientCardComponent } from './../client-card/client-card.component';
 
 //Services
+import { ClientListingItem, ClientsListApiResponse } from './../../../../interfaces/dashboard/clients';
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
-import { ClientsList } from './../../../../interfaces/dashboard/clients';
 import { catchError, debounceTime, finalize, map, tap } from 'rxjs/operators';
 import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
@@ -53,7 +53,7 @@ export class ClientsListComponent {
 
   // Start Clients List Variables
   isLoadingClientsList: boolean = false;
-  clientsList: ClientsList[] = [];
+  clientsList: ClientListingItem[] = [];
   clientsCount: number = 0;
   tableHeaders: any = [];
   // End Clients List Variables
@@ -104,10 +104,10 @@ export class ClientsListComponent {
   }
   private loadData(): void {
     this.tableHeaders = [
-      { field: 'fullName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'id', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'name', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'identity', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'birthDate', header: 'dashboard.tableHeader.date', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'mobileNumber', header: 'dashboard.tableHeader.mobilePhone', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'phoneNumber', header: 'dashboard.tableHeader.mobilePhone', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       // { field: 'status', header: 'dashboard.tableHeader.status', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: false, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
       // { field: 'propertyType', header: 'dashboard.tableHeader.propertyType', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
     ];
@@ -122,7 +122,7 @@ export class ClientsListComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
-  
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.clearTable();
@@ -134,16 +134,16 @@ export class ClientsListComponent {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingClientsList = true;
     this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
-        tap((res: any) => this.processClientsListResponse(res)),
+        tap((res: ClientsListApiResponse) => this.processClientsListResponse(res)),
         catchError(err => this.handleError(err)),
         finalize(() => this.finalizeClientListLoading())
       ).subscribe();
   }
   private processClientsListResponse(response: any): void {
     if (response) {
-      this.clientsCount = response.total;
+      this.clientsCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.clientsCount / this.perPage);
-      this.clientsList = response.data;
+      this.clientsList = response?.result?.items;
     } else {
       this.handleError(response.error);
       return;
@@ -157,18 +157,6 @@ export class ClientsListComponent {
     setTimeout(() => {
       this.enableSortFilter = true;
     }, 200);
-    this.setDummyData();
-  }
-  private setDummyData(): void {
-    this.clientsList = [
-      { fullName: "Ali Ahmed", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
-      { fullName: "Mohamed Ali", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
-      { fullName: "Celine Ahmed", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
-      { fullName: "Nour Ahmed", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
-      { fullName: "Kareem Ibrahim", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
-      { fullName: "Ahmed Ibrahim", mobileNumber: '01009887876', id: '33u2929899', birthDate: new Date() },
-    ];
-    this.clientsCount = 3225;
   }
   // End Start Clients List Functions
 

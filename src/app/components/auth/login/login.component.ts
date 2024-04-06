@@ -111,7 +111,7 @@ export class LoginComponent {
   }
   private handleSuccessCuurentUserInformation(res: any): void {
     if (res?.success == true) {
-      this.authService.saveCurrentUserInformation(res?.user);
+      this.authService.saveCurrentUserInformation(res?.result);
       this.publicService.showGlobalLoader.next(false);
       this.router.navigate(['/Dashboard']);
     } else {

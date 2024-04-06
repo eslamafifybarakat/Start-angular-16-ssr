@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center gap-2">
         <h4 class="mb-0 text-capitalize">{{'dashboard.customers.customers'|translate}}</h4>
         <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
-          {{clientsCount}}
+          {{clientsCount || 0}}
         </span>
       </div>
       <div class="d-flex gap-3 flex-lg-nowrap flex-wrap" *ngIf="clientsList.length>0">
@@ -114,7 +114,7 @@
       <ng-container *ngIf="dataStyleType=='list'">
 
         <!-- Table List -->
-        <dynamic-table-local-actions [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false"
+        <dynamic-table [isLoading]="isLoadingClientsList" [showHeader]="false" [showClear]="false"
           [showSearch]="false" [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
           (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="clientsList"
           [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
@@ -126,7 +126,7 @@
           [enableConfirmDeleteDialog]="true" [keyDelete]="'fullName'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
           [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.customers.addCustomer'"
-          (addHandler)="addItem()"></dynamic-table-local-actions>
+          (addHandler)="addItem()"></dynamic-table>
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">
