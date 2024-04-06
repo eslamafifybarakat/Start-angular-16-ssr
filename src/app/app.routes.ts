@@ -51,7 +51,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'Dashboard',
-    canActivate: [AuthGuard], // Apply the guard here
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
@@ -60,7 +60,7 @@ export const appRoutes: Routes = [
   },
   {
     path: ':lang/Dashboard',
-    canActivate: [AuthGuard], // Apply the guard here
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent

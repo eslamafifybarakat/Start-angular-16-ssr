@@ -9,14 +9,14 @@ export const dashBoardChildrenRoutes: any[] = [
   { path: '', redirectTo: 'Statistics', pathMatch: 'full' },
   {
     path: 'Clients',
-    canActivate: [PermissionGuard],
+    // canActivate: [PermissionGuard],
     data: {
       permission: 'Pages.Client.List',
       title: 'Clients'
     },
     loadComponent: () =>
       import('./clients/clients.component').then(
-  (c) => c.ClientsComponent
+        (c) => c.ClientsComponent
       ),
     children: clientsChildrenRoutes
   },
