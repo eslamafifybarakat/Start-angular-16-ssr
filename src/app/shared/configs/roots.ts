@@ -28,7 +28,7 @@ export const roots = {
     clients: {
       getClients: 'Client/AllClients',
       addClient: 'Client/AddClient',
-      editClient: '/editClient',
+      editClient: '/Client/UpdateClient',
       deleteClients: '/deleteClients',
     },
     records: {

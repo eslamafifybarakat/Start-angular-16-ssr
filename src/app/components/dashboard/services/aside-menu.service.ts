@@ -61,7 +61,8 @@ export class AsideMenuService {
     `,
         routerLink: '/Dashboard/Clients',
         state: false, //Opened Or Closed
-        permission: this.checkPermissionService.hasPermission('Pages.Client.List'),
+        // permission: this.checkPermissionService.hasPermission('Pages.Client.List'),
+        permission: true,
       },
       {
         id: 'sales',

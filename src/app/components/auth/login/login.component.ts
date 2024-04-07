@@ -131,7 +131,7 @@ export class LoginComponent {
   private setErrorMessage(message: string): void {
     this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
-
+      this.router.navigate(['/Dashboard']);
   }
 
   ngOnDestroy(): void {

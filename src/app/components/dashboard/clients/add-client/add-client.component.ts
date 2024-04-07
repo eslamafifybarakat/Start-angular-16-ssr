@@ -150,7 +150,7 @@ export class AddClientComponent {
     this.subscriptions.push(checkNationalIdentitySubscription);
   }
   private handleNationalIdentityResponse(res: any): void {
-    if (res?.success && res?.result != null || true) {
+    if (res?.success && res?.result != null) {
       this.nationalIdentityNotAvailable = !res.result;
     } else {
       this.nationalIdentityNotAvailable = false;
@@ -182,7 +182,7 @@ export class AddClientComponent {
     this.subscriptions.push(checkEmailSubscription);
   }
   private handleEmailResponse(res: any): void {
-    if (res?.success && res?.result != null || true) {
+    if (res?.success && res?.result != null) {
       this.emailNotAvailable = !res.result;
     } else {
       this.emailNotAvailable = false;
@@ -205,10 +205,8 @@ export class AddClientComponent {
     }
     const phone: number | string = this.addClientForm?.value?.phoneNumber;
     const data: any = {
-      phoneNumber: {
-        countryCode: "+971",
-        number: phone
-      }
+      countryCode: "+996",
+      phoneNumber: phone
     };
     this.isLoadingCheckPhone = true;
 
@@ -219,7 +217,7 @@ export class AddClientComponent {
     this.subscriptions.push(checkPhoneSubscription);
   }
   private handlePhoneResponse(res: any): void {
-    if (res?.success && res?.result != null || true) {
+    if (res?.success && res?.result != null) {
       this.phoneNotAvailable = !res.result;
     } else {
       this.phoneNotAvailable = false;
@@ -251,10 +249,8 @@ export class AddClientComponent {
       email: this.addClientForm?.value?.email,
       identity: this.addClientForm?.value?.nationalIdentity?.toString(),
       birthDate: this.addClientForm?.value?.birthDate,
-      phoneNumber: {
-        countryCode: "+966",
-        number: this.addClientForm?.value?.phoneNumber?.toString()
-      }
+      countryCode: "+966",
+      phoneNumber: this.addClientForm?.value?.phoneNumber?.toString()
     };
   }
   private addClient(formData: any): void {
@@ -267,7 +263,7 @@ export class AddClientComponent {
   }
   private handleAddClientSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.success || true) {
+    if (response?.success) {
       this.ref.close({ listChanged: true, item: response?.data });
       this.handleSuccess(response?.message);
     } else {

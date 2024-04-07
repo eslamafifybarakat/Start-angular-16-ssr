@@ -50,7 +50,7 @@ export class PublicService {
   }
 
   clearValidationErrors(control: AbstractControl): void {
-    control.markAsPending()
+    control?.markAsPending();
   }
   validateAllFormFields(form: any): void {
     Object.keys(form.controls).forEach(field => {

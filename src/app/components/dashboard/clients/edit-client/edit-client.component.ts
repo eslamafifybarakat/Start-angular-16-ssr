@@ -10,16 +10,16 @@ import { RecordsComponent } from '../../records/records.component';
 
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
 import { patterns } from './../../../../shared/configs/patterns';
 import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, catchError, tap } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -51,7 +51,7 @@ export class EditClientComponent {
   details: any;
 
   isFullNameReadOnly: boolean = true;
-  isIdReadOnly: boolean = true;
+  isNationalIdentityReadOnly: boolean = true;
   isPhoneNumberReadOnly: boolean = true;
   isEmailReadOnly: boolean = true;
   isBirthDateReadOnly: boolean = true;
@@ -65,14 +65,14 @@ export class EditClientComponent {
   readonly minAge = 18;
   maxDate: any = new Date(new Date()?.getFullYear() - this.minAge, new Date()?.getMonth(), new Date()?.getDate());
 
-  modalForm = this.fb?.group(
+  editClientForm = this.fb?.group(
     {
       fullName: ['', {
         validators: [
           Validators.required,
           Validators?.minLength(3)], updateOn: "blur"
       }],
-      id: ['', {
+      nationalIdentity: ['', {
         validators: [
           Validators.required, Validators.pattern(patterns?.nationalIdentity)], updateOn: "blur"
       }],
@@ -91,12 +91,12 @@ export class EditClientComponent {
     }
   );
   get formControls(): any {
-    return this.modalForm?.controls;
+    return this.editClientForm?.controls;
   }
 
-  // Check Nationality Id Variables
-  isLoadingCheckId: Boolean = false;
-  idNotAvailable: Boolean = false;
+  // Check National Identity Variables
+  isLoadingCheckNationalIdentity: Boolean = false;
+  nationalIdentityNotAvailable: Boolean = false;
 
   // Check Email Variables
   isLoadingCheckEmail: Boolean = false;
@@ -110,18 +110,28 @@ export class EditClientComponent {
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
     private clientsService: ClientsService,
+    private activatedRoute: ActivatedRoute,
     private alertsService: AlertsService,
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
-    private router: Router,
+    private router: Router
   ) {
     localizationLanguageService.updatePathAccordingLang();
   }
 
   ngOnInit(): void {
-    this.getClientById();
+    this.loadPageData();
+  }
+  loadPageData(): void {
     this.updateMetaTagsForSEO();
+    this.activatedRoute.params.subscribe((params) => {
+      this.clientId = params['id'];
+      if (this.clientId) {
+        this.getClientById(this.clientId);
+        // this.fullPageUrl = environment.publicUrl + this.localizationLanguageService.getFullURL();
+      }
+    });
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
@@ -138,20 +148,24 @@ export class EditClientComponent {
 
   // }
   patchValue(): void {
-    this.modalForm?.patchValue({
-      fullName: this.details?.fullName,
-      id: this.details?.id,
-      phoneNumber: this.details?.phoneNumber,
-      birthDate: this.details?.birthDate,
-      email: this.details?.email,
+    let convertPhoneNumber: any = parseInt(this.details?.phoneNumber);
+    let convertNationalIdentity: any = parseInt(this.details?.identity);
+    let convertBirthDate: any = new Date(this.details?.birthDate);
+
+    this.editClientForm?.patchValue({
+      fullName: this.details?.name,
+      nationalIdentity: convertNationalIdentity,
+      phoneNumber: convertPhoneNumber,
+      birthDate: convertBirthDate,
+      email: this.details?.email
     })
   }
   editInput(name: string): void {
     if (name == 'fullName') {
       this.isFullNameReadOnly = false;
     }
-    if (name == 'id') {
-      this.isIdReadOnly = false;
+    if (name == 'nationalIdentity') {
+      this.isNationalIdentityReadOnly = false;
     }
     if (name == 'birthDate') {
       this.isBirthDateReadOnly = false;
@@ -165,171 +179,28 @@ export class EditClientComponent {
   }
 
   // Start Get Client By Id
-  getClientById(): void {
+  getClientById(id: number | string): void {
     this.isLoading = true;
-    let subscribeGetClient: Subscription = this.clientsService?.getClientById(this.clientId).pipe(
+    let subscribeGetClient: Subscription = this.clientsService?.getClientById(id).pipe(
       tap(res => this.handleGetClientSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
     this.subscriptions.push(subscribeGetClient);
   }
   private handleGetClientSuccess(response: any): void {
-    if (response?.success || true) {
-      this.details = response.result;
+    if (response?.success) {
+      this.details = response.result.items[0];
       this.patchValue();
       this.isLoading = false;
     } else {
       this.handleError(response?.message);
     }
   }
-  private handleError(err: any): any {
-    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
-    setTimeout(() => {
-      this.details = {
-        fullName: 'Ahmed Ibrahim',
-        id: '3448484844',
-        phoneNumber: '432222222',
-        email: 'ahmedIbrahim@amil.com',
-        birthDate: new Date(),
-      };
-      this.patchValue();
-      this.isLoading = false;
-    }, 1000);
-  }
-  private setMessage(message: string, type: string): void {
-    this.alertsService.openToast(type, type, message);
-    this.isLoading = false;
-  }
   // End Get Client By Id
 
-  // Start Check If National Identity Unique
-  checkNationalIdentityAvailable(): void {
-    if (!this.formControls.id.valid) {
-      return; // Exit early if ID is not valid
-    }
-
-    const nationalIdentity = this.modalForm.value.id;
-    const data = { nationalIdentity };
-
-    this.isLoadingCheckId = true;
-
-    let checkIdSubscription = this.publicService?.IsNationalIdentityAvailable(data)?.subscribe(
-      (res: any) => {
-        this.handleIdResponse(res);
-      },
-      (err: any) => {
-        this.handleIdError(err);
-      }
-    );
-    this.subscriptions.push(checkIdSubscription);
-  }
-  private handleIdResponse(res: any): void {
-    if (res?.success && res?.result != null) {
-      this.idNotAvailable = !res.result;
-    } else {
-      this.idNotAvailable = false;
-      if (res?.message) {
-        this.alertsService?.openToast('error', 'error', res.message);
-      }
-    }
-    this.isLoadingCheckId = false;
-    this.cdr.detectChanges();
-  }
-  private handleIdError(err: any): void {
-    // this.idNotAvailable = false;
-    this.idNotAvailable = true;
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService?.openToast('error', 'error', errorMessage);
-    this.isLoadingCheckId = false;
-
-  }
-  // End Check If National Identity Unique
-
-  // Start Check If Email Unique
-  checkEmailAvailable(): void {
-    if (!this.formControls.email.valid) {
-      return; // Exit early if email is not valid
-    }
-
-    const email = this.modalForm.value.email;
-    const data = { email };
-
-    this.isLoadingCheckEmail = true;
-
-    let checkEmailSubscription = this.publicService?.IsEmailAvailable(data)?.subscribe(
-      (res: any) => {
-        this.handleEmailResponse(res);
-      },
-      (err: any) => {
-        this.handleEmailError(err);
-      }
-    );
-    this.subscriptions.push(checkEmailSubscription);
-  }
-  private handleEmailResponse(res: any): void {
-    if (res?.success && res?.result != null) {
-      this.emailNotAvailable = !res.result;
-    } else {
-      this.emailNotAvailable = false;
-      if (res?.message) {
-        this.alertsService?.openToast('error', 'error', res.message);
-      }
-    }
-    this.isLoadingCheckEmail = false;
-    this.cdr.detectChanges();
-  }
-  private handleEmailError(err: any): void {
-    this.emailNotAvailable = false;
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService?.openToast('error', 'error', errorMessage);
-    this.isLoadingCheckEmail = false;
-  }
-  // Start Check If Email Unique
-
-  // Start Check If Phone Unique
-  checkPhoneAvailable(): void {
-    if (!this.formControls.phoneNumber.valid) {
-      return; // Exit early if email is not valid
-    }
-
-    const phone = this.modalForm.value.phoneNumber;
-    const data = { phone };
-
-    this.isLoadingCheckPhone = true;
-
-    let checkPhoneSubscription = this.publicService?.IsPhoneAvailable(data)?.subscribe(
-      (res: any) => {
-        this.handlePhoneResponse(res);
-      },
-      (err: any) => {
-        this.handlePhoneError(err);
-      }
-    );
-    this.subscriptions.push(checkPhoneSubscription);
-  }
-  private handlePhoneResponse(res: any): void {
-    if (res?.success && res?.result != null) {
-      this.phoneNotAvailable = !res.result;
-    } else {
-      this.phoneNotAvailable = false;
-      if (res?.message) {
-        this.alertsService?.openToast('error', 'error', res.message);
-      }
-    }
-    this.isLoadingCheckPhone = false;
-    this.cdr.detectChanges();
-  }
-  private handlePhoneError(err: any): void {
-    this.phoneNotAvailable = false;
-    const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
-    this.alertsService?.openToast('error', 'error', errorMessage);
-    this.isLoadingCheckPhone = false;
-  }
-  // Start Check If Phone Unique
-
   onKeyUpEvent(type: string): void {
-    if (type == 'id') {
-      this.isLoadingCheckId = false;
+    if (type == 'nationalIdentity') {
+      this.isLoadingCheckNationalIdentity = false;
     }
     if (type == 'email') {
       this.isLoadingCheckEmail = false;
@@ -337,53 +208,183 @@ export class EditClientComponent {
     if (type == 'phoneNumber') {
       this.isLoadingCheckPhone = false;
     }
+    this.publicService?.clearValidationErrors(this.formControls[type]);
+    this.cdr.detectChanges();
   }
+  clearCheckAvailable(type: string): void {
+    if (type == 'nationalIdentity') {
+      this.nationalIdentityNotAvailable = false;
+    }
+    if (type == 'email') {
+      this.emailNotAvailable = false;
+    }
+    if (type == 'phoneNumber') {
+      this.phoneNotAvailable = false;
+    }
+  }
+  // Start Check If National Identity Unique
+  checkNationalIdentityAvailable(): void {
+    if (!this.formControls?.nationalIdentity?.valid) {
+      return; // Exit early if National Identity is not valid
+    }
+    if (this.editClientForm.value.nationalIdentity == this.details.identity) {
+      return;
+    }
+    const identity: number | string = this.editClientForm?.value?.nationalIdentity;
+    const data: any = { identity };
+    this.isLoadingCheckNationalIdentity = true;
+    let checkNationalIdentitySubscription: Subscription = this.publicService?.IsNationalIdentityAvailable(data).pipe(
+      tap(res => this.handleNationalIdentityResponse(res)),
+      catchError(err => this.handleNationalIdentityError(err))
+    ).subscribe();
+    this.subscriptions.push(checkNationalIdentitySubscription);
+  }
+  private handleNationalIdentityResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.nationalIdentityNotAvailable = !res.result;
+    } else {
+      this.nationalIdentityNotAvailable = false;
+      this.handleNationalIdentityError(res?.message);
+    }
+    this.isLoadingCheckNationalIdentity = false;
+    this.cdr.detectChanges();
+  }
+  private handleNationalIdentityError(err: any): any {
+    this.nationalIdentityNotAvailable = true;
+    this.isLoadingCheckNationalIdentity = false;
+    this.handleError(err);
+  }
+  // End Check If National Identity Unique
+
+  //  Start Check If Email Unique
+  checkEmailAvailable(): void {
+    if (!this.formControls?.email?.valid) {
+      return; // Exit early if email is not valid
+    }
+    if (this.editClientForm.value.email == this.details.email) {
+      return;
+    }
+    const email: string = this.editClientForm?.value?.email;
+    const data: any = { email };
+    this.isLoadingCheckEmail = true;
+
+    let checkEmailSubscription: Subscription = this.publicService?.IsEmailAvailable(data).pipe(
+      tap(res => this.handleEmailResponse(res)),
+      catchError(err => this.handleEmailError(err))
+    ).subscribe();
+    this.subscriptions.push(checkEmailSubscription);
+  }
+  private handleEmailResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.emailNotAvailable = !res.result;
+    } else {
+      this.emailNotAvailable = false;
+      this.handleEmailError(res?.message);
+    }
+    this.isLoadingCheckEmail = false;
+    this.cdr.detectChanges();
+  }
+  private handleEmailError(err: any): any {
+    this.emailNotAvailable = true;
+    this.isLoadingCheckEmail = false;
+    this.handleError(err);
+  }
+  //  End Check If Email Unique
+
+  //  Start Check If Phone Unique
+  checkPhoneAvailable(): void {
+    if (!this.formControls?.phoneNumber?.valid) {
+      return; // Exit early if phoneNumber is not valid
+    }
+    if (this.editClientForm.value.phoneNumber == this.details.phoneNumber) {
+      return;
+    }
+    const phone: number | string = this.editClientForm?.value?.phoneNumber;
+    const data: any = {
+      countryCode: "+996",
+      phoneNumber: phone
+    };
+    this.isLoadingCheckPhone = true;
+
+    let checkPhoneSubscription: Subscription = this.publicService?.IsPhoneAvailable(data).pipe(
+      tap(res => this.handlePhoneResponse(res)),
+      catchError(err => this.handlePhoneError(err))
+    ).subscribe();
+    this.subscriptions.push(checkPhoneSubscription);
+  }
+  private handlePhoneResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.phoneNotAvailable = !res.result;
+    } else {
+      this.phoneNotAvailable = false;
+      this.handlePhoneError(res?.message);
+    }
+    this.isLoadingCheckPhone = false;
+    this.cdr.detectChanges();
+  }
+  private handlePhoneError(err: any): any {
+    this.phoneNotAvailable = true;
+    this.isLoadingCheckPhone = false;
+    this.handleError(err);
+  }
+  // End Check If Phone Unique
 
   // Start Edit Client
   submit(): void {
-    if (this.modalForm?.valid) {
+    console.log(this.editClientForm.value);
+    if (this.editClientForm?.valid) {
       const formData = this.extractFormData();
       this.editClient(formData);
     } else {
-      this.publicService?.validateAllFormFields(this.modalForm);
+      this.publicService?.validateAllFormFields(this.editClientForm);
     }
   }
   private extractFormData(): any {
     return {
-      id: this.clientId,
-      fullName: this.modalForm?.value?.fullName,
-      phoneNumber: this.modalForm?.value?.phoneNumber,
-      email: this.modalForm?.value?.email,
-      nationalityId: this.modalForm?.value?.id,
-      birthDate: this.modalForm?.value?.birthDate
+      name: this.editClientForm?.value?.fullName,
+      email: this.editClientForm?.value?.email,
+      identity: this.editClientForm?.value?.nationalIdentity?.toString(),
+      birthDate: this.editClientForm?.value?.birthDate,
+      countryCode: "+966",
+      phoneNumber: this.editClientForm?.value?.phoneNumber?.toString()
     };
   }
   private editClient(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeEditClient = this.clientsService?.editClient(formData)?.subscribe(
-      (res: any) => {
-        this.handleEditClientSuccess(res);
-      },
-      (err: any) => {
-        this.handleEditClientError(err);
-      }
-    );
+    let subscribeEditClient = this.clientsService?.editClient(formData, this.clientId)?.pipe(
+      tap(res => this.handleEditClientSuccess(res)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
     this.subscriptions.push(subscribeEditClient);
   }
   private handleEditClientSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.isSuccess && response?.statusCode === 200) {
-      this.router.navigate(['/Dashboard/Clients']);
+    if (response?.success) {
+      // this.router.navigate(['/Dashboard/Clients']);
+      this.isFullNameReadOnly = false;
+      this.isNationalIdentityReadOnly = false;
+      this.isPhoneNumberReadOnly = false;
+      this.isEmailReadOnly = false;
+      this.isBirthDateReadOnly = false;
       response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
     } else {
       response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
     }
   }
-  private handleEditClientError(error: any): void {
-    this.publicService?.showGlobalLoader?.next(false);
-    error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
-  }
   // End Edit Client
+
+  /* --- Handle api requests messages --- */
+  private handleSuccess(msg: any): any {
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
+  }
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
+    this.publicService.showGlobalLoader.next(false);
+  }
+
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

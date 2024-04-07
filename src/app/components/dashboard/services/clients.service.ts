@@ -31,16 +31,20 @@ export class ClientsService {
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
     }
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getClients}`, { params: params })
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getClients}`, { params: params });
   }
   addClient(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data)
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data);
   }
-  editClient(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.addClient}`, data)
+  editClient(data: any, id: number | string): Observable<any> {
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.clients.editClient}/6`, data);
   }
   getClientById(id: any): Observable<any> {
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getClients}/${id}`)
+    let params = new HttpParams();
+    if (id) {
+      params = params?.append("client_id", id);
+    }
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.clients.getClients}`, { params: params });
   }
   deleteClientById(id: number, data: any): Observable<any> {
     let params = new HttpParams();
