@@ -11,7 +11,10 @@ import { EmployeeCardComponent } from './employee-card/employee-card.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 //Services
+import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
+import { EmployeesListApiResponse, EmployeesListingItem } from './../../../../interfaces/dashboard/employees';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
@@ -45,38 +48,50 @@ export class EmployeesListComponent {
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
 
+  // Start Employees List Variables
   isLoadingEmployeesList: boolean = false;
-  employeesList: any[] = [];
+  employeesList: EmployeesListingItem[] = [];
   employeesCount: number = 0;
   tableHeaders: any = [];
+  // End Employees List Variables
 
+  // Start Pagination Variables
   page: number = 1;
   perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
+  // End Pagination Variables
+
+  // Start Filtration Variables
+  private searchSubject = new Subject<any>();
+  filterCards: any = [];
 
   enableSortFilter: boolean = true;
   searchKeyword: any = null;
   filtersArray: any = [];
   sortObj: any = {};
+  // End Filtration Variables
 
+  // Start Permissions Variables
   showActionTableColumn: boolean = false;
   showEditAction: boolean = false;
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
-
-  private searchSubject = new Subject<any>();
-
-  filterCards: any = [];
+  // End Permissions Variables
 
   constructor(
+    private localizationLanguageService: LocalizationLanguageService,
+    private metadataService: MetadataService,
     private employeesService: EmployeesService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) { }
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
+  }
+
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'fullName', header: 'dashboard.tableHeader.fullName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.fullName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
@@ -95,7 +110,6 @@ export class EmployeesListComponent {
       });
     this.publicService.toggleFilterEmployeeDataType.subscribe((res: any) => {
       if (res) {
-        console.log(res);
         this.changeDateStyle(res);
       }
     })
@@ -120,39 +134,46 @@ export class EmployeesListComponent {
       }
     })
   }
+
+  private updateMetaTagsForSEO(): void {
+    let metaData: MetaDetails = {
+      title: 'الموظفين',
+      description: 'الوصف',
+      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+    }
+    this.metadataService.updateMetaTagsForSEO(metaData);
+  }
+
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.clearTable();
     this.dataStyleType = type;
   }
 
-  // ======Start get all Employees=========
+  // Start Employees List Functions
   getAllEmployees(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingEmployeesList = true;
-    this.publicService.isLoadingEmployees.next(true);
     this.employeesService?.getEmployeesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
-        tap((res: any) => this.processEmployeesListResponse(res)),
+        tap((res: EmployeesListApiResponse) => this.processEmployeesListResponse(res)),
         catchError(err => this.handleError(err)),
-        finalize(() => this.finalizeEmployeesListLoading())
+        finalize(() => this.finalizeEmployeeListLoading())
       ).subscribe();
   }
   private processEmployeesListResponse(response: any): void {
     if (response) {
-      this.employeesCount = response.total;
+      this.employeesCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.employeesCount / this.perPage);
-      this.employeesList = response.data;
-      this.publicService.employeesLength.next(this.employeesCount);
+      this.employeesList = response?.result?.items;
     } else {
       this.handleError(response.error);
       return;
     }
   }
-  private finalizeEmployeesListLoading(): void {
+  private finalizeEmployeeListLoading(): void {
     this.isLoadingEmployeesList = false;
-    this.publicService.isLoadingEmployees.next(false);
     this.isLoadingSearch = false;
-    this.publicService.isLoadingSearchEmployees.next(false);
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
     setTimeout(() => {
@@ -171,14 +192,9 @@ export class EmployeesListComponent {
     this.publicService.employeesLength.next(this.employeesCount);
     this.employeesCount = 3225;
   }
-  /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.alertsService?.openToast('error', 'error', err || this.publicService.translateTextFromJson('general.errorOccur'));
-    this.finalizeEmployeesListLoading();
-  }
-  // ======End get all clients=========
+  // End Employees List Functions
 
-  // ======Start search==========
+  // Start Search
   handleSearch(event: any): void {
     this.searchSubject.next(event);
   }
@@ -199,24 +215,13 @@ export class EmployeesListComponent {
     search.value = null;
     this.getAllEmployees(true);
   }
-  // ======End search==========
+  // End Search
 
-  // ======Start pagination==========
-  onPageChange(e: any): void {
-    this.page = e?.page + 1;
-    this.getAllEmployees();
-  }
-  onPaginatorOptionsChange(e: any): void {
-    this.perPage = e?.value;
-    this.pagesCount = Math?.ceil(this.employeesCount / this.perPage);
-    this.page = 1;
-    this.publicService?.changePageSub?.next({ page: this.page });
-  }
-  // ======End pagination==========
-
+  //Employee Details
   itemDetails(item?: any): void {
   }
 
+  // Add Employee
   addEmployeeItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEmployeeComponent, {
       data: {
@@ -236,7 +241,8 @@ export class EmployeesListComponent {
       }
     });
   }
-  // Filter employee
+
+  // Filter Employee
   filterItem(): void {
     const ref = this.dialogService?.open(FilterEmployeesComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
@@ -256,11 +262,12 @@ export class EmployeesListComponent {
     });
   }
 
-  // Edit employee
+  // Edit Employee
   editItem(item: any): void {
     // this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
-  //========Start Delete employee==========
+
+  //Start Delete Employee==========
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -297,7 +304,7 @@ export class EmployeesListComponent {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //========End Delete employee==========
+  //End Delete Employee
 
   // Clear table
   clearTable(): void {
@@ -309,6 +316,7 @@ export class EmployeesListComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllEmployees();
   }
+
   // Sort table
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -325,7 +333,8 @@ export class EmployeesListComponent {
       this.getAllEmployees();
     }
   }
-  // filter table
+
+  // filter Table
   filterItems(event: any): void {
     this.filtersArray = [];
     Object.keys(event)?.forEach((key: any) => {
@@ -387,6 +396,29 @@ export class EmployeesListComponent {
     this.page = 1;
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllEmployees();
+  }
+
+  // Start Pagination
+  onPageChange(e: any): void {
+    this.page = e?.page + 1;
+    this.getAllEmployees();
+  }
+  onPaginatorOptionsChange(e: any): void {
+    this.perPage = e?.value;
+    this.pagesCount = Math?.ceil(this.employeesCount / this.perPage);
+    this.page = 1;
+    this.publicService?.changePageSub?.next({ page: this.page });
+  }
+  // End Pagination
+
+  /* --- Handle api requests error messages --- */
+  private handleError(err: any): any {
+    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
+  }
+  private setErrorMessage(message: string): void {
+    this.alertsService.openToast('error', 'error', message);
+    this.publicService.showGlobalLoader.next(false);
+    this.finalizeEmployeeListLoading();
   }
 
   ngOnDestroy(): void {

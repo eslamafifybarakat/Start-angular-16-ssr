@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Output, PLATFORM_ID, Input } from '@angular/core';
-import { EmployeesList } from './../../../../../interfaces/dashboard/employees';
+import { EmployeesListingItem } from './../../../../../interfaces/dashboard/employees';
 import { keys } from './../../../../../shared/configs/localstorage-key';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./employee-card.component.scss']
 })
 export class EmployeeCardComponent {
-  @Input() item: EmployeesList;
+  @Input() item: EmployeesListingItem;
   currentLanguage: string;
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
 

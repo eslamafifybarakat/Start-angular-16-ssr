@@ -11,10 +11,12 @@ import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 
 //Services
+import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
+import { VehiclesListApiResponse, VehiclesListingItem } from './../../../../interfaces/dashboard/vehicles';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
-import { VehiclesList } from './../../../../interfaces/dashboard/vehicles';
 import { VehiclesService } from './../../services/vehicles.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -43,39 +45,52 @@ export class VehiclesListComponent {
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
+  isLoadingFileDownload: boolean = false;
 
+  // Start Vehicles List Variables
   isLoadingVehiclesList: boolean = false;
-  vehiclesList: VehiclesList[] = [];
+  vehiclesList: VehiclesListingItem[] = [];
   vehiclesCount: number = 0;
   tableHeaders: any = [];
+  // End Vehicles List Variables
 
+  // Start Pagination Variables
   page: number = 1;
   perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
+  // End Pagination Variables
+
+  // Start Filtration Variables
+  private searchSubject = new Subject<any>();
+  filterCards: any = [];
 
   enableSortFilter: boolean = true;
   searchKeyword: any = null;
   filtersArray: any = [];
   sortObj: any = {};
+  // End Filtration Variables
 
+  // Start Permissions Variables
   showActionTableColumn: boolean = false;
   showEditAction: boolean = false;
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
-
-  private searchSubject = new Subject<any>();
-
-  filterCards: any = [];
+  // End Permissions Variables
 
   constructor(
+    private localizationLanguageService: LocalizationLanguageService,
+    private metadataService: MetadataService,
     private vehiclesService: VehiclesService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) { }
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
+  }
+
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'operatingCard', header: 'dashboard.tableHeader.operatingCard', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.operatingCard'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
@@ -117,38 +132,44 @@ export class VehiclesListComponent {
       }
     })
   }
+  private updateMetaTagsForSEO(): void {
+    let metaData: MetaDetails = {
+      title: 'المركبات',
+      description: 'الوصف',
+      image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
+    }
+    this.metadataService.updateMetaTagsForSEO(metaData);
+  }
+
   // Toggle data style table or card
   changeDateStyle(type: string): void {
     this.clearTable();
     this.dataStyleType = type;
   }
-  // ======Start get all Vehicles=========
+
+  // Start Vehicles List Functions
   getAllVehicles(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingVehiclesList = true;
-    this.publicService.isLoadingEmployees.next(true);
     this.vehiclesService?.getVehiclesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
-        tap((res: any) => this.processVehiclesListResponse(res)),
+        tap((res: VehiclesListApiResponse) => this.processVehiclesListResponse(res)),
         catchError(err => this.handleError(err)),
-        finalize(() => this.finalizeVehiclesListLoading())
+        finalize(() => this.finalizeVehicleListLoading())
       ).subscribe();
   }
   private processVehiclesListResponse(response: any): void {
     if (response) {
-      this.vehiclesCount = response.total;
+      this.vehiclesCount = response?.result?.totalCount;
       this.pagesCount = Math.ceil(this.vehiclesCount / this.perPage);
-      this.vehiclesList = response.data;
-      this.publicService.employeesLength.next(this.vehiclesCount);
+      this.vehiclesList = response?.result?.items;
     } else {
       this.handleError(response.error);
       return;
     }
   }
-  private finalizeVehiclesListLoading(): void {
+  private finalizeVehicleListLoading(): void {
     this.isLoadingVehiclesList = false;
-    this.publicService.isLoadingEmployees.next(false);
     this.isLoadingSearch = false;
-    this.publicService.isLoadingSearchEmployees.next(false);
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
     setTimeout(() => {
@@ -166,14 +187,9 @@ export class VehiclesListComponent {
     this.publicService.employeesLength.next(this.vehiclesCount);
     this.vehiclesCount = 3225;
   }
-  /* --- Handle api requests error messages --- */
-  private handleError(err: any): any {
-    this.alertsService?.openToast('error', 'error', err || this.publicService.translateTextFromJson('general.errorOccur'));
-    this.finalizeVehiclesListLoading();
-  }
-  // ======End get all Vehicles=========
+  // End Start Vehicles List Functions
 
-  // ======Start search==========
+  // Start Search
   handleSearch(event: any): void {
     this.searchSubject.next(event);
   }
@@ -194,24 +210,13 @@ export class VehiclesListComponent {
     search.value = null;
     this.getAllVehicles(true);
   }
-  // ======End search==========
+  // End Search
 
-  // ======Start pagination==========
-  onPageChange(e: any): void {
-    this.page = e?.page + 1;
-    this.getAllVehicles();
-  }
-  onPaginatorOptionsChange(e: any): void {
-    this.perPage = e?.value;
-    this.pagesCount = Math?.ceil(this.vehiclesCount / this.perPage);
-    this.page = 1;
-    this.publicService?.changePageSub?.next({ page: this.page });
-  }
-  // ======End pagination==========
-
+  // Vehicle Details
   itemDetails(item?: any): void {
   }
 
+  // Add Employee
   addItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddVehicleComponent, {
       data: {
@@ -231,6 +236,7 @@ export class VehiclesListComponent {
       }
     });
   }
+
   // Filter Vehicle
   filterItem(): void {
     const ref = this.dialogService?.open(FilterVehiclesComponent, {
@@ -255,7 +261,8 @@ export class VehiclesListComponent {
   editItem(item: any): void {
     // this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
-  //========Start Delete Vehicle==========
+
+  //Start Delete Vehicle
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
@@ -292,9 +299,9 @@ export class VehiclesListComponent {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //========End Delete Vehicle==========
+  //End Delete Vehicle
 
-  // Clear table
+  // Clear Table
   clearTable(): void {
     this.searchKeyword = '';
     this.sortObj = {};
@@ -304,7 +311,8 @@ export class VehiclesListComponent {
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllVehicles();
   }
-  // Sort table
+
+  // Sort Table
   sortItems(event: any): void {
     if (event?.order == 1) {
       this.sortObj = {
@@ -320,7 +328,8 @@ export class VehiclesListComponent {
       this.getAllVehicles();
     }
   }
-  // filter table
+
+  // filter Table
   filterItems(event: any): void {
     this.filtersArray = [];
     Object.keys(event)?.forEach((key: any) => {
@@ -382,6 +391,29 @@ export class VehiclesListComponent {
     this.page = 1;
     // this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllVehicles();
+  }
+
+  // Start Pagination
+  onPageChange(e: any): void {
+    this.page = e?.page + 1;
+    this.getAllVehicles();
+  }
+  onPaginatorOptionsChange(e: any): void {
+    this.perPage = e?.value;
+    this.pagesCount = Math?.ceil(this.vehiclesCount / this.perPage);
+    this.page = 1;
+    this.publicService?.changePageSub?.next({ page: this.page });
+  }
+  // End Pagination
+
+  /* --- Handle api requests error messages --- */
+  private handleError(err: any): any {
+    this.setErrorMessage(err || this.publicService.translateTextFromJson('general.errorOccur'));
+  }
+  private setErrorMessage(message: string): void {
+    this.alertsService.openToast('error', 'error', message);
+    this.publicService.showGlobalLoader.next(false);
+    this.finalizeVehicleListLoading();
   }
 
   ngOnDestroy(): void {

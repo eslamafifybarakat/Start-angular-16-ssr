@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, Output, PLATFORM_ID } from '@angular/core';
-import { RecordsList } from './../../../../interfaces/dashboard/records';
+import { RecordsListingItem } from './../../../../interfaces/dashboard/records';
 import { keys } from './../../../../shared/configs/localstorage-key';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./record-card.component.scss']
 })
 export class RecordCardComponent {
-  @Input() item: RecordsList;
+  @Input() item: RecordsListingItem;
   currentLanguage: string;
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
 

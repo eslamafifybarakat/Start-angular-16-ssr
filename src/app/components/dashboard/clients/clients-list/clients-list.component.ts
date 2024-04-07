@@ -49,7 +49,6 @@ export class ClientsListComponent {
 
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
-  isLoadingFileDownload: boolean = false;
 
   // Start Clients List Variables
   isLoadingClientsList: boolean = false;
@@ -67,7 +66,6 @@ export class ClientsListComponent {
 
   // Start Filtration Variables
   private searchSubject = new Subject<any>();
-  openFilter: boolean = false;
   filterCards: any = [];
 
   enableSortFilter: boolean = true;
@@ -158,7 +156,7 @@ export class ClientsListComponent {
       this.enableSortFilter = true;
     }, 200);
   }
-  // End Start Clients List Functions
+  // End Clients List Functions
 
   itemDetails(item?: any): void {
   }
@@ -220,7 +218,6 @@ export class ClientsListComponent {
     this.alertsService.openToast('error', 'error', errorMessage);
   }
 
-
   // Start Search
   handleSearch(event: any): void {
     this.searchSubject.next(event);
@@ -240,7 +237,8 @@ export class ClientsListComponent {
     search.value = null;
     this.getAllClients(true);
   }
-  // End search
+  // End Search
+
   // Filter Clients
   filterItem(): void {
     const ref = this.dialogService?.open(FilterClientsComponent, {
@@ -371,7 +369,6 @@ export class ClientsListComponent {
     this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
     this.finalizeClientListLoading();
-
   }
 
   ngOnDestroy(): void {
