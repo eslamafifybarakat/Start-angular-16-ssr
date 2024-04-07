@@ -4,11 +4,13 @@
     <button class="logo bg-transparent border-0 justify-content-center align-items-center">
       <img src="assets/images/logo/white-logo.svg" class="w-100" alt="logo">
     </button>
-    <button
-      class="collapse-arrow text-main-color border-0 position-absolute d-flex justify-content-center align-items-center"
-      (click)="toggleCollapse()">
-      <i class="pi" [ngClass]="rotated?'pi-angle-double-left':'pi-angle-double-right'"></i>
-    </button>
+    <ng-container *ngIf="showCollapseBtn">
+      <button
+        class="collapse-arrow text-main-color border-0 position-absolute d-flex justify-content-center align-items-center"
+        (click)="toggleCollapse()">
+        <i class="pi" [ngClass]="rotated?'pi-angle-double-left':'pi-angle-double-right'"></i>
+      </button>
+    </ng-container>
   </div>
   <ul class="aside-nav pt-3 d-flex align-items-center flex-column">
     <ng-container *ngFor="let item of menuListItems;let i=index">

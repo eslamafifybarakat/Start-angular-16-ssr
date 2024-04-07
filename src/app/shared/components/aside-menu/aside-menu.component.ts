@@ -1,5 +1,5 @@
 // Modules
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
 // Services
 import { AsideMenuService } from '../../../components/dashboard/services/aside-menu.service';
 import { AuthService } from './../../../services/authentication/auth.service';
+import { PublicService } from 'src/app/services/generic/public.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmationService } from 'primeng/api';
-import { PublicService } from 'src/app/services/generic/public.service';
 
 // Menu Interface
 interface MenuItem {
@@ -45,6 +45,7 @@ export class AsideMenuComponent {
   menuListItems: MenuItem[] = [];
   currentLanguage: string = 'en';
 
+  @Input() showCollapseBtn: boolean = true;
   @Output() onToggleSideNav: EventEmitter<any> = new EventEmitter();
 
   constructor(

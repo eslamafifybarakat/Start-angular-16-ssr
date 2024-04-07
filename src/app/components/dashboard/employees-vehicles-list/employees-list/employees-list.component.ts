@@ -11,14 +11,14 @@ import { EmployeeCardComponent } from './employee-card/employee-card.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 //Services
+import { EmployeesListApiResponse, EmployeesListingItem } from './../../../../interfaces/dashboard/employees';
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
-import { EmployeesListApiResponse, EmployeesListingItem } from './../../../../interfaces/dashboard/employees';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
-import { Component, ChangeDetectorRef } from '@angular/core';
 import { EmployeesService } from '../../services/employees.service';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 

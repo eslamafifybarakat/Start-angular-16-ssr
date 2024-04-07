@@ -12,9 +12,9 @@ import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
+import { VehiclesListApiResponse, VehiclesListingItem } from './../../../../interfaces/dashboard/vehicles';
 import { MetaDetails, MetadataService } from './../../../../services/generic/metadata.service';
 import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
-import { VehiclesListApiResponse, VehiclesListingItem } from './../../../../interfaces/dashboard/vehicles';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { PublicService } from './../../../../services/generic/public.service';
 import { VehiclesService } from './../../services/vehicles.service';
