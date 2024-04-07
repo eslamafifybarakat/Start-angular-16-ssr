@@ -1,5 +1,4 @@
 // Modules
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
@@ -7,12 +6,13 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
 
 //Services
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PublicService } from './../../../../services/generic/public.service';
 import { AlertsService } from './../../../../services/generic/alerts.service';
 import { RecordsService } from './../../services/records.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -96,6 +96,15 @@ export class AddRecordComponent {
     return this.modalForm?.controls;
   }
 
+  clearCheckAvailable(type: string): void {
+    if (type == 'recordNumber') {
+      this.recordNumNotAvailable = false;
+    }
+  }
+  onKeyUpEvent(): void {
+    this.isLoadingCheckRecordNum = false;
+  }
+
   // Start Check If Record Number Unique
   checkRecordNumAvailable(): void {
     if (!this.formControls.recordNumber.valid) {
@@ -136,9 +145,6 @@ export class AddRecordComponent {
     this.isLoadingCheckRecordNum = false;
 
   }
-  onKeyUpEvent(): void {
-    this.isLoadingCheckRecordNum = false;
-  }
   // End Check If Record Number Unique
 
   // Start Add New Record
@@ -159,33 +165,37 @@ export class AddRecordComponent {
   }
   private addRecord(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddClient = this.recordsService?.addRecord(formData)?.subscribe(
-      (res: any) => {
-        this.handleAddClientSuccess(res);
-      },
-      (err: any) => {
-        this.handleAddClientError(err);
-      }
-    );
-    this.subscriptions.push(subscribeAddClient);
+    let subscribeAddRecord: Subscription = this.recordsService?.addRecord(formData).pipe(
+      tap(res => this.handleAddRecordSuccess(res)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
+    this.subscriptions.push(subscribeAddRecord);
   }
-  private handleAddClientSuccess(response: any): void {
+  private handleAddRecordSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.isSuccess && response?.statusCode === 200) {
+    if (response?.success || true) {
       this.ref.close({ listChanged: true, item: response?.data });
-      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
+      this.handleSuccess(response?.message);
     } else {
-      response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+      this.handleError(response?.message);
     }
-  }
-  private handleAddClientError(error: any): void {
-    this.publicService?.showGlobalLoader?.next(false);
-    error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
   // End Add New Record
 
   cancel(): void {
     this.ref?.close({ listChanged: false });
+  }
+
+  /* --- Handle api requests messages --- */
+  private handleSuccess(msg: any): any {
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
+  }
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
+    this.publicService.showGlobalLoader.next(false);
   }
 
   ngOnDestroy(): void {

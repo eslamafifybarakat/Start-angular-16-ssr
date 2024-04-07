@@ -1,5 +1,4 @@
 // Modules
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
@@ -8,12 +7,13 @@ import { CommonModule } from '@angular/common';
 import { FileUploadComponent } from '../../../../../shared/components/upload-files/file-upload/file-upload.component';
 
 //Services
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PublicService } from '../../../../../services/generic/public.service';
 import { AlertsService } from '../../../../../services/generic/alerts.service';
 import { EmployeesService } from '../../../services/employees.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -83,6 +83,7 @@ export class AddEmployeeComponent {
     this.formControls.residencePhoto.setValue(this.residencePhotoFile);
   }
 
+  // Start Add New Employee
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
@@ -103,32 +104,37 @@ export class AddEmployeeComponent {
   }
   private addEmployee(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddEmployee = this.employeesService?.addEmployee(formData)?.subscribe(
-      (res: any) => {
-        this.handleAddEmployeeSuccess(res);
-      },
-      (err: any) => {
-        this.handleAddEmployeeError(err);
-      }
-    );
+    let subscribeAddEmployee: Subscription = this.employeesService?.addEmployee(formData).pipe(
+      tap(res => this.handleAddEmployeeSuccess(res)),
+      catchError(err => this.handleError(err))
+    ).subscribe();
     this.subscriptions.push(subscribeAddEmployee);
   }
   private handleAddEmployeeSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
-    if (response?.isSuccess && response?.statusCode === 200) {
+    if (response?.success || true) {
       this.ref.close({ listChanged: true, item: response?.data });
-      response?.message ? this.alertsService?.openToast('success', 'success', response?.message) : '';
+      this.handleSuccess(response?.message);
     } else {
-      response?.message ? this.alertsService?.openToast('error', 'error', response?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
+      this.handleError(response?.message);
     }
   }
-  private handleAddEmployeeError(error: any): void {
-    this.publicService?.showGlobalLoader?.next(false);
-    error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
-  }
+  // End Add New Employee
 
   cancel(): void {
     this.ref?.close({ listChanged: false });
+  }
+
+  /* --- Handle api requests messages --- */
+  private handleSuccess(msg: any): any {
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
+  }
+  private handleError(err: any): any {
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
+  }
+  private setMessage(message: string, type: string): void {
+    this.alertsService.openToast(type, type, message);
+    this.publicService.showGlobalLoader.next(false);
   }
 
   ngOnDestroy(): void {
