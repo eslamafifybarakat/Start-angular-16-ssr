@@ -11,7 +11,7 @@
     </div>
     <div class="d-none gap-3 flex-lg-nowrap flex-wrap" *ngIf="vehiclesList.length>0">
       <!-- Add Customer -->
-      <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
+      <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditItem()">
         <i class="pi pi-plus"></i>
         <span>{{'dashboard.employees.addEmployee'|translate}}</span>
       </button>
@@ -72,7 +72,7 @@
         </span>
       </div>
       <div class="d-flex gap-2" *ngIf="vehiclesList.length>0">
-        <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
+        <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditItem()">
           <i class="pi pi-plus"></i>
           <span>{{'dashboard.employees.addCustomer'|translate}}</span>
         </button>
@@ -121,14 +121,14 @@
         (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="vehiclesList"
         [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="true"
         [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
-        (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
+        (detailsHandler)="itemDetails($event)" (editHandler)="addEditItem($event,'edit')"
         (customSortHandler)="enableSortFilter?sortItems($event):''"
         (filterHandler)="enableSortFilter?filterItems($event):''" [results]="vehiclesCount" [paginatorRows]="perPage"
         [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
         [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
         (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch"
         [arrayChildKey]="'operatingCard'" [enableFilterDriverStatus]="true"
-        [addBtnText]="'dashboard.employees.addCustomer'" (addHandler)="addItem()"></dynamic-table>
+        [addBtnText]="'dashboard.employees.addCustomer'" (addHandler)="addEditItem()"></dynamic-table>
     </ng-container>
     <!-- Card -->
     <ng-container *ngIf="dataStyleType=='grid'">
@@ -143,7 +143,7 @@
           <ng-container *ngIf="vehiclesList.length>0; else noClients">
             <ng-container *ngFor="let card of vehiclesList; let i=index">
               <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <vehicle-card [item]="card" (editItemHandler)="editItem($event)"></vehicle-card>
+                <vehicle-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"></vehicle-card>
               </div>
             </ng-container>
           </ng-container>
@@ -172,7 +172,7 @@
             </svg>
           </div>
           <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-          <button (click)="addItem()"
+          <button (click)="addEditItem()"
             class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addCustomer'|translate}}</button>
         </div>
       </ng-template>
@@ -190,7 +190,7 @@
         <ng-container *ngIf="vehiclesList.length>0; else noClients2">
           <ng-container *ngFor="let card of vehiclesList; let i=index">
             <div class="col-xl-3 col-lg-4 col-sm-6 mb-4">
-              <vehicle-card (editItemHandler)="editItem($event)" [item]="card"></vehicle-card>
+              <vehicle-card (editItemHandler)="addEditItem($event,'edit')" [item]="card"></vehicle-card>
             </div>
           </ng-container>
         </ng-container>
@@ -218,7 +218,7 @@
           </svg>
         </div>
         <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
-        <button (click)="addItem()"
+        <button (click)="addEditItem()"
           class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.employees.addCustomer'|translate}}</button>
       </div>
     </ng-template>

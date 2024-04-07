@@ -8,7 +8,7 @@ import { DynamicTableComponent } from './../../../../shared/components/dynamic-t
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { FilterVehiclesComponent } from './filter-vehicles/filter-vehicles.component';
 import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
-import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
+import { AddEditVehicleComponent } from './add-edit-vehicle/add-edit-vehicle.component';
 
 //Services
 import { LocalizationLanguageService } from './../../../../services/generic/localization-language.service';
@@ -113,7 +113,7 @@ export class VehiclesListComponent {
     })
     this.publicService.addVehicleItem.subscribe((res: any) => {
       if (res) {
-        this.addItem();
+        this.addEditItem();
       }
     })
     this.publicService.resetVehiclesData.subscribe((res: any) => {
@@ -216,9 +216,9 @@ export class VehiclesListComponent {
   itemDetails(item?: any): void {
   }
 
-  // Add Employee
-  addItem(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddVehicleComponent, {
+  // Add Or Edit Vehicle
+  addEditItem(item?: any, type?: any): void {
+    const ref = this.dialogService?.open(AddEditVehicleComponent, {
       data: {
         item,
         type: type == 'edit' ? 'edit' : 'add'
@@ -255,11 +255,6 @@ export class VehiclesListComponent {
         this.getAllVehicles(true);
       }
     });
-  }
-
-  // Edit Vehicle
-  editItem(item: any): void {
-    // this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
 
   //Start Delete Vehicle

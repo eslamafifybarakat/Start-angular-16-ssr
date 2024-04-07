@@ -153,11 +153,13 @@
     },
     "employees": {
       "employees": "Employees",
-      "addEmployee": "Add Employee"
+      "addEmployee": "Add Employee",
+      "editEmployee": "Edit Employee"
     },
     "vehicles": {
       "vehicles": "Vehicles",
-      "addVehicle": "Add vehicle"
+      "addVehicle": "Add vehicle",
+      "editVehicle": "Edit vehicle"
     }
   },
   "auth": {

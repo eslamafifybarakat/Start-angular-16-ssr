@@ -33,8 +33,8 @@ export class EmployeesService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.employees.getEmployees}`, { params: params })
   }
-  addEmployee(data: any): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.employees.addEmployee}`, data)
+  addEditEmployee(data: any): Observable<any> {
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.employees.addEditEmployee}`, data)
   }
   deleteEmployeeById(id: number, data: any): Observable<any> {
     let params = new HttpParams();

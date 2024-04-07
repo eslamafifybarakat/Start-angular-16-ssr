@@ -92,8 +92,9 @@
           <div class="mb-3">
             <label for="residencePhoto" class="mb-2 required">{{'labels.residencePhoto'|translate}}</label>
             <div class="global-card p-3">
-              <p>{{'placeholders.residencePhoto'|translate}}</p>
-              <app-file-upload (uploadHandler)="uploadResidencePhoto($event)"></app-file-upload>
+              <p class="text-capitalize">{{'placeholders.residencePhoto'|translate}}</p>
+              <app-file-upload (uploadHandler)="uploadResidencePhoto($event)" [isEdit]="isEdit"
+                [imageSrc]="residencePhoto"></app-file-upload>
             </div>
             <div class="mt-2">
               <ng-container
@@ -111,10 +112,18 @@
     </div>
     <div class="d-flex justify-content-end gap-3 flex-wrap mt-4">
       <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
-        <span>
-          {{'general.save'|translate}}
-        </span>
-        <i class="pi pi-save"></i>
+        <ng-container *ngIf="isEdit; else noEdit">
+          <span>
+            {{'general.edit'|translate}}
+          </span>
+          <i class="pi pi-pencil"></i>
+        </ng-container>
+        <ng-template #noEdit>
+          <span>
+            {{'general.save'|translate}}
+          </span>
+          <i class="pi pi-save"></i>
+        </ng-template>
       </button>
       <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
         <span>

@@ -7,8 +7,8 @@ import { DynamicTableLocalActionsComponent } from './../../../../shared/componen
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { FilterEmployeesComponent } from './filter-employees/filter-employees.component';
+import { AddEditEmployeeComponent } from './add-edit-employee/add-edit-employee.component';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 //Services
 import { EmployeesListApiResponse, EmployeesListingItem } from './../../../../interfaces/dashboard/employees';
@@ -115,7 +115,7 @@ export class EmployeesListComponent {
     })
     this.publicService.addEmployeeItem.subscribe((res: any) => {
       if (res) {
-        this.addEmployeeItem();
+        this.addEditEmployeeItem();
       }
     })
     this.publicService.resetEmployeesData.subscribe((res: any) => {
@@ -221,9 +221,9 @@ export class EmployeesListComponent {
   itemDetails(item?: any): void {
   }
 
-  // Add Employee
-  addEmployeeItem(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddEmployeeComponent, {
+  // Add Or Edit Employee
+  addEditEmployeeItem(item?: any, type?: any): void {
+    const ref = this.dialogService?.open(AddEditEmployeeComponent, {
       data: {
         item,
         type: type == 'edit' ? 'edit' : 'add'
@@ -260,11 +260,6 @@ export class EmployeesListComponent {
         this.getAllEmployees(true);
       }
     });
-  }
-
-  // Edit Employee
-  editItem(item: any): void {
-    // this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
 
   //Start Delete Employee==========

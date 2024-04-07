@@ -151,11 +151,13 @@
     },
     "employees": {
       "employees": "الموظفين",
-      "addEmployee": "اضافة موظف"
+      "addEmployee": "اضافة موظف",
+      "editEmployee": "تعديل الموظف"
     },
     "vehicles": {
       "vehicles": "المركبات",
-      "addVehicle": "اضافة مركبة"
+      "addVehicle": "اضافة مركبة",
+      "editVehicle": "تعديل المركبة"
     }
   },
   "auth": {

@@ -10,9 +10,9 @@ import { FileUploadComponent } from '../../../../../shared/components/upload-fil
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PublicService } from '../../../../../services/generic/public.service';
 import { AlertsService } from '../../../../../services/generic/alerts.service';
-import { EmployeesService } from '../../../services/employees.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { VehiclesService } from '../../../services/vehicles.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription, catchError, tap } from 'rxjs';
 
 @Component({
@@ -28,35 +28,39 @@ import { Subscription, catchError, tap } from 'rxjs';
     // Components
     FileUploadComponent
   ],
-  selector: 'app-add-employee',
-  templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.scss']
+  selector: 'app-add-edit-vehicle',
+  templateUrl: './add-edit-vehicle.component.html',
+  styleUrls: ['./add-edit-vehicle.component.scss']
 })
-export class AddEmployeeComponent {
+export class AddEditVehicleComponent {
   private subscriptions: Subscription[] = [];
 
-  residencePhotoFile: any;
+  formPhotoFile: any;
+  formPhoto: any = null;
+  isEdit: boolean = false;
+  vehicleId: any;
 
   constructor(
-    private employeesService: EmployeesService,
+    private vehiclesService: VehiclesService,
     private alertsService: AlertsService,
     public publicService: PublicService,
+    private config: DynamicDialogConfig,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+    let data = this.config.data;
+    if (data.type == 'edit') {
+      this.isEdit = true;
+      this.patchValue(data);
+    }
   }
 
   modalForm = this.fb?.group(
     {
-      fullName: ['', {
-        validators: [
-          Validators.required,
-          Validators?.minLength(3)], updateOn: "blur"
-      }],
-      residencyNumber: ['', {
+      operatingCard: ['', {
         validators: [
           Validators.required], updateOn: "blur"
       }],
@@ -64,11 +68,11 @@ export class AddEmployeeComponent {
         validators: [
           Validators.required]
       }],
-      healthCertificate: ['', {
+      insuranceExpiryDate: [null, {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required]
       }],
-      residencePhoto: [null, {
+      formPhotoFile: [null, {
         validators: [
           Validators.required]
       }],
@@ -78,39 +82,51 @@ export class AddEmployeeComponent {
     return this.modalForm?.controls;
   }
 
-  uploadResidencePhoto(event: any): void {
-    this.residencePhotoFile = event.file;
-    this.formControls.residencePhoto.setValue(this.residencePhotoFile);
+  uploadFormPhoto(event: any): void {
+    this.formPhotoFile = event.file;
+    this.formControls.formPhotoFile.setValue(this.formPhotoFile);
   }
+  patchValue(data: any): void {
+    console.log(data);
 
-  // Start Add New Employee
+    this.vehicleId = data.item.id;
+    this.modalForm.patchValue({
+      operatingCard: data?.item?.operatingCard,
+      endDate: data?.item?.endDate,
+      insuranceExpiryDate: data?.item?.insuranceExpiryDate
+    });
+    this.formPhoto = data?.item?.formPhoto;
+    this.formControls.formPhotoFile.setValue(this.formPhoto);
+  }
+  // Start Add Or Edit Vehicle
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
-      this.addEmployee(formData);
+      this.addEditVehicle(formData);
     } else {
       this.publicService?.validateAllFormFields(this.modalForm);
     }
   }
   private extractFormData(): any {
     const formData = new FormData();
-
-    formData.append('fullName', this.modalForm?.value?.fullName);
-    formData.append('residencyNumber', this.modalForm?.value?.residencyNumber);
+    if (this.isEdit) {
+      formData.append('id', this.vehicleId);
+    }
+    formData.append('operatingCard', this.modalForm?.value?.operatingCard);
     formData.append('endDate', this.modalForm?.value?.endDate);
-    formData.append('healthCertificate', this.modalForm?.value?.healthCertificate);
-    formData.append('residencePhoto', this.residencePhotoFile);
+    formData.append('insuranceExpiryDate', this.modalForm?.value?.insuranceExpiryDate);
+    formData.append('formPhotoFile', this.formPhotoFile);
     return formData;
   }
-  private addEmployee(formData: any): void {
+  private addEditVehicle(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddEmployee: Subscription = this.employeesService?.addEmployee(formData).pipe(
-      tap(res => this.handleAddEmployeeSuccess(res)),
+    let subscribeAddVehicle: Subscription = this.vehiclesService?.addEditVehicle(formData).pipe(
+      tap(res => this.handleAddEditVehicleSuccess(res)),
       catchError(err => this.handleError(err))
     ).subscribe();
-    this.subscriptions.push(subscribeAddEmployee);
+    this.subscriptions.push(subscribeAddVehicle);
   }
-  private handleAddEmployeeSuccess(response: any): void {
+  private handleAddEditVehicleSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
     if (response?.success || true) {
       this.ref.close({ listChanged: true, item: response?.data });
@@ -119,7 +135,7 @@ export class AddEmployeeComponent {
       this.handleError(response?.message);
     }
   }
-  // End Add New Employee
+  // End Add Or Edit Vehicle
 
   cancel(): void {
     this.ref?.close({ listChanged: false });

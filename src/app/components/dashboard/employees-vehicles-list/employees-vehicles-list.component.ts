@@ -11,10 +11,10 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
 import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
 
 //Services
+import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
 import { PublicService } from './../../../services/generic/public.service';
-import { Component, ChangeDetectorRef } from '@angular/core';
 import { Subject, Subscription, debounceTime } from 'rxjs';
-import { DialogService } from 'primeng/dynamicdialog';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -46,26 +46,16 @@ export class EmployeesVehiclesListComponent {
 
   isLoadingList: boolean = false;
   list: any = null;
-  tableHeaders: any = [];
-
-  page: number = 1;
-  perPage: number = 5;
-  pagesCount: number = 0;
-  rowsOptions: number[] = [5, 10, 15, 30];
-
-  enableSortFilter: boolean = true;
-  searchKeyword: any = null;
-  filtersArray: any = [];
-  sortObj: any = {};
 
   private searchSubject = new Subject<any>();
 
-  filterCards: any = [];
   constructor(
+    private localizationLanguageService: LocalizationLanguageService,
     private publicService: PublicService,
-    private dialogService: DialogService,
-    private cdr: ChangeDetectorRef,
-  ) { }
+  ) {
+    localizationLanguageService.updatePathAccordingLang();
+  }
+
   ngOnInit(): void {
     this.searchSubject
       .pipe(
@@ -116,8 +106,7 @@ export class EmployeesVehiclesListComponent {
     this.tabType == 'employee' ? this.publicService.toggleFilterEmployeeDataType.next(type) : this.publicService.toggleFilterVehicleDataType.next(type);
   }
 
-
-  // ======Start search==========
+  // Start Search
   handleSearch(event: any): void {
     this.searchSubject.next(event);
   }
@@ -128,12 +117,14 @@ export class EmployeesVehiclesListComponent {
     search.value = null;
     this.tabType == 'employee' ? this.publicService.searchEmployeesData.next(null) : this.publicService.searchVehiclesData.next(null);
   }
-  // ======End search==========
+  // End Search
 
+  // Add Item
   addItem(): void {
     this.tabType == 'employee' ? this.publicService.addEmployeeItem.next(true) : this.publicService.addVehicleItem.next(true);
   }
-  // Filter
+
+  // Filter Item
   filterItem(): void {
     this.tabType == 'employee' ? this.publicService.filterEmployeesData.next(true) : this.publicService.filterVehiclesData.next(true);
   }
@@ -142,7 +133,6 @@ export class EmployeesVehiclesListComponent {
   clearTable(): void {
     this.tabType == 'employee' ? this.publicService.resetEmployeesData.next(true) : this.publicService.resetVehiclesData.next(true);
   }
-
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

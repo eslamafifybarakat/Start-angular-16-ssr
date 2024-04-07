@@ -75,6 +75,10 @@ export class RecordDetailsComponent {
   isEditCertificateFile: boolean = false;
   certificateFile: string = '';
 
+  // check record number variable
+  isLoadingCheckRecordNum: Boolean = false;
+  recordNumNotAvailable: Boolean = false;
+
   modalForm = this.fb?.group(
     {
       recordName: ['', {
@@ -126,10 +130,6 @@ export class RecordDetailsComponent {
   get formControls(): any {
     return this.modalForm?.controls;
   }
-
-  // check record number variable
-  isLoadingCheckRecordNum: Boolean = false;
-  recordNumNotAvailable: Boolean = false;
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
@@ -207,7 +207,7 @@ export class RecordDetailsComponent {
   }
   // End Get Record By Client Id
 
-  // =====Start Upload Files=========
+  // Start Upload Files
   uploadRecordFile(event: any): void {
     console.log(event);
   }
@@ -217,7 +217,7 @@ export class RecordDetailsComponent {
   uploadCertificateFile(event: any): void {
     console.log(event);
   }
-  // =====End Upload Files=========
+  // End Upload Files
 
   patchValue(): void {
     this.modalForm?.patchValue({
@@ -277,7 +277,7 @@ export class RecordDetailsComponent {
     }
   }
 
-  //=======Start Check If Record Number is valid or not========
+  // Start Check If Record Number Unique
   checkRecordNumAvailable(): void {
     if (!this.formControls.registrationNumber.valid) {
       return; // Exit early if ID is not valid
@@ -320,9 +320,9 @@ export class RecordDetailsComponent {
   onKeyUpEvent(): void {
     this.isLoadingCheckRecordNum = false;
   }
-  //=======End Check If Record Number is valid or not========
+  // End Check If Record Number Unique
 
-  // =========Start submit edit client==========
+  // Start Submit Edit Record
   submit(): void {
     if (this.modalForm?.valid) {
       const formData = this.extractFormData();
@@ -374,7 +374,8 @@ export class RecordDetailsComponent {
     this.publicService?.showGlobalLoader?.next(false);
     error?.message ? this.alertsService?.openToast('error', 'error', error?.message || this.publicService.translateTextFromJson('general.errorOccur')) : '';
   }
-  // =========End submit edit client==========
+  // End Submit Edit Record
+
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {

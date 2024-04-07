@@ -39,11 +39,11 @@ export const roots = {
     },
     employees: {
       getEmployees: '/getEmployees',
-      addEmployee: '/addEmployee'
+      addEditEmployee: '/addEditEmployee'
     },
     vehicles: {
       getVehicles: '/getVehicles',
-      addVehicle: '/addVehicle'
+      addEditVehicle: '/addEditVehicle'
     }
   }
 }
