@@ -9,11 +9,11 @@ import { CommonModule } from '@angular/common';
 import { LocalizationLanguageService } from 'src/app/services/generic/localization-language.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MetaDetails, MetadataService } from 'src/app/services/generic/metadata.service';
-import { AlertsService } from './../../../../services/generic/alerts.service';
-import { PublicService } from './../../../../services/generic/public.service';
+import { AlertsService } from '../../../../services/generic/alerts.service';
+import { PublicService } from '../../../../services/generic/public.service';
 import { MaxDigitsDirective } from '../../directives/max-digits.directive';
-import { ClientsService } from './../../services/clients.service';
-import { patterns } from './../../../../shared/configs/patterns';
+import { ClientsService } from '../../services/clients.service';
+import { patterns } from '../../../../shared/configs/patterns';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { tap, catchError } from 'rxjs/operators';
@@ -34,11 +34,11 @@ import { Subscription } from 'rxjs';
     // Directive
     MaxDigitsDirective
   ],
-  selector: 'app-add-edit-client',
-  templateUrl: './add-edit-client.component.html',
-  styleUrls: ['./add-edit-client.component.scss']
+  selector: 'app-add-client',
+  templateUrl: './add-client.component.html',
+  styleUrls: ['./add-client.component.scss']
 })
-export class AddEditClientComponent {
+export class AddClientComponent {
   private subscriptions: Subscription[] = [];
 
   // Check National Identity Variables
@@ -123,6 +123,17 @@ export class AddEditClientComponent {
     }
     this.publicService?.clearValidationErrors(this.formControls[type]);
     this.cdr.detectChanges();
+  }
+  clearCheckAvailable(type: string): void {
+    if (type == 'nationalIdentity') {
+      this.nationalIdentityNotAvailable = false;
+    }
+    if (type == 'email') {
+      this.emailNotAvailable = false;
+    }
+    if (type == 'phoneNumber') {
+      this.phoneNotAvailable = false;
+    }
   }
   // Start Check If National Identity Unique
   checkNationalIdentityAvailable(): void {
@@ -270,12 +281,12 @@ export class AddEditClientComponent {
   }
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: any): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'),'success');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: any): any {
-    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'),'error');
+    this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
   }
-  private setMessage(message: string,type: string): void {
+  private setMessage(message: string, type: string): void {
     this.alertsService.openToast(type, type, message);
     this.publicService.showGlobalLoader.next(false);
   }

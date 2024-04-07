@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
-import { AddEditClientComponent } from '../add-edit-client/add-edit-client.component';
+import { AddClientComponent } from '../add-client/add-client.component';
 import { FilterClientsComponent } from '../filter-clients/filter-clients.component';
 import { ClientCardComponent } from './../client-card/client-card.component';
 
@@ -164,7 +164,7 @@ export class ClientsListComponent {
   }
   // Add Client
   addItem(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddEditClientComponent, {
+    const ref = this.dialogService?.open(AddClientComponent, {
       data: {
         item,
         type: type == 'edit' ? 'edit' : 'add'

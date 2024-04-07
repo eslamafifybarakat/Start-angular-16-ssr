@@ -24,12 +24,12 @@
         *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
         <div class="mt-1">
           <ng-container *ngIf="formControls?.email?.errors?.required">
-            <span class="text-danger fs-8-1">
+            <span class="text-danger fs-8">
               {{'validations.email'|translate}}
             </span>
           </ng-container>
           <ng-container *ngIf="formControls?.email?.errors?.pattern">
-            <span class="text-danger fs-8-1">
+            <span class="text-danger fs-8">
               {{'validations.emailNotCorrect'|translate}}
             </span>
           </ng-container>

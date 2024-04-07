@@ -36,7 +36,7 @@
             </label>
             <span class="p-input-icon-right w-100">
               <input type="number" class="form-control" formControlName="nationalIdentity" MaxDigits [maxNumber]="10"
-                (input)="publicService?.clearValidationErrors(formControls?.nationalIdentity)"
+                (input)="publicService?.clearValidationErrors(formControls?.nationalIdentity);clearCheckAvailable('nationalIdentity')"
                 [class.border-red]="formControls?.nationalIdentity?.invalid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
                 [class.is-valid]="!isLoadingCheckNationalIdentity &&!emailNotAvailable && formControls?.nationalIdentity?.valid && (formControls?.nationalIdentity?.dirty || formControls?.nationalIdentity?.touched)"
                 [class.disabled]="isLoadingCheckNationalIdentity" placeholder="{{'placeholders.id'|translate}}"
@@ -76,12 +76,13 @@
             </label>
             <div class="input-number input-group bg-white-color d-flex flex-nowrap w-100"
               [class.border-red]="formControls?.phoneNumber?.invalid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
-              <span class="input-group-text border-0 text-muted-color fs-6-1" id="basic-addon1">
+              <span class="input-group-text border-0 fs-6-1 text-dark-color" id="basic-addon1">
                 +966
               </span>
               <span class="p-input-icon-right w-100 d-flex flex-nowrap m-0">
                 <input type="number" class="form-control border-0" formControlName="phoneNumber" autocomplete="cc-name"
-                  MaxDigits [min]="0" (input)="publicService?.clearValidationErrors(formControls?.phoneNumber)"
+                  MaxDigits [min]="0"
+                  (input)="publicService?.clearValidationErrors(formControls?.phoneNumber);clearCheckAvailable('phoneNumber')"
                   placeholder="{{'placeholders.phoneNumber'|translate}}" [class.disabled]="isLoadingCheckPhone"
                   (blur)="checkPhoneAvailable()" (keyup)="onKeyUpEvent('phoneNumber')"
                   [class.is-valid]="!isLoadingCheckPhone &&!phoneNotAvailable && formControls?.phoneNumber?.valid && (formControls?.phoneNumber?.dirty || formControls?.phoneNumber?.touched)">
@@ -121,7 +122,7 @@
             </label>
             <span class="p-input-icon-right w-100">
               <input type="email" class="form-control" formControlName="email" autocomplete="cc-name"
-                (input)="publicService?.clearValidationErrors(formControls?.email)"
+                (input)="publicService?.clearValidationErrors(formControls?.email);clearCheckAvailable('email')"
                 [class.border-red]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
                 [class.is-valid]="!isLoadingCheckEmail &&!emailNotAvailable && formControls?.email?.valid && (formControls?.email?.dirty || formControls?.email?.touched)"
                 [class.disabled]="isLoadingCheckEmail" placeholder="{{'placeholders.email'|translate}}"
