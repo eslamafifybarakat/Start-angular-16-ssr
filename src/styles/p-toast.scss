@@ -4,7 +4,9 @@
     .p-toast-message-content {
       background-color: #fff !important;
       color: #111 !important;
-      align-items: center;
+      // align-items: center;
+      max-height: 95vh;
+      overflow-y: auto;
       .p-toast-summary {
         text-transform: capitalize !important;
         display: none;

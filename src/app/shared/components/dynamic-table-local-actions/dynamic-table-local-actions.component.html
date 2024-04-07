@@ -783,8 +783,8 @@
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <ng-container *ngIf="!isLoading">
-      <tr>
-        <td [attr.colspan]="tableHeaders.length+1">
+      <tr class="bg-transparent">
+        <td class="border-0" [attr.colspan]="tableHeaders.length+1">
           <div class="not-found d-flex flex-column justify-content-center align-items-center">
             <ng-container *ngIf="!isSearch">
               <div>

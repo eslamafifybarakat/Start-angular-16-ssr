@@ -1,6 +1,7 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer, registerLocaleData } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { AlertsService } from './services/generic/alerts.service';
 import { keys } from './shared/configs/localstorage-key';
 import { TranslateService } from '@ngx-translate/core';
 import localeAr from '@angular/common/locales/ar'
@@ -30,6 +31,7 @@ export class AppComponent {
     private translateService: TranslateService,
     private activatedRoute: ActivatedRoute,
     private primengConfig: PrimeNGConfig,
+    private alertsService: AlertsService,
     private renderer: Renderer2,
     private router: Router
   ) { }

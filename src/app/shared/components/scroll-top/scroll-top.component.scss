@@ -25,14 +25,14 @@
     cursor: pointer;
     background-color: var(--bg-white-color) !important;
     .pi {
-      color: #165394a8;
+      color: var(--text-main-color);
     }
   }
   #progress-value {
     display: block;
     width: calc(100% - 8px);
     height: calc(100% - 8px);
-    background-color: #284a6f2b;
+    background-color: var(--scroll-bg);
     border-radius: 50%;
     display: grid;
     place-items: center;
