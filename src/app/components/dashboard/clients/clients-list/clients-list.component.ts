@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // Components
 import { DynamicTableLocalActionsComponent } from './../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
+import { DynamicTableV2Component } from './../../../../shared/components/dynamic-table-v2/dynamic-table-v2.component';
 import { DynamicTableComponent } from './../../../../shared/components/dynamic-table/dynamic-table.component';
 import { SkeletonComponent } from './../../../../shared/skeleton/skeleton/skeleton.component';
 import { AddClientComponent } from '../add-client/add-client.component';
@@ -34,6 +35,7 @@ import { Router } from '@angular/router';
 
     // Components
     DynamicTableLocalActionsComponent,
+    DynamicTableV2Component,
     DynamicTableComponent,
     ClientCardComponent,
     SkeletonComponent,
