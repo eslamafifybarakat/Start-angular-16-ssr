@@ -33,7 +33,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'Auth',
-    // canActivate: [AuthGuard], // Apply the guard here
+    canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/auth/auth.component').then(
         (c) => c.AuthComponent
@@ -42,7 +42,7 @@ export const appRoutes: Routes = [
   },
   {
     path: ':lang/Auth',
-    // canActivate: [AuthGuard], // Apply the guard here
+    canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/auth/auth.component').then(
         (c) => c.AuthComponent

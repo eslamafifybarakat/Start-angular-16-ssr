@@ -8,32 +8,43 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+  url: string;
+
   constructor(
     private authService: AuthService,
     private router: Router
   ) { }
 
+  checkLogin(): boolean {
+    if (this.url.includes('/Auth')) {
+      return true;
+    }
+    return false;
+  }
+  authState(): boolean {
+    if (this.checkLogin()) {
+      this.router.navigate(['/Dashboard']);
+      return false;
+    }
+    return true;
+  }
+  notAuthState(): boolean {
+    if (this.checkLogin()) {
+      return true;
+    }
+    this.router.navigate(['/Auth']);
+    return false;
+  }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const url: string = state.url;
+    this.url = state?.url;
     const isAuthenticated: boolean = this.authService.isLoggedIn();
-
-    if (url.includes('/Auth')) {
-      if (isAuthenticated) {
-        this.router.navigate(['/Dashboard']);
-        return false;
-      }
-      return true;
-    }
-
     if (isAuthenticated) {
-      return true;
+      return this.authState();
     }
-
-    this.router.navigate(['/Auth/Login']);
-    return false;
+    return this.notAuthState();
   }
 }
 
