@@ -1,10 +1,8 @@
 <div id="clients">
   <div class="">
-    <div class="d-flex align-items-center gap-4 px-4">
+    <div class="px-4">
       <h4 class="mb-0 text-capitalize">{{'dashboard.customers.customers'|translate}}</h4>
-      <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
-        {{clientsCount || 0}}
-      </span>
+      <p class="mt-2 text-muted-color">{{'dashboard.total'|translate}} <span>{{clientsCount}}</span> </p>
     </div>
     <div
       class="d-flex justify-content-sm-between justify-content-center align-items-center flex-wrap gap-3 px-4 mt-4 table-caption pt-3">
@@ -179,5 +177,15 @@
         </div>
       </ng-template>
     </div>
+
+    <ng-container *ngIf="clientsCount">
+      <div class="dash-global-footer px-4 d-flex align-items-center mb-2">
+        <p>
+          <span>{{"dashboard.isTotal"|translate}}</span>
+          <span
+            class="mx-1 fw-bolder fs-5">{{clientsCount}}</span><span>{{"dashboard.customers.customers"|translate}}</span>
+        </p>
+      </div>
+    </ng-container>
   </div>
 </div>

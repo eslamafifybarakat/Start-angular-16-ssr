@@ -88,6 +88,8 @@
     "logout": "Log Out"
   },
   "dashboard": {
+    "total":"Total",
+    "isTotal": "There is a total",
     "sideMenu": {
       "statistics": "Statistics",
       "clients": "Clients",
