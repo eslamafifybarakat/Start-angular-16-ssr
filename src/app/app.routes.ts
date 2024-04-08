@@ -14,7 +14,7 @@ import { dashBoardChildrenV2Routes } from './components/dashboard-v2/dashboard-c
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: 'en/Auth', pathMatch: 'full' },
+  { path: '', redirectTo: 'places', pathMatch: 'full' },
 
   {
     path: 'places',
