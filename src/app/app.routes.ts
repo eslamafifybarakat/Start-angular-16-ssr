@@ -10,6 +10,7 @@ import { errorsChildrenRoutes } from './components/errors/errors-routes';
 
 //Services
 import { AuthGuard } from './services/authentication/guards/auth.guard';
+import { dashBoardChildrenV2Routes } from './components/dashboard-v2/dashboard-children-routes-v2';
 
 
 export const appRoutes: Routes = [
@@ -73,7 +74,7 @@ export const appRoutes: Routes = [
       import('./components/dashboard-v2/dashboard-v2.component').then(
         (c) => c.DashboardV2Component
       ),
-    children: dashBoardChildrenRoutes
+    children: dashBoardChildrenV2Routes
   },
   {
     path: ':lang/Dashboard-V2',
@@ -81,7 +82,7 @@ export const appRoutes: Routes = [
       import('./components/dashboard-v2/dashboard-v2.component').then(
         (c) => c.DashboardV2Component
       ),
-    children: dashBoardChildrenRoutes
+    children: dashBoardChildrenV2Routes
   },
   // {
   //   path: ':lang/places',

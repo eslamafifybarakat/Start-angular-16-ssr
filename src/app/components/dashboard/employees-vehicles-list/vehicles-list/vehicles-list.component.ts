@@ -208,6 +208,7 @@ export class VehiclesListComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
+    this.searchKeyword = null;
     this.getAllVehicles(true);
   }
   // End Search

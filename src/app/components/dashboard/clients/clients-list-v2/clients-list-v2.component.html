@@ -1,13 +1,31 @@
 <div id="clients">
-  <div class="container-fluid ">
-    <div class="d-md-flex d-none justify-content-between align-items-center flex-wrap gap-3">
-      <div class="d-flex align-items-center gap-2">
-        <h4 class="mb-0 text-capitalize">{{'dashboard.customers.customers'|translate}}</h4>
-        <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
-          {{clientsCount || 0}}
-        </span>
+  <div class="">
+    <div class="d-flex align-items-center gap-4 px-4">
+      <h4 class="mb-0 text-capitalize">{{'dashboard.customers.customers'|translate}}</h4>
+      <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
+        {{clientsCount || 0}}
+      </span>
+    </div>
+    <div
+      class="d-flex justify-content-sm-between justify-content-center align-items-center flex-wrap gap-3 px-4 mt-4 table-caption pt-3">
+      <!-- Search Handler -->
+      <div [class.disabled-actions]="isLoadingClientsList" class="search" role="search">
+        <div class="input-group bg-white-color d-flex flex-nowrap">
+          <span class="input-group-text border-0" id="basic-addon1">
+            <i class="pi pi-search text-muted-color"></i>
+          </span>
+          <span class="p-input-icon-right d-inline-block w-100">
+            <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
+            <i *ngIf="!isLoadingSearch&&search.value" class="pi pi-times text-danger pointer"
+              (click)="clearSearch(search)"></i>
+            <input type="text" class="form-control border-0 bg-transparent px-1" #search
+              (keyup)="handleSearch(search.value)" placeholder="{{'placeholders.search' | translate}}"
+              [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
+          </span>
+        </div>
       </div>
-      <div class="d-flex gap-3 flex-lg-nowrap flex-wrap" *ngIf="clientsList.length>0">
+      <div class="d-flex gap-3 flex-lg-nowrap flex-wrap justify-content-sm-start justify-content-center"
+        *ngIf="clientsList.length>0">
         <!-- Add Customer -->
         <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
           <i class="pi pi-plus"></i>
@@ -15,8 +33,12 @@
         </button>
         <!-- Filter Button -->
         <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0"
-          [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-flex align-items-center gap-2"
+          [class.d-none]="dataStyleType=='list'" class="btn btn-solid-main d-md-flex d-none align-items-center gap-2"
           (click)="filterItem()">
+          <i class="pi pi-filter"></i>
+        </button>
+        <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0"
+          class="btn btn-solid-main d-md-none d-flex align-items-center gap-2" (click)="filterItem()">
           <i class="pi pi-filter"></i>
         </button>
         <!-- Data style list 0or grid (table or card) -->
@@ -37,76 +59,12 @@
             </svg>
           </a>
         </div>
-        <!-- Search Handler -->
-        <div [class.disabled-actions]="isLoadingClientsList" class="search" role="search">
-          <div class="input-group bg-white-color d-flex flex-nowrap">
-            <span class="input-group-text border-0" id="basic-addon1">
-              <i class="pi pi-search text-muted-color"></i>
-            </span>
-            <span class="p-input-icon-right d-inline-block w-100">
-              <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
-              <i *ngIf="!isLoadingSearch&&search.value" class="pi pi-times text-danger pointer"
-                (click)="clearSearch(search)"></i>
-              <input type="text" class="form-control border-0 bg-transparent px-1" #search
-                (keyup)="handleSearch(search.value)" placeholder="{{'placeholders.search' | translate}}"
-                [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
-            </span>
-          </div>
-        </div>
         <!-- Clear -->
         <button [class.disabled-actions]="isLoadingClientsList"
           class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap" (click)="clearTable()">
           <i class="pi pi-refresh"></i>
           <span>{{'general.reset'|translate}}</span>
         </button>
-      </div>
-    </div>
-    <div class="d-md-none d-block">
-      <div class="d-flex justify-content-between gap-3 flex-wrap title-header">
-        <div class="d-flex align-items-center gap-2">
-          <h4 class="mb-0 text-capitalize">{{'dashboard.customers.customers'|translate}}</h4>
-          <span class="badge badge-main text-main-color d-flex justify-content-center align-items-center">
-            {{clientsCount}}
-          </span>
-        </div>
-        <div class="d-flex gap-2" *ngIf="clientsList.length>0">
-          <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addItem()">
-            <i class="pi pi-plus"></i>
-            <span>{{'dashboard.customers.addCustomer'|translate}}</span>
-          </button>
-          <!-- Filter Button -->
-          <button [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList?.length>0"
-            class="btn btn-solid-main d-flex align-items-center gap-2" (click)="filterItem()">
-            <i class="pi pi-filter"></i>
-          </button>
-        </div>
-      </div>
-      <div class="row mt-3 mx-0" [class.disabled-actions]="isLoadingClientsList" *ngIf="clientsList.length>0">
-        <!-- Search Handler -->
-        <div class="col-sm-8 col-9">
-          <div class="search" role="search">
-            <div class="input-group bg-white-color d-flex flex-nowrap w-100">
-              <span class="input-group-text border-0" id="basic-addon1">
-                <i class="pi pi-search text-muted-color"></i>
-              </span>
-              <span class="p-input-icon-right d-inline-block w-100">
-                <i *ngIf="isLoadingSearch" class="pi pi-spin pi-spinner"></i>
-                <i *ngIf="!isLoadingSearch&&search2.value" class="pi pi-times text-danger pointer"
-                  (click)="clearSearch(search2)"></i>
-                <input type="text" class="form-control border-0 bg-transparent px-1" #search2
-                  (keyup)="handleSearch(search2.value)" placeholder="{{'placeholders.search' | translate}}"
-                  [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
-              </span>
-            </div>
-          </div>
-        </div>
-        <!-- Clear -->
-        <div class="col-sm-4 col-3 d-flex justify-content-end">
-          <button class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap h-100" (click)="clearTable()">
-            <i class="pi pi-refresh"></i>
-            <span class="d-sm-inline-block d-none">{{'general.reset'|translate}}</span>
-          </button>
-        </div>
       </div>
     </div>
     <div class="mt-3 d-md-block d-none">

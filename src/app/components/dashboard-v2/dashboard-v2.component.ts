@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 // Components
-import { DashboardNavbarComponent } from './../../shared/components/dashboard-navbar/dashboard-navbar.component';
+import { DashboardNavbarV2Component } from './../../shared/components/dashboard-navbar-v2/dashboard-navbar-v2.component';
 import { AsideMenuV2Component } from './../../shared/components/aside-menu-v2/aside-menu-v2.component';
 import { FooterComponent } from './../../shared/components/footer/footer.component';
 @Component({
@@ -15,7 +15,7 @@ import { FooterComponent } from './../../shared/components/footer/footer.compone
     CommonModule,
 
     // Components
-    DashboardNavbarComponent,
+    DashboardNavbarV2Component,
     AsideMenuV2Component,
     FooterComponent,
   ],

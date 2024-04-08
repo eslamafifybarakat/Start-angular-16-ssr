@@ -63,7 +63,7 @@ export class AsideMenuV2Component {
 
   // Get menu items list
   getMenuItems(): void {
-    this.menuListItems = this.asideMenuService.getAsideMenuItem();
+    this.menuListItems = this.asideMenuService.getAsideMenuItemV2();
   }
 
   // Handle click event on menu item

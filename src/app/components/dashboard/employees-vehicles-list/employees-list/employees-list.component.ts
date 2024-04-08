@@ -213,6 +213,7 @@ export class EmployeesListComponent {
   }
   clearSearch(search: any): void {
     search.value = null;
+    this.searchKeyword = null;
     this.getAllEmployees(true);
   }
   // End Search

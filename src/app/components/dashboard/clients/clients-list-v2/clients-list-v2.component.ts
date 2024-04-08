@@ -4,23 +4,25 @@ import { SidebarModule } from 'primeng/sidebar';
 import { CommonModule } from '@angular/common';
 
 // Components
-import { DynamicTableLocalActionsComponent } from './../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
-import { DynamicTableComponent } from './../../../shared/components/dynamic-table/dynamic-table.component';
-import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
-import { FilterRecordComponent } from './filter-record/filter-record.component';
-import { RecordCardComponent } from './record-card/record-card.component';
-import { AddRecordComponent } from './add-record/add-record.component';
+import { DynamicTableLocalActionsComponent } from '../../../../shared/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
+import { DynamicTableV2Component } from '../../../../shared/components/dynamic-table-v2/dynamic-table-v2.component';
+import { DynamicTableComponent } from '../../../../shared/components/dynamic-table/dynamic-table.component';
+import { SkeletonComponent } from '../../../../shared/skeleton/skeleton/skeleton.component';
+import { AddClientComponent } from '../add-client/add-client.component';
+import { FilterClientsComponent } from '../filter-clients/filter-clients.component';
+import { ClientCardComponent } from '../client-card/client-card.component';
 
 //Services
-import { LocalizationLanguageService } from './../../../services/generic/localization-language.service';
-import { RecordsListApiResponse, RecordsListingItem } from './../../../interfaces/dashboard/records';
-import { MetaDetails, MetadataService } from './../../../services/generic/metadata.service';
-import { Subject, Subscription, catchError, debounceTime, finalize, tap } from 'rxjs';
-import { AlertsService } from './../../../services/generic/alerts.service';
-import { PublicService } from './../../../services/generic/public.service';
+import { ClientListingItem, ClientsListApiResponse } from '../../../../interfaces/dashboard/clients';
+import { LocalizationLanguageService } from '../../../../services/generic/localization-language.service';
+import { MetaDetails, MetadataService } from '../../../../services/generic/metadata.service';
+import { AlertsService } from '../../../../services/generic/alerts.service';
+import { PublicService } from '../../../../services/generic/public.service';
+import { catchError, debounceTime, finalize, map, tap } from 'rxjs/operators';
+import { ClientsService } from '../../services/clients.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { RecordsService } from '../services/records.service';
 import { DialogService } from 'primeng/dynamicdialog';
+import { Subject, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,15 +35,16 @@ import { Router } from '@angular/router';
 
     // Components
     DynamicTableLocalActionsComponent,
+    DynamicTableV2Component,
     DynamicTableComponent,
-    RecordCardComponent,
+    ClientCardComponent,
     SkeletonComponent,
   ],
-  selector: 'records',
-  templateUrl: './records.component.html',
-  styleUrls: ['./records.component.scss']
+  selector: 'app-clients-list-v2',
+  templateUrl: './clients-list-v2.component.html',
+  styleUrls: ['./clients-list-v2.component.scss']
 })
-export class RecordsComponent {
+export class ClientsListV2Component {
   private subscriptions: Subscription[] = [];
 
   dataStyleType: string = 'list';
@@ -49,12 +52,12 @@ export class RecordsComponent {
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
 
-  // Start Records List Variables
-  isLoadingRecordsList: boolean = false;
-  recordsList: RecordsListingItem[] = [];
-  recordsCount: number = 0;
+  // Start Clients List Variables
+  isLoadingClientsList: boolean = false;
+  clientsList: ClientListingItem[] = [];
+  clientsCount: number = 0;
   tableHeaders: any = [];
-  // End Records List Variables
+  // End Clients List Variables
 
   // Start Pagination Variables
   page: number = 1;
@@ -83,7 +86,7 @@ export class RecordsComponent {
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
-    private recordsService: RecordsService,
+    private clientsService: ClientsService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
@@ -94,24 +97,26 @@ export class RecordsComponent {
   }
 
   ngOnInit(): void {
-    this.tableHeaders = [
-      { field: 'recordName', header: 'dashboard.tableHeader.recordName', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordName'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'recordNumber', header: 'dashboard.tableHeader.recordNumber', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recordNumber'), type: 'numeric', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-      { field: 'endDate', header: 'dashboard.tableHeader.endDate', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endDate'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
-    ];
-    this.getAllRecords();
-    this.searchSubject
-      .pipe(
-        debounceTime(500) // Throttle time in milliseconds (1 seconds)
-      )
-      .subscribe(event => {
-        this.searchHandler(event);
-      });
+    this.loadData();
+    this.searchSubject.pipe(
+      debounceTime(500) // Throttle time in milliseconds (1 seconds)
+    ).subscribe(event => { this.searchHandler(event) });
   }
-
+  private loadData(): void {
+    this.tableHeaders = [
+      { field: 'name', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'identity', header: 'dashboard.tableHeader.id', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'birthDate', header: 'dashboard.tableHeader.date', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), type: 'date', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'phoneNumber', header: 'dashboard.tableHeader.mobilePhone', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      // { field: 'status', header: 'dashboard.tableHeader.status', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: false, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
+      // { field: 'propertyType', header: 'dashboard.tableHeader.propertyType', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
+    ];
+    this.updateMetaTagsForSEO();
+    this.getAllClients();
+  }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
-      title: 'السجلات',
+      title: 'العملاء',
       description: 'الوصف',
       image: 'https://avatars.githubusercontent.com/u/52158422?s=48&v=4'
     }
@@ -124,83 +129,47 @@ export class RecordsComponent {
     this.dataStyleType = type;
   }
 
-  // Start Records List Functions
-  getAllRecords(isFiltering?: boolean): void {
-    isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingRecordsList = true;
-    this.recordsService?.getRecordsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
+  // Start Clients List Functions
+  getAllClients(isFiltering?: boolean): void {
+    isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingClientsList = true;
+    this.clientsService?.getClientsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null)
       .pipe(
-        tap((res: RecordsListApiResponse) => this.processRecordsListResponse(res)),
+        tap((res: ClientsListApiResponse) => this.processClientsListResponse(res)),
         catchError(err => this.handleError(err)),
-        finalize(() => this.finalizeRecordListLoading())
+        finalize(() => this.finalizeClientListLoading())
       ).subscribe();
   }
-  private processRecordsListResponse(response: any): void {
+  private processClientsListResponse(response: any): void {
     if (response) {
-      this.recordsCount = response?.result?.totalCount;
-      this.pagesCount = Math.ceil(this.recordsCount / this.perPage);
-      this.recordsList = response?.result?.items;
+      this.clientsCount = response?.result?.totalCount;
+      this.pagesCount = Math.ceil(this.clientsCount / this.perPage);
+      this.clientsList = response?.result?.items;
     } else {
       this.handleError(response.error);
       return;
     }
   }
-  private finalizeRecordListLoading(): void {
-    this.isLoadingRecordsList = false;
+  private finalizeClientListLoading(): void {
+    this.isLoadingClientsList = false;
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showSearchLoader.next(false);
     setTimeout(() => {
       this.enableSortFilter = true;
     }, 200);
-    this.setDummyData();
   }
-  private setDummyData(): void {
-    this.recordsList = [
-      { recordName: "Commercial register 1", recordNumber: '1', endDate: new Date() },
-      { recordName: "Commercial register 2", recordNumber: '2', endDate: new Date() },
-      { recordName: "Commercial register 3", recordNumber: '3', endDate: new Date() },
-      { recordName: "Commercial register 4", recordNumber: '4', endDate: new Date() },
-      { recordName: "Commercial register 5", recordNumber: '5', endDate: new Date() },
-      { recordName: "Commercial register 6", recordNumber: '6', endDate: new Date() }
-    ];
-    this.recordsCount = 3225;
-  }
-  // End Records List Functions
+  // End Clients List Functions
 
-  // Start Search
-  handleSearch(event: any): void {
-    this.searchSubject.next(event);
-  }
-  searchHandler(keyWord: any): void {
-    this.page = 1;
-    this.perPage = 20;
-    this.searchKeyword = keyWord;
-    this.isLoadingRecordsList = true;
-    this.getAllRecords(true);
-    if (keyWord?.length > 0) {
-      this.isLoadingSearch = true;
-    }
-    this.cdr.detectChanges();
-  }
-  clearSearch(search: any): void {
-    search.value = null;
-    this.searchKeyword = null;
-    this.getAllRecords(true);
-  }
-  // End Search
-
-  // Record Details
   itemDetails(item?: any): void {
   }
-
-  // Add Details
+  // Add Client
   addItem(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddRecordComponent, {
+    const ref = this.dialogService?.open(AddClientComponent, {
       data: {
         item,
         type: type == 'edit' ? 'edit' : 'add'
       },
-      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.records.editRecord') : this.publicService?.translateTextFromJson('dashboard.records.addRecord'),
+      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.customers.editCustomer') : this.publicService?.translateTextFromJson('dashboard.customers.addCustomer'),
       dismissableMask: false,
       width: '60%',
       styleClass: 'custom-modal',
@@ -209,48 +178,23 @@ export class RecordsComponent {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllRecords();
       }
     });
   }
-
-  // Filter Record
-  filterItem(): void {
-    const ref = this.dialogService?.open(FilterRecordComponent, {
-      header: this.publicService?.translateTextFromJson('general.filter'),
-      dismissableMask: false,
-      width: '45%',
-      data: this.filterCards,
-      styleClass: 'custom-modal',
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res) {
-        this.page = 1;
-        this.filtersArray = res.conditions;
-        this.filterCards = res.conditions;
-        // this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllRecords(true);
-      }
-    });
-  }
-
-  // Edit Record
+  // Edit Client
   editItem(item: any): void {
-    this.router.navigate(['Dashboard/Clients/Record-Details']);
+    this.router.navigate(['Dashboard/Clients/Details/' + item.id]);
   }
-
-  //Start Delete Record
+  //Delete Client
   deleteItem(item: any): void {
     if (!item?.confirmed) {
       return;
     }
-
     const data = {
       name: item?.item?.title
     };
-
     this.publicService.showGlobalLoader.next(true);
-    this.recordsService?.deleteRecordById(item?.item?.id, data)?.subscribe(
+    this.clientsService?.deleteClientById(item?.item?.id, data)?.subscribe(
       (res: any) => {
         this.processDeleteResponse(res);
       },
@@ -268,16 +212,56 @@ export class RecordsComponent {
 
     this.alertsService.openToast(messageType, messageType, message);
     if (messageType === 'success') {
-      this.getAllRecords();
+      this.getAllClients();
     }
   }
   private handleErrorDelete(err: any): void {
     const errorMessage = err?.message || this.publicService.translateTextFromJson('general.errorOccur');
     this.alertsService.openToast('error', 'error', errorMessage);
   }
-  //End Delete Record
 
-  // Clear Table
+  // Start Search
+  handleSearch(event: any): void {
+    this.searchSubject.next(event);
+  }
+  searchHandler(keyWord: any): void {
+    this.page = 1;
+    this.perPage = 20;
+    this.searchKeyword = keyWord;
+    this.isLoadingClientsList = true;
+    this.getAllClients(true);
+    if (keyWord?.length > 0) {
+      this.isLoadingSearch = true;
+    }
+    this.cdr.detectChanges();
+  }
+  clearSearch(search: any): void {
+    search.value = null;
+    this.searchKeyword = null;
+    this.getAllClients(true);
+  }
+  // End Search
+
+  // Filter Clients
+  filterItem(): void {
+    const ref = this.dialogService?.open(FilterClientsComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '45%',
+      data: this.filterCards,
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res) {
+        this.page = 1;
+        this.filtersArray = res.conditions;
+        this.filterCards = res.conditions;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllClients(true);
+      }
+    });
+  }
+  // Clear table
   clearTable(): void {
     this.searchKeyword = '';
     this.sortObj = {};
@@ -285,27 +269,25 @@ export class RecordsComponent {
     this.page = 1;
     this.publicService.resetTable.next(true);
     // this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllRecords();
+    this.getAllClients();
   }
-
-  // Sort Table
+  // Sort table
   sortItems(event: any): void {
     if (event?.order == 1) {
       this.sortObj = {
         column: event?.field,
         order: 'asc'
       }
-      this.getAllRecords();
+      this.getAllClients();
     } else if (event?.order == -1) {
       this.sortObj = {
         column: event?.field,
         order: 'desc'
       }
-      this.getAllRecords();
+      this.getAllClients();
     }
   }
-
-  // filter Table
+  // filter table
   filterItems(event: any): void {
     this.filtersArray = [];
     Object.keys(event)?.forEach((key: any) => {
@@ -366,17 +348,17 @@ export class RecordsComponent {
     });
     this.page = 1;
     // this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllRecords();
+    this.getAllClients();
   }
 
   // Start Pagination
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    this.getAllRecords();
+    this.getAllClients();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
-    this.pagesCount = Math?.ceil(this.recordsCount / this.perPage);
+    this.pagesCount = Math?.ceil(this.clientsCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
   }
@@ -389,7 +371,7 @@ export class RecordsComponent {
   private setErrorMessage(message: string): void {
     this.alertsService.openToast('error', 'error', message);
     this.publicService.showGlobalLoader.next(false);
-    this.finalizeRecordListLoading();
+    this.finalizeClientListLoading();
   }
 
   ngOnDestroy(): void {
@@ -400,4 +382,3 @@ export class RecordsComponent {
     });
   }
 }
-
