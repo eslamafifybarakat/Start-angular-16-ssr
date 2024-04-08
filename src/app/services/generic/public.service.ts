@@ -73,6 +73,10 @@ export class PublicService {
     return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsPhoneAvailable, data);
   }
 
+  uploadFile(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.uploadFile, data);
+  }
+
   getCities(): Observable<any> {
     return this.http.get<any>(
       `${this.baseUrl}/${roots?.auth.isEmailAvailable}`);

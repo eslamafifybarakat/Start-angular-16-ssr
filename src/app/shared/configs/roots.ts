@@ -20,6 +20,7 @@ export const roots = {
     getCitiesByCountryId: "/City/GetCitysByCountryId",
   },
   dashboard: {
+    uploadFile: '/uploadFile',
     availability: {
       IsNationalIdentityAvailable: "Client/IsIdentityAvailable",
       IsEmailAvailable: "Client/IsEmailAvailable",
