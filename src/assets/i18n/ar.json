@@ -88,6 +88,8 @@
     "logout": "تسجيل خروج"
   },
   "dashboard": {
+    "total":"الاجمالي",
+    "isTotal": "There is a total",
     "sideMenu": {
       "statistics": "الإحصائيات",
       "clients": "العملاء",
