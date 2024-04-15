@@ -14,6 +14,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AppComponent } from './app.component';
 import { ToastModule } from 'primeng/toast';
 
+import { AuthGuard } from './services/authentication/guards/auth.guard';
 import { registerLocaleData } from '@angular/common';
 import localeAr from '@angular/common/locales/ar';
 
@@ -22,10 +23,10 @@ import { BottomNavigationComponent } from './shared/components/bottom-navigation
 import { OverlayLoadingComponent } from './shared/components/overlay-loading/overlay-loading.component';
 import { NavbarMobileComponent } from './shared/components/navbar-mobile/navbar-mobile.component';
 import { ScrollTopComponent } from './shared/components/scroll-top/scroll-top.component';
+import { HeaderOneComponent } from './shared/headers/header-one/header-one.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
-import { AuthGuard } from './services/authentication/guards/auth.guard';
 
 registerLocaleData(localeAr);
 
@@ -39,6 +40,7 @@ registerLocaleData(localeAr);
     OverlayLoadingComponent,
     NavbarMobileComponent,
     ScrollTopComponent,
+    HeaderOneComponent,
     NavbarComponent,
     FooterComponent,
     LoaderComponent,

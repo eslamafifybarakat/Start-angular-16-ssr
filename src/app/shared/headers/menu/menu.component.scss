@@ -1,0 +1,42 @@
+.navbar-nav {
+  .dropdown-menu {
+    min-width: 150px;
+    &.mega-menu {
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: start;
+      gap: 20px;
+    }
+
+    .dropdown-item {
+      white-space: normal;
+    }
+
+    > li {
+      width: auto;
+
+      .dropdown-item {
+        padding: 10px;
+        display: block;
+      }
+
+      &.dropdown-submenu {
+        position: relative;
+
+        .dropdown-menu {
+          top: 0;
+          left: 100%; // Position the submenu on the right of the parent menu
+          margin-left: .5rem; // Small margin for better visual hierarchy
+        }
+
+        &:hover > .dropdown-menu {
+          display: block; // Ensure it shows on hover
+        }
+      }
+    }
+  }
+}

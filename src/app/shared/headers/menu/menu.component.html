@@ -1,0 +1,49 @@
+<nav>
+  <ul class="navbar-nav m-auto mb-2 mb-lg-0 gap-4">
+    <ng-container *ngFor="let link of menuItems; let index = index">
+      <li class="nav-item" [ngClass]="{'dropdown': link.children && link.children.length > 0, 'mega-menu': link.megaMenu}"
+          [class.show]="link.active" 
+          (mouseenter)="(dropdownOpenOnHover || link.megaMenu) && toggleDropdown(link, true)"
+          (mouseleave)="(dropdownOpenOnHover || link.megaMenu) && toggleDropdown(link, false)"
+          (click)="!dropdownOpenOnHover && toggleDropdown(link)">
+        <a class="nav-link" [ngClass]="{'dropdown-toggle': link.children && link.children.length > 0}"
+           href="javascript:void(0);" id="navbarDropdown{{ index }}" role="button"
+           [attr.data-bs-toggle]="link.children && link.children.length > 0 && (dropdownOpenOnHover || link.megaMenu) ? 'null' : 'dropdown'"
+           aria-expanded="link.active" [routerLink]="link.children && link.children.length === 0 ? [link.path] : null"
+           [title]="link.title | translate">
+          {{ link.title | translate }}{{ link.children && link.children.length > 0 ? ' ▾' : '' }}
+        </a>
+        <ul *ngIf="link.children && link.children.length > 0" class="dropdown-menu" [class.show]="link.active" [attr.aria-labelledby]="'navbarDropdown' + index">
+          <ng-container *ngFor="let child of link.children; let childIndex = index">
+            <li [ngClass]="{'dropdown-submenu': child.children && child.children.length > 0}" 
+                (mouseenter)="child.children && child.children.length > 0 && toggleDropdown(child, true)"
+                (mouseleave)="child.children && child.children.length > 0 && toggleDropdown(child, false)">
+              <a class="dropdown-item" [ngClass]="{'dropdown-toggle': child.children && child.children.length > 0}"
+                 href="javascript:void(0);" id="navbarDropdownChild{{ childIndex }}"
+                 [routerLink]="child.children && child.children.length === 0 ? [child.path] : null" 
+                 routerLinkActive="active-link"
+                 [title]="child.title | translate">
+                {{ child.title | translate }}{{ child.children && child.children.length > 0 ? ' ▾' : '' }}
+              </a>
+              <ul *ngIf="child.children && child.children.length > 0" class="dropdown-menu" [class.show]="child.active">
+                <ng-container *ngFor="let grandchild of child.children; let grandChildIndex = index">
+                  <li [ngClass]="{'dropdown-submenu': grandchild.children && grandchild.children.length > 0}"
+                      (mouseenter)="grandchild.children && grandchild.children.length > 0 && toggleDropdown(grandchild, true)"
+                      (mouseleave)="grandchild.children && grandchild.children.length > 0 && toggleDropdown(grandchild, false)">
+                    <a class="dropdown-item" [ngClass]="{'dropdown-toggle': grandchild.children && grandchild.children.length > 0}"
+                       href="javascript:void(0);" id="navbarDropdownGrandChild{{ grandChildIndex }}"
+                       [routerLink]="grandchild.children && grandchild.children.length === 0 ? [grandchild.path] : null" 
+                       routerLinkActive="active-link"
+                       [title]="grandchild.title | translate">
+                      {{ grandchild.title | translate }}{{ grandchild.children && grandchild.children.length > 0 ? ' ▾' : '' }}
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
+    </ng-container>
+  </ul>
+</nav>
