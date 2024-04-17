@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { LanguageSelectorComponent } from '../../components/language-selector/language-selector.component';
 import { MenuComponent } from '../menu/menu.component';
+import { Menu } from '../../services/nav.service';
 
 @Component({
   selector: 'app-header-one',
@@ -26,7 +27,7 @@ export class HeaderOneComponent {
   displayMenu: boolean = false;
   isVisitMegaMenuVisible: boolean = false;
   isUserLoggedIn: boolean = false;
-  navItems: NavItem[];
+  navItems: Menu[];
 
   @HostListener("window:scroll", ["$event"])
   handleScroll(event: Event) {
