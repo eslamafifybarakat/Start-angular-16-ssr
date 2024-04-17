@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, Input, PLATFORM_ID } from '@angular/core';
 import { NavItem, navItems } from './../../../interfaces/navbar';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -22,6 +22,7 @@ import { Menu } from '../../services/nav.service';
   styleUrls: ['./header-one.component.scss']
 })
 export class HeaderOneComponent {
+  @Input() enableIcons: boolean = false;
   page: string = '';
   collapse: boolean = false;
   displayMenu: boolean = false;
