@@ -1,9 +1,16 @@
+.rounded-nav {
+  border-radius: 8px;
+  margin: 10px;
+  max-width: 99%;
+}
+
 .navbar {
   transition: all 0.5s ease;
   height: 80px;
   z-index: 888;
-  background: var(--bg-main-color);
+  background: var(--text-white-color);
   position: relative; // Ensures child absolute positioning is relative to this
+  box-shadow: 4px 6px 3px #0000000a;
 
   &.headerScroll,
   &.headerBg {
@@ -16,6 +23,15 @@
     width: 5.2rem;
     height: 3rem;
     border-radius: 3rem;
+  }
+
+  .nav-item {
+    .btn-linear {
+      background: linear-gradient(90deg, #5DA0FE, #625EFB, #A861F6);
+      outline: 0;
+      border: 0;
+      color: white;
+    }
   }
 
   .navbar-nav {
@@ -54,6 +70,7 @@
   }
 
   &.dark-nav {
+
     .nav-link,
     .text-white-color {
       color: var(--text-dark-color);

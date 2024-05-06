@@ -1,6 +1,95 @@
 .navbar-nav {
+
+  .nav-item-mega:hover .dropdown-menu-mega {
+    display: flex;
+  }
+
+  .nav-link-icon {
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    color: #95969a;
+  }
+
+  .nav-link {
+    font-weight: 600;
+    color: #252532;
+    font-size: 16px;
+  }
+
+  .overflow {
+    max-height: calc(100vh - 100px);
+    overflow-y: scroll;
+
+    // Customize scrollbar styles
+    &::-webkit-scrollbar {
+      width: 5px; // Width of the scrollbar
+      padding: 5px !important;
+      margin: 5px !important;
+    }
+
+    // Track (the area behind the scrollbar)
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1; // Color of the track
+      border-radius: 5px;
+    }
+
+    // Handle (the draggable part of the scrollbar)
+    &::-webkit-scrollbar-thumb {
+      background: #888; // Color of the handle
+      border-radius: 5px;
+    }
+
+    // Handle on hover
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555; // Color of the handle on hover
+
+    }
+
+    // Handle when active (being clicked on)
+    &::-webkit-scrollbar-thumb:active {
+      background: #000; // Color of the handle when active
+    }
+  }
+
+
+  .custom-top-dropdown {
+    top: 64px !important;
+  }
+
+  .mega-menu-container {
+    position: absolute;
+    left: 0;
+    z-index: 4;
+    box-shadow: 0 1px 5px 0 rgba(90, 90, 90, 0.2);
+    padding: 30px;
+    background: white;
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .megaMenuStyle {
+    top: initial !important;
+    left: 50% !important;
+    padding: 30px !important;
+    transform: translateX(-50%);
+    min-width: 98% !important;
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
+
+    h5 {
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 17px;
+    }
+  }
+
   .dropdown-menu {
-    min-width: 150px;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: var(--bs-box-shadow) !important;
+    padding: 10px;
+    min-width: 240px;
+
     &.mega-menu {
       width: 100%;
       padding: 20px;
@@ -16,7 +105,7 @@
       white-space: normal;
     }
 
-    > li {
+    >li {
       width: auto;
 
       .dropdown-item {
@@ -33,10 +122,14 @@
           margin-left: .5rem; // Small margin for better visual hierarchy
         }
 
-        &:hover > .dropdown-menu {
+        &:hover>.dropdown-menu {
           display: block; // Ensure it shows on hover
         }
       }
     }
   }
+}
+
+.postion-unset {
+  position: unset !important;
 }

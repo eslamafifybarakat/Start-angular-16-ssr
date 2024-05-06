@@ -23,6 +23,8 @@ import { Menu } from '../../services/nav.service';
 })
 export class HeaderOneComponent {
   @Input() enableIcons: boolean = false;
+  @Input() postionType: string = 'relative'; // fixed - sticky - relative
+
   page: string = '';
   collapse: boolean = false;
   displayMenu: boolean = false;

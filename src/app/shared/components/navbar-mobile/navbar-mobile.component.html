@@ -31,15 +31,61 @@
     <div class="mt-5 relative">
       <ul class="p-0">
         <ng-container *ngFor="let item of navItems">
-          <li class="nav-item" *ngIf="!item.logout || isUserLoggedIn">
-            <a class="nav-link text-white-color d-flex gap-2" (click)="item.logout ? logOut() : closeSidebar()"
-              [routerLink]="item.route" routerLinkActive="active">
-              <!-- <svg-icon [src]="'assets/icons/' + item.icon + '.svg'"></svg-icon> -->
-              {{ item.label | translate }}
-            </a>
-          </li>
+          <!-- Check if the current item has children -->
+          <ng-container *ngIf="item.children && item.children.length > 0; else linkView">
+            <h5 class="m-0">
+              <a class="text-black d-block my-3">
+                {{ item.title }}
+              </a>
+            </h5>
+            <!-- Accordion container for child items -->
+            <div class="accordion" id="accordion{{ item.title }}">
+              <div class="accordion-item" *ngFor="let child of item.children; let i = index">
+                <h5 class="accordion-header" id="heading{{ i }}">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+                    <a [routerLink]="child.route" class="parent-link py-2 ms-3">
+                      {{ child.title }}
+                    </a>
+                  </button>
+                </h5>
+                <!-- Accordion body -->
+                <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i"
+                [attr.data-bs-parent]="'#accordion' + item.title">
+                <!-- Nested unordered list for child items -->
+                <div class="accordion-body">
+                  <ul class="p-0">
+                    <li *ngFor="let subItem of item.children">
+                      <a [routerLink]="subItem.route" class="child-link ms-3">
+                        {{ subItem.title }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <!-- If item does not have children, render as a simple link -->
+          <ng-template #linkView>
+            <h5>
+              <a [routerLink]="item.route" class="text-black">
+                {{ item.title }}
+              </a>
+            </h5>
+          </ng-template>
         </ng-container>
+
       </ul>
     </div>
   </div>
 </p-sidebar>
+
+<!-- <li class="nav-item" *ngIf="!item.logout || isUserLoggedIn" class="accordion-button" type="button"
+  data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+  <a class="nav-link text-white-color d-flex gap-2" (click)="item.logout ? logOut() : closeSidebar()"
+    [routerLink]="item.route" routerLinkActive="active">
+    <svg-icon [src]="'assets/icons/' + item.icon +/ '.svg'"></svg-icon>
+    {{ item.label | translate }}
+  </a>
+</li> -->

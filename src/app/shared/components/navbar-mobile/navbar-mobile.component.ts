@@ -32,6 +32,8 @@ import { LanguageSelectorComponent } from './../language-selector/language-selec
 export class NavbarMobileComponent {
   displayMenu: boolean = false;
   isUserLoggedIn: boolean = false;
+  collapsed: boolean = false;
+
   currentLanguage: string | null = '';
 
   navItems: NavItem[];

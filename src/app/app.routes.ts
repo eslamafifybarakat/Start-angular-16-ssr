@@ -34,7 +34,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'Auth',
-    canActivate: [AuthGuard], // Apply the guard here
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/auth/auth.component').then(
         (c) => c.AuthComponent
@@ -43,7 +43,7 @@ export const appRoutes: Routes = [
   },
   {
     path: ':lang/Auth',
-    canActivate: [AuthGuard], // Apply the guard here
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/auth/auth.component').then(
         (c) => c.AuthComponent
@@ -52,7 +52,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'Dashboard',
-    canActivate: [AuthGuard], // Apply the guard here
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
@@ -61,7 +61,7 @@ export const appRoutes: Routes = [
   },
   {
     path: ':lang/Dashboard',
-    canActivate: [AuthGuard], // Apply the guard here
+    // canActivate: [AuthGuard], // Apply the guard here
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent

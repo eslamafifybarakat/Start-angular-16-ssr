@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg position-fixed w-100 d-xl-block d-none"
-  [ngClass]="{'headerBg': shouldApplyHeaderBg(),'dark-nav':shouldDisplayDarkLogo()}">
+<nav class="navbar navbar-expand-lg position-{{postionType}} w-100 d-xl-block d-none"
+  [ngClass]="{'headerBg': shouldApplyHeaderBg(),'dark-nav':shouldDisplayDarkLogo(), 'rounded-nav': false}">
   <div class="container px-0">
     <span class="navbar-brand mx-3">
       <img [ngSrc]="shouldDisplayDarkLogo() ? 'assets/images/logo/logo.webp' : 'assets/images/logo/logo.webp'"
@@ -13,10 +13,10 @@
       </div>
     </button>
 
-    
+
     <div class="collapse navbar-collapse m-auto" id="navbarSupportedContent">
       <ul class="navbar-nav m-auto mb-2 mb-lg-0 gap-4">
-        <app-menu class="nav-collapse" [icon]="enableIcons"></app-menu>
+        <app-menu class="nav-collapse" [icon]="false" [dropdownOpenOnHover]="false"></app-menu>
       </ul>
 
 
@@ -56,7 +56,7 @@
               <languages-selector></languages-selector>
             </li> -->
             <span class="nav-item">
-              <button class="btn btn-outline-light w-auto text-nowrap py-2" (click)="collapse = false;login()"
+              <button class="btn btn-linear w-auto text-nowrap py-2" (click)="collapse = false;login()"
                 [routerLink]="['/Auth/Login']">
                 <span class="d-flex align-items-center justify-content-center gap-2">
                   <i class="pi pi-sign-in"></i>
@@ -67,7 +67,7 @@
               </button>
             </span>
             <span class="nav-item">
-              <button class="btn btn-outline-light text-nowrap w-auto py-2" (click)="collapse = false"
+              <button class="btn btn-linear text-nowrap w-auto py-2" (click)="collapse = false"
                 [routerLink]="['/doctor-registeration']">
                 <span class="d-flex align-items-center justify-content-center gap-2">
                   <i class="pi pi-user-plus"></i>
